@@ -2,20 +2,17 @@
 
 @section('main-content')
     <div class="pagetitle">
-        <h1>業務管理</h1>
+        <h1>客戶管理 - {{ $customer->name }}</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">業務管理</li>
-                <li class="breadcrumb-item active">業務key單</li>
+                <li class="breadcrumb-item">客戶管理</li>
+                <li class="breadcrumb-item active">客戶分別查詢key單</li>
             </ol>
-            {{-- <div class="col-auto">
-                <a href="{{ route('new-sale') }}"><button type="button" class="btn btn-primary btn-sm">新增業務</button></a>
-            </div> --}}
         </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-        <form action="{{ route('sale') }}" method="get">
+        <form action="{{ route('customer-sale', $customer->id) }}" method="get">
             @csrf
             <div class="row col-lg-12 mb-4 mt-4">
                 <div class="col-auto">
@@ -33,11 +30,7 @@
                     <input type="text" class="form-control date" id="sale_on" name="sale_on"
                         value="{{ $request->sale_on }}">
                 </div>
-                <div class="col-2">
-                    <label for="cust_mobile">客戶電話</label>
-                    <input type="text" class="form-control date" id="cust_mobile" name="cust_mobile"
-                        value="{{ $request->cust_mobile }}">
-                </div>
+                @if(Auth::user()->level !=2)
                 <div class="col">
                     <label for="after_date">業務</label>
                     <select id="inputState" class="form-select" name="user" onchange="this.form.submit()">
@@ -48,13 +41,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col">
-                    <label for="after_date">狀態</label>
-                    <select id="inputState" class="form-select" name="status" onchange="this.form.submit()">
-                        <option value="not_check" @if (isset($request->status) || $request->status == 'not_check') selected @endif>未對帳</option>
-                        <option value="check" @if ($request->status == 'check') selected @endif>已對帳</option>
-                    </select>
-                </div>
+                @endif
                 <div class="col">
                     <label for="after_date">付款方式</label>
                     <select id="inputState" class="form-select" name="pay_id" onchange="this.form.submit()">
@@ -90,35 +77,31 @@
                         </div>
 
                         <br>
+
                         <!-- Table with hoverable rows -->
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">單號</th>
-                                    <th scope="col">Key單人員</th>
+                                    <th scope="col">寶貝名</th>
                                     <th scope="col">日期</th>
-                                    <th scope="col">客戶</th>
                                     <th scope="col">類別</th>
                                     <th scope="col">方案</th>
                                     <th scope="col">金紙</th>
                                     <th scope="col">後續處理A</th>
                                     <th scope="col">後續處理B</th>
                                     <th scope="col">付款方式</th>
-                                    <th scope="col">實收價格</th>
-                                    <th scope="col">動作</th>
+                                    <th scope="col">總價格</th>
+                                    <th scope="col">Key單人員</th>
+                                    {{-- <th scope="col">動作</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($sales as $sale)
                                     <tr>
                                         <td>{{ $sale->sale_on }}</td>
-                                        <td>{{ $sale->user_name->name }}</td>
+                                        <td>{{ $sale->pet_name }}</td>
                                         <td>{{ $sale->sale_date }}</td>
-                                        <td>
-                                            @if (isset($sale->customer_id))
-                                                {{ $sale->cust_name->name }}
-                                            @endif
-                                        </td>
                                         <td>
                                             @if (isset($sale->type))
                                                 {{ $sale->type() }}
@@ -132,11 +115,7 @@
                                         <td>
                                             @foreach ($sale->gdpapers as $gdpaper)
                                                 @if (isset($gdpaper->gdpaper_id))
-                                                    @if ($sale->plan_id != '4')
-                                                        {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_total) }}元<br>
-                                                    @else
-                                                        {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_num) }}份<br>
-                                                    @endif
+                                                    {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_total) }}元<br>
                                                 @else
                                                     無
                                                 @endif
@@ -163,18 +142,12 @@
                                         </td>
                                         <td>{{ number_format($sale->pay_price) }}</td>
                                         <td>
-                                            @if ($sale->status != '9')
-                                                <a href="{{ route('edit-sale', $sale->id) }}"><button type="button"
-                                                        class="btn btn-secondary btn-sm">修改</button></a>
-                                                        <a href="{{ route('del-sale', $sale->id) }}"><button type="button"
-                                                            class="btn btn-secondary btn-sm">刪除</button></a>
-                                                <a href="{{ route('check-sale', $sale->id) }}"><button type="button"
-                                                        class="btn btn-success btn-sm">送出對帳</button></a>
-                                            @else
-                                                <a href="{{ route('check-sale', $sale->id) }}"><button type="button"
-                                                        class="btn btn-danger btn-sm">查看</button></a>
-                                            @endif
+                                            {{ $sale->user_name->name }}
                                         </td>
+                                        {{-- <td>
+                                            <a href="{{ route('edit-sale', $sale->id) }}"><button type="button"
+                                                    class="btn btn-primary btn-sm">修改</button></a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -34,9 +34,9 @@
                         value="{{ $request->sale_on }}">
                 </div>
                 <div class="col-2">
-                    <label for="cust_name">客戶</label>
-                    <input type="text" class="form-control date" id="cust_name" name="cust_name"
-                        value="{{ $request->cust_name }}">
+                    <label for="cust_mobile">客戶電話</label>
+                    <input type="text" class="form-control date" id="cust_mobile" name="cust_mobile"
+                        value="{{ $request->cust_mobile }}">
                 </div>
                 <div class="col">
                     <label for="after_date">狀態</label>
@@ -68,7 +68,18 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
+                        <div class="row">
+                            <div class="col-10 col-md-10">
+                                <h2 class="card-title" style="font-size: 1.6em;text-align:right;">金紙費：<b
+                                        style="color:red;">{{ number_format($gdpaper_total) }}</b></h2>
+                            </div>
+                            <div class="col-2 col-md-2">
+                                <h2 class="card-title" style="font-size: 1.6em;text-align:right;">實收：<b
+                                        style="color:red;">{{ number_format($price_total) }}</b></h2>
+                            </div>
+                        </div>
+
+                        <br>
 
                         <!-- Table with hoverable rows -->
                         <table class="table table-hover">
@@ -94,19 +105,39 @@
                                         <td>{{ $sale->sale_on }}</td>
                                         <td>{{ $sale->user_name->name }}</td>
                                         <td>{{ $sale->sale_date }}</td>
-                                        <td>{{ $sale->cust_name->name }}</td>
-                                        <td>{{ $sale->type() }}</td>
-                                        <td>{{ $sale->plan_name->name }}</td>
+                                        <td>
+                                            @if (isset($sale->customer_id))
+                                                {{ $sale->cust_name->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->type))
+                                                {{ $sale->type() }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->plan_id))
+                                                {{ $sale->plan_name->name }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($sale->gdpapers as $gdpaper)
                                                 @if (isset($gdpaper->gdpaper_id))
-                                                    {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_total) }}元<br>
+                                                    @if ($sale->plan_id != '4')
+                                                        {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_total) }}元<br>
+                                                    @else
+                                                        {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_num) }}份<br>
+                                                    @endif
                                                 @else
                                                     無
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $sale->promA_name->name }}</td>
+                                        <td>
+                                            @if (isset($sale->before_prom_id))
+                                                {{ $sale->promA_name->name }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($sale->promBs as $promB)
                                                 @if (isset($promB->after_prom_id))
@@ -116,12 +147,18 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $sale->pay_type() }}</td>
-                                        <td>{{ number_format($sale->total()) }}</td>
+                                        <td>
+                                            @if (isset($sale->pay_id))
+                                                {{ $sale->pay_type() }}
+                                            @endif
+                                        </td>
+                                        <td>{{ number_format($sale->pay_price) }}</td>
                                         <td>
                                             @if ($sale->status != '9')
                                                 <a href="{{ route('edit-sale', $sale->id) }}"><button type="button"
                                                         class="btn btn-secondary btn-sm">修改</button></a>
+                                                        <a href="{{ route('del-sale', $sale->id) }}"><button type="button"
+                                                            class="btn btn-secondary btn-sm">刪除</button></a>
                                                 <a href="{{ route('check-sale', $sale->id) }}"><button type="button"
                                                         class="btn btn-success btn-sm">送出對帳</button></a>
                                             @else

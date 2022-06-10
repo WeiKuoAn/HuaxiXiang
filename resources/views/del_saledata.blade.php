@@ -9,7 +9,7 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <form class="row g-3" action="{{ route('edit-sale.data',$sale->id) }}" method="POST">
+    <form class="row g-3" action="{{ route('del-sale.data',$sale->id) }}" method="POST">
         @csrf
         <section class="section">
             <div class="row">
@@ -235,7 +235,8 @@
         </section>
 
         <div class="text-center mt-2">
-            <button type="submit" class="btn btn-primary">編輯</button>
+            <button type="submit" class="btn btn-danger">刪除
+            </button>
             <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
         </div>
     </form>

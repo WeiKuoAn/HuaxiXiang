@@ -14,7 +14,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $plans = Plan::paginate(10);
+        $plans = Plan::paginate(50);
         return view('plans')->with('plans',$plans);
     }
 

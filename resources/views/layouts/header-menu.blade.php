@@ -1,9 +1,9 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-            <img src="{{ asset('img/logo.png') }}" alt="">
-            <span class="d-none d-lg-block">HuaxiXiang</span>
+        <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
+            <img src="{{ asset('img/123.png') }}" alt="">
+            <span class="d-none d-lg-block">懷翔寵物</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -184,7 +184,11 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('users-profile',Auth::user()->id) }}">
                             <i class="bi bi-gear"></i>
-                            <span>My Profile</span>
+                            <span>個人資訊</span>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('users-password') }}">
+                            <i class="bi bi-gear"></i>
+                            <span>變更密碼</span>
                         </a>
                     </li>
                     <li>

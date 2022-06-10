@@ -8,6 +8,10 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\GdpaperController;
 use App\Http\Controllers\PromController;
 use App\Http\Controllers\SaleDataController;
+use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\WorkController;
+use App\Http\Controllers\IncomeDataController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,17 +32,20 @@ Route::get('/index', function () {
     return view('index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', [WorkController::class, 'index'])->name('dashboard');
+    Route::post('/dashboard', [WorkController::class, 'store'])->name('dashboard.worktime');
     /*用戶管理 */
     Route::get('/users', [UserController::class, 'index'])->name('users');
+
     Route::get('/addusers', [UserController::class, 'create'])->name('users-add');
     Route::post('/addusers', [UserController::class, 'store'])->name('users-add.data');
     Route::get('/users-profile/{id}', [UserController::class, 'show'])->name('users-profile');
     Route::post('/users-profile/{id}', [UserController::class, 'update'])->name('users-profile.data');
+    Route::get('/users-password', [UserController::class, 'password_show'])->name('users-password');
+    Route::post('/users-password', [UserController::class, 'password_update'])->name('users-password.data');
     /*客戶管理 */
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('/new_customer', [CustomerController::class, 'create'])->name('new-customer');
@@ -77,6 +84,22 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/edit_promB/{id}', [PromController::class, 'promB_show'])->name('edit-promB');
     Route::post('/edit_promB/{id}', [PromController::class, 'promB_update'])->name('edit-promB.data');
 
+    /*收入管理 */
+    Route::get('/incomes/suject', [IncomeController::class, 'suject_index'])->name('incomes_suject');
+    Route::get('/incomes/new_suject', [IncomeController::class, 'suject_create'])->name('new-income-suject');
+    Route::post('/incomes/new_suject', [IncomeController::class, 'suject_store'])->name('new-income-suject.data');
+    Route::get('/incomes/edit_suject/{id}', [IncomeController::class, 'suject_show'])->name('edit-income-suject');
+    Route::post('/incomes/edit_suject/{id}', [IncomeController::class, 'suject_update'])->name('edit-income-suject.data');
+
+    Route::get('/incomes/data', [IncomeDataController::class, 'index'])->name('incomes');
+    Route::get('/incomes/new_data', [IncomeDataController::class, 'create'])->name('new-income');
+    Route::post('/incomes/new_data', [IncomeDataController::class, 'store'])->name('new-income.data');
+    Route::get('/incomes/edit_data/{id}', [IncomeDataController::class, 'show'])->name('edit-income');
+    Route::post('/incomes/edit_data/{id}', [IncomeDataController::class, 'update'])->name('edit-income.data');
+    Route::get('/incomes/del_data/{id}', [IncomeDataController::class, 'delshow'])->name('del-income');
+    Route::post('/incomes/del_data/{id}', [IncomeDataController::class, 'delete'])->name('del-income.data');
+
+
     /*業務key單 */
     Route::get('/sale/{id}', [SaleDataController::class, 'user_sale'])->name('user-sale');
     Route::get('/sale', [SaleDataController::class, 'index'])->name('sale');
@@ -84,14 +107,29 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/new_sale', [SaleDataController::class, 'store'])->name('new-sale.data');
     Route::get('/edit_sale/{id}', [SaleDataController::class, 'show'])->name('edit-sale');
     Route::post('/edit_sale/{id}', [SaleDataController::class, 'update'])->name('edit-sale.data');
+    Route::get('/del_sale/{id}', [SaleDataController::class, 'delete'])->name('del-sale');
+    Route::post('/del_sale/{id}', [SaleDataController::class, 'destroy'])->name('del-sale.data');
     Route::get('/check_sale/{id}', [SaleDataController::class, 'check'])->name('check-sale');
     Route::post('/check_sale/{id}', [SaleDataController::class, 'check_update'])->name('check-sale.data');
     //業務key單待確認
-    Route::get('/wait-sale', [SaleDataController::class, 'wait_index'])->name('wait-sale');
+    Route::get('/wait-sale', [SaleDataController::class, 'wait_index'])->name('wait-sale'); //總確認單
+    Route::get('/person/wait-sale', [SaleDataController::class, 'user_wait_index'])->name('user-wait-sale'); //業務看到的確認單
     Route::get('/person/sale', [SaleDataController::class, 'preson_index'])->name('preson-sale');
-    
+    //客戶的業務key單
+    Route::get('/customer/sale/{id}', [CustomerController::class, 'customer_sale'])->name('customer-sale');
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+    //管理者查看使用者出勤畫面
+    Route::get('/userwork/{userId}', [WorkController::class, 'userwork'])->middleware(['auth'])->name('userwork');
+    //管理者編輯使用者出勤畫面
+    Route::get('/edituserwork/{workId}', [WorkController::class, 'showuserwork'])->middleware(['auth'])->name('editUserWork');
+    Route::post('/edituserwork/{workId}', [WorkController::class, 'edituserwork'])->middleware(['auth'])->name('editUserWork.data');
+
+    //管理者刪除使用者出勤畫面
+    Route::get('/deluserwork/{workId}', [WorkController::class, 'showdeluserwork'])->middleware(['auth'])->name('delUserWork');
+    Route::post('/deluserwork/{workId}', [WorkController::class, 'deluserwork'])->middleware(['auth'])->name('delUserWork.data');
+    //使用者出勤畫面
+    Route::get('/personwork', [WorkController::class, 'personwork'])->middleware(['auth'])->name('personwork');
 });
 
 

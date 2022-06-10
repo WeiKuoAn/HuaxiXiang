@@ -64,6 +64,10 @@ class UserController extends Controller
                                     ->with('hint', '0');
     }
 
+    public function password_show()
+    {
+        return view('edit_user_password')->with('hint','0');
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -82,6 +86,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function password_update(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        if ((Hash::check($request->password, $user->password))) {
+            if ($request->password_new === $request->password_conf) {
+                $user->password = Hash::make($request->password_new);
+                $user->save();
+                return view('Auth.login');
+            }
+        } else {
+            return view('edit_user_password')->with(['hint' => '1']);
+        }
+    }
+
     public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->first();

@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mt-3">
+                                <div class="col-md-4 mt-3">
                                     <label class="col-sm-12 col-form-label">客戶名稱</label>
                                     <div class="col-sm-12">
                                         <select class="form-select" aria-label="Default select example"
@@ -47,10 +47,15 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" style="margin-top: 21px;">
+                                <div class="col-md-4" style="margin-top: 21px;">
                                     <label for="inputNanme4" class="form-label">寵物名稱</label>
                                     <input type="text" class="form-control" id="pet_name" name="pet_name"
                                         value="{{ $sale->pet_name }}" readonly>
+                                </div>
+                                <div class="col-md-4" style="margin-top: 21px;">
+                                    <label for="inputNanme4" class="form-label">公斤數</label>
+                                    <input type="text" class="form-control" id="kg" name="kg" value="{{ $sale->kg }}"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -211,15 +216,21 @@
                                 <div class="col-md-6" style="margin-top: 21px;">
                                     <label for="validationDefault02" class="form-label">付款金額</label>
                                     <input type="text" class="form-control" id="validationDefault02" name="pay_price"
-                                        value="{{ $sale->pay_price }}" readonly>
+                                        @if ($sale->pay_price == null) value="0" @else value="{{ $sale->pay_price }}" @endif
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-md-12" style="margin-top: 21px;">
                                 <label for="validationDefault02" class="form-label">備註</label>
-                                <textarea class="form-control" id="floatingTextarea" name="comm" rows="8" readonly>{{ $sale->comm }}</textarea>
+                                <textarea class="form-control" id="floatingTextarea" name="comm" rows="6" readonly>{{ $sale->comm }}</textarea>
                             </div>
                             <!-- End No Labels Form -->
-
+                            <div class="col-md-12" style="margin-top: 21px;font-size:1.8em;font-weight:600;">
+                                <label for="validationDefault02" class="form-label">總金額</label>
+                                <label for="validationDefault02" class="form-label"
+                                    style="color: red;">{{ number_format($sale->total()) }}</label>
+                                <label for="validationDefault02" class="form-label">元</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,19 +239,31 @@
         @if (Auth::user()->level != '2')
             @if ($sale->status == '3')
                 <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-danger" value="check" name="admin_check">確定對帳</button>
+                    <button type="submit" class="btn btn-danger" value="check" name="admin_check"
+                        onclick="window.alert('已確定對帳，若要取消對帳，請進行撤回');">確定對帳</button>
                     <button type="submit" class="btn btn-secondary" value="not_check" name="admin_check">撤回對帳</button>
+                </div>
+            @elseif ($sale->status == '1' && $sale->user_id == Auth::user()->id)
+                <div class="text-center mt-2">
+                    <button type="submit" class="btn btn-danger" value="check" name="admin_check"
+                        onclick="window.alert('已確定對帳，若要取消對帳，請進行撤回');">確定對帳</button>
+                    <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                 </div>
             @elseif($sale->status == '9')
                 <div class="text-center mt-2">
                     <button type="submit" class="btn btn-danger" value="reset" name="admin_check">還原</button>
                     <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                 </div>
+            @else
+                <div class="text-center mt-2">
+                    <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
+                </div>
             @endif
         @else
             @if ($sale->status == '1')
                 <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-danger" value="usercheck" name="user_check">送出對帳</button>
+                    <button type="submit" class="btn btn-danger" value="usercheck" name="user_check"
+                        onclick="window.alert('已送出對帳，若要取消對帳，請聯繫管理員撤回');">送出對帳</button>
                     <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                 </div>
             @elseif($sale->status == '3' || $sale->status == '9')

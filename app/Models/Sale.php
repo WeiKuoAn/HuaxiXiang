@@ -95,14 +95,26 @@ class Sale extends Model
         $sales = Sale::where('id', $this->id)->get();
         foreach ($sales as $sale) {
             foreach ($sale->gdpapers as $gdpaper) {
-                if (isset($gdpaper->gdpaper_id)) {
+                if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
                     $num = $gdpaper->gdpaper_num;
                     $price = $gdpaper->gdpaper_name->price;
-                    $totals[] = intval($num) * intval($price);
+                    if($sale->plan_id !=4){
+                        $totals[] = intval($num) * intval($price);
+                    }else{
+                        $totals[] = 0;
+                    }
                 }
             }
         }
-        $gdpaper_total = intval(array_sum($totals));
+        if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
+            $gdpaper_total = intval(array_sum($totals));
+        }else{
+            $gdpaper_total = 0;
+        }
         return $plan_price + $before_prom_price + $after_prom_price + $gdpaper_total;
+    }
+
+    public function price_sum(){
+        
     }
 }

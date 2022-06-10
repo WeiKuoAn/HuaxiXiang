@@ -46,9 +46,21 @@
                                         <td>{{ $sale->sale_on }}</td>
                                         <td>{{ $sale->user_name->name }}</td>
                                         <td>{{ $sale->sale_date }}</td>
-                                        <td>{{ $sale->cust_name->name }}</td>
-                                        <td>{{ $sale->type() }}</td>
-                                        <td>{{ $sale->plan_name->name }}</td>
+                                        <td>
+                                            @if (isset($sale->customer_id))
+                                                {{ $sale->cust_name->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->type))
+                                                {{ $sale->type() }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->plan_id))
+                                                {{ $sale->plan_name->name }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($sale->gdpapers as $gdpaper)
                                                 @if (isset($gdpaper->gdpaper_id))
@@ -58,7 +70,11 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $sale->promA_name->name }}</td>
+                                        <td>
+                                            @if (isset($sale->before_prom_id))
+                                                {{ $sale->promA_name->name }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($sale->promBs as $promB)
                                                 @if (isset($promB->after_prom_id))
@@ -68,8 +84,12 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $sale->pay_type() }}</td>
-                                        <td>{{ number_format($sale->total()) }}</td>
+                                        <td>
+                                            @if (isset($sale->pay_id))
+                                                {{ $sale->pay_type() }}
+                                            @endif
+                                        </td>
+                                        <td>{{ number_format($sale->pay_price) }}</td>
                                         <td>
                                             @if (Auth::user()->level == 2)
                                                 <a href="{{ route('check-sale', $sale->id) }}"><button type="button"

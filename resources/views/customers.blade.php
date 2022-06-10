@@ -12,23 +12,16 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-        <form action="{{ route('sale') }}" method="get">
+        <form action="{{ route('customer') }}" method="get">
             @csrf
             <div class="row col-lg-12 mb-4 mt-4">
-                <div class="col-auto">
-                    <label for="date">建檔日期</label>
-                    <input type="date" class="form-control date" id="date" name="date"
-                        value="{{ $request->date }}">
-                </div>
                 <div class="col-2">
                     <label for="name">客戶姓名</label>
-                    <input type="text" class="form-control date" id="name" name="name"
-                        value="{{ $request->name }}">
+                    <input type="text" class="form-control date" id="name" name="name" value="{{ $request->name }}">
                 </div>
                 <div class="col-2">
                     <label for="mobile">客戶電話</label>
-                    <input type="text" class="form-control date" id="mobile" name="mobile"
-                        value="{{ $request->mobile }}">
+                    <input type="text" class="form-control date" id="mobile" name="mobile" value="{{ $request->mobile }}">
                 </div>
                 <div class="col">
                     <div style="margin-top: 22px;">
@@ -70,13 +63,15 @@
                                                 <a href="{{ route('edit-customer', $customer->id) }}"><button
                                                         type="button" class="btn btn-primary btn-sm">查看</button></a>
                                             @endif
+                                            <a href="{{ route('customer-sale', $customer->id) }}"><button
+                                                type="button" class="btn btn-danger btn-sm">業務紀錄</button></a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <!-- End Table with hoverable rows -->
-                        {{ $customers->links('vendor.pagination.bootstrap-4') }}
+                        {{ $customers->appends($condition)->links('vendor.pagination.bootstrap-4') }}
                     </div>
 
                 </div>

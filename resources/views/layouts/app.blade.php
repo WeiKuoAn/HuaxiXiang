@@ -69,5 +69,8 @@
 <script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
+    <script src="{{ asset('js/overtime.js') }}"></script>
+
 
 </html>

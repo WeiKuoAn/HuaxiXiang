@@ -11,6 +11,7 @@ use App\Models\PromA;
 use App\Models\Sale_gdpaper;
 use App\Models\Sale_promB;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -44,27 +45,49 @@ class SaleDataController extends Controller
             if ($sale_on) {
                 $sales = $sales->where('sale_on', $sale_on);
             }
-            $cust_name = $request->cust_name;
-            if ($cust_name) {
-                $customers = Customer::where('name', $cust_name)->get();
-                foreach ($customers as $customer) {
-                    $customer_ids[] = $customer->id;
+            $cust_mobile = $request->cust_mobile;
+            if ($cust_mobile) {
+                $customer = Customer::where('mobile', $cust_mobile)->first();
+                $sales = $sales->where('customer_id', $customer->id);
+            }
+            $user = $request->user;
+            if ($user != "null") {
+                if (isset($user)) {
+                    $sales = $sales->where('user_id', $user);
+                } else {
+                    $sales = $sales;
                 }
-                $sales = $sales->whereIn('customer_id', $customer_ids);
             }
             $pay_id = $request->pay_id;
             if ($pay_id) {
                 $sales = $sales->where('pay_id', $pay_id);
             }
-            $sales = $sales->orderby('id', 'desc')->paginate(15);
+            $price_total = $sales->sum('pay_price');
+            $sales = $sales->orderby('id', 'desc')->paginate(50);
             $condition = $request->all();
+
+            foreach($sales as $sale){
+                $sale_ids[] = $sale->id;
+            }
+            if(isset($sale_ids)){
+                $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
+            }else{
+                $gdpaper_total = 0;
+            }
+            
+
         } else {
             $condition = ' ';
-            $sales = Sale::orderby('id', 'desc')->where('status', '1')->paginate(15);
+            $price_total = Sale::where('status', '1')->sum('pay_price');
+            $sales = Sale::orderby('id', 'desc')->where('status', '1')->paginate(50);
         }
+        $users = User::get();
         return view('sale')->with('sales', $sales)
+            ->with('users', $users)
             ->with('request', $request)
-            ->with('condition', $condition);
+            ->with('condition', $condition)
+            ->with('price_total', $price_total)
+            ->with('gdpaper_total', $gdpaper_total);
     }
 
     public function preson_index(Request $request)
@@ -73,10 +96,10 @@ class SaleDataController extends Controller
         if ($request) {
             $status = $request->status;
             if (!isset($status) || $status == 'not_check') {
-                $sales = Sale::where('user_id',Auth::user()->id)->whereIn('status', [1, 2]);
+                $sales = Sale::where('user_id', Auth::user()->id)->whereIn('status', [1, 2]);
             }
             if ($status == 'check') {
-                $sales = Sale::where('user_id',Auth::user()->id)->where('status', 9);
+                $sales = Sale::where('user_id', Auth::user()->id)->where('status', 9);
             }
             $after_date = $request->after_date;
             if ($after_date) {
@@ -90,39 +113,109 @@ class SaleDataController extends Controller
             if ($sale_on) {
                 $sales = $sales->where('sale_on', $sale_on);
             }
-            $cust_name = $request->cust_name;
-            if ($cust_name) {
-                $customers = Customer::where('name', $cust_name)->get();
-                foreach ($customers as $customer) {
-                    $customer_ids[] = $customer->id;
-                }
-                $sales = $sales->whereIn('customer_id', $customer_ids);
+            $cust_mobile = $request->cust_mobile;
+            if ($cust_mobile) {
+                $customer = Customer::where('mobile', $cust_mobile)->first();
+                $sales = $sales->where('customer_id', $customer->id);
             }
             $pay_id = $request->pay_id;
             if ($pay_id) {
                 $sales = $sales->where('pay_id', $pay_id);
             }
             $sales = $sales->orderby('id', 'desc')->paginate(15);
+            $price_total = $sales->sum('pay_price');
             $condition = $request->all();
+
+            foreach($sales as $sale){
+                $sale_ids[] = $sale->id;
+            }
+            if(isset($sale_ids)){
+                $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
+            }else{
+                $gdpaper_total = 0;
+            }
         } else {
             $condition = ' ';
+            $price_total = Sale::where('status', '1')->sum('pay_price');
             $sales = Sale::orderby('id', 'desc')->where('status', '1')->paginate(15);
         }
         return view('preson-sale')->with('sales', $sales)
             ->with('request', $request)
-            ->with('condition', $condition);
+            ->with('condition', $condition)
+            ->with('price_total', $price_total)
+            ->with('gdpaper_total', $gdpaper_total);
     }
 
-    public function wait_index(Request $request)
+    public function wait_index(Request $request) //代確認業務單
     {
         $sales = Sale::where('status', 3)->orderby('id', 'desc')->get();
         return view('wait-sale')->with('sales', $sales);
     }
 
-    public function user_sale($id)
+    public function user_wait_index() //代確認業務單
     {
-        $sales = Sale::where('user_id', $id)->orderby('sale_date', 'desc')->paginate(10);
-        return view('user_sale')->with('sales', $sales);
+        $sales = Sale::where('status', 3)->where('user_id', Auth::user()->id)->orderby('id', 'desc')->get();
+        return view('wait-sale')->with('sales', $sales);
+    }
+
+    public function user_sale($id, Request $request) //從用戶管理進去看業務單
+    {
+        $user = User::where('id', $id)->first();
+        if ($request) {
+            $status = $request->status;
+            if (!isset($status) || $status == 'not_check') {
+                $sales = Sale::where('user_id',  $id)->whereIn('status', [1, 2]);
+            }
+            if ($status == 'check') {
+                $sales = Sale::where('user_id',  $id)->where('status', 9);
+            }
+            $after_date = $request->after_date;
+            if ($after_date) {
+                $sales = $sales->where('sale_date', '>=', $after_date);
+            }
+            $before_date = $request->before_date;
+            if ($before_date) {
+                $sales = $sales->where('sale_date', '<=', $before_date);
+            }
+            $sale_on = $request->sale_on;
+            if ($sale_on) {
+                $sales = $sales->where('sale_on', $sale_on);
+            }
+            $cust_mobile = $request->cust_mobile;
+            if ($cust_mobile) {
+                $customer = Customer::where('mobile', $cust_mobile)->first();
+                $sales = $sales->where('customer_id', $customer->id);
+            }
+            $pay_id = $request->pay_id;
+            if ($pay_id) {
+                $sales = $sales->where('pay_id', $pay_id);
+            }
+            $sales = $sales->orderby('id', 'desc')->paginate(15);
+            $price_total = $sales->sum('pay_price');
+            $condition = $request->all();
+
+            foreach($sales as $sale){
+                $sale_ids[] = $sale->id;
+            }
+
+            if(isset($sale_ids)){
+                $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
+            }else{
+                $gdpaper_total = 0;
+            }
+        } else {
+            $condition = ' ';
+            $sales = Sale::where('user_id', $id)->where('status', '1')->orderby('sale_date', 'desc')->paginate(15);
+            $price_total = Sale::where('user_id', $id)->where('status', '1')->sum('pay_price');
+        }
+
+        
+        return view('user_sale')->with('sales', $sales)
+            ->with('user', $user)
+            ->with('request', $request)
+            ->with('condition', $condition)
+            ->with('price_total', $price_total)
+            ->with('gdpaper_total', $gdpaper_total);
     }
 
     /**
@@ -161,6 +254,7 @@ class SaleDataController extends Controller
         $sale->sale_date = $request->sale_date;
         $sale->customer_id = $request->customer_id;
         $sale->pet_name = $request->pet_name;
+        $sale->kg = $request->kg;
         $sale->type = $request->type;
         $sale->plan_id = $request->plan_id;
         $sale->plan_price = $request->plan_price;
@@ -174,27 +268,42 @@ class SaleDataController extends Controller
         $sale_id = Sale::orderby('id', 'desc')->first();
 
         for ($i = 0; $i < $gdcount; $i++) {
-            $gdpaper_price = Gdpaper::where('id', $request->gdpaper_id[$i])->first();
             $gdpaper = new Sale_gdpaper();
             $gdpaper->sale_id = $sale_id->id;
             $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
             $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-            $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+            if ($request->gdpaper_id[$i] != null) {
+                $gdpaper_price = Gdpaper::where('id', $request->gdpaper_id[$i])->first();
+                if($request->plan_id!='4'){
+                    $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                }else{
+                    $gdpaper->gdpaper_total = 0;
+                }
+            } else {
+                $gdpaper->gdpaper_total = null;
+            }
             $gdpaper->save();
         }
-        for ($i = 0; $i < $after_count; $i++) {
-            $after_prom = new Sale_promB();
-            $after_prom->sale_id = $sale_id->id;
-            $after_prom->after_prom_id = $request->after_prom_id[$i];
-            $after_prom->after_prom_total = $request->after_prom_total[$i];
-            $after_prom->save();
+
+        if (isset($request->after_prom_id)) {
+            for ($i = 0; $i < $after_count; $i++) {
+                $after_prom = new Sale_promB();
+                $after_prom->sale_id = $sale_id->id;
+                $after_prom->after_prom_id = $request->after_prom_id[$i];
+                $after_prom->after_prom_total = $request->after_prom_total[$i];
+                $after_prom->save();
+            }
         }
-        if(Auth::user()->level != 2){
+
+        //寫入總計
+        $sale->total = $this->total();
+        $sale->save();
+
+        if (Auth::user()->level != 2) {
             return redirect()->route('sale');
-        }else{
+        } else {
             return redirect()->route('preson-sale');
         }
-        
     }
 
     /**
@@ -251,7 +360,12 @@ class SaleDataController extends Controller
             if ($request->admin_check == 'check') {
                 $sale->status = '9';
                 $sale->save();
-            } else {
+            }
+            if($request->admin_check == 'not_check') {
+                $sale->status = '1';
+                $sale->save();
+            }
+            if($request->admin_check == 'reset') {
                 $sale->status = '1';
                 $sale->save();
             }
@@ -264,7 +378,7 @@ class SaleDataController extends Controller
 
 
 
-        return redirect()->route('wait-sale');
+        return redirect()->route('sale');
     }
 
     /**
@@ -306,6 +420,7 @@ class SaleDataController extends Controller
         $sale->sale_date = $request->sale_date;
         $sale->customer_id = $request->customer_id;
         $sale->pet_name = $request->pet_name;
+        $sale->kg = $request->kg;
         $sale->type = $request->type;
         $sale->plan_id = $request->plan_id;
         $sale->plan_price = $request->plan_price;
@@ -349,7 +464,11 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                if($sale->plan_id!='4'){
+                    $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                }else{
+                    $gdpaper->gdpaper_total = 0;
+                }
                 $gdpaper->save();
             }
         }
@@ -371,7 +490,11 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                if($sale->plan_id!='4' || $request->gdpaper_id != null){
+                    $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                }else{
+                    $gdpaper->gdpaper_total = 0;
+                }
                 $gdpaper->save();
             }
         }
@@ -384,7 +507,11 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                if($sale->plan_id!='4' || $request->gdpaper_id != null){
+                    $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
+                }else{
+                    $gdpaper->gdpaper_total = 0;
+                }
                 $gdpaper->save();
             }
         }
@@ -423,7 +550,9 @@ class SaleDataController extends Controller
             }
         }
 
-
+        //寫入總計
+        $sale->total = $this->total();
+        $sale->save();
 
 
         return redirect()->route('sale');
@@ -435,8 +564,93 @@ class SaleDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function delete($id)
+    {
+        $customers = Customer::get();
+        $plans = Plan::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $promBs = PromB::where('status', 'up')->get();
+        $promAs = PromA::where('status', 'up')->get();
+        $sale = Sale::where('id', $id)->first();
+        $sale_gdpapers = Sale_gdpaper::where('sale_id', $id)->get();
+        $sale_promBs = Sale_promB::where('sale_id', $id)->get();
+        return view('del_saledata')->with('sale', $sale)
+            ->with('customers', $customers)
+            ->with('plans', $plans)
+            ->with('gdpapers', $gdpapers)
+            ->with('promAs', $promAs)
+            ->with('promBs', $promBs)
+            ->with('sale_promBs', $sale_promBs)
+            ->with('sale_gdpapers', $sale_gdpapers);
+    }
     public function destroy($id)
     {
-        //
+        $sale = Sale::where('id', $id)->first();
+        $sale_gdpapers = Sale_gdpaper::where('sale_id', $id);
+        $sale_promBs = Sale_promB::where('sale_id', $id);
+
+        $sale->delete();
+        $sale_gdpapers->delete();
+        $sale_promBs->delete();
+        return redirect()->route('sale');
+    }
+
+    private function total()
+    {
+        $sale = Sale::orderby('id','desc')->first();
+        $plan_price = intval($sale->plan_price);
+        $before_prom_price = intval($sale->before_prom_price);
+        $after_prom_price = Sale_promB::where('sale_id', $sale->id)->sum('after_prom_total');
+
+        $sales = Sale::where('id', $sale->id)->get();
+        foreach ($sales as $sale) {
+            foreach ($sale->gdpapers as $gdpaper) {
+                if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
+                    $num = $gdpaper->gdpaper_num;
+                    $price = $gdpaper->gdpaper_name->price;
+                    if($sale->plan_id !=4){
+                        $totals[] = intval($num) * intval($price);
+                    }else{
+                        $totals[] = 0;
+                    }
+                }
+            }
+        }
+        if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
+            $gdpaper_total = intval(array_sum($totals));
+        }else{
+            $gdpaper_total = 0;
+        }
+        return $plan_price + $before_prom_price + $after_prom_price + $gdpaper_total;
+    }
+
+    private function update_total($id)
+    {
+        $sale = Sale::where('id',$id)->first();
+        $plan_price = intval($sale->plan_price);
+        $before_prom_price = intval($sale->before_prom_price);
+        $after_prom_price = Sale_promB::where('sale_id', $sale->id)->sum('after_prom_total');
+
+        $sales = Sale::where('id', $sale->id)->get();
+        foreach ($sales as $sale) {
+            foreach ($sale->gdpapers as $gdpaper) {
+                if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
+                    $num = $gdpaper->gdpaper_num;
+                    $price = $gdpaper->gdpaper_name->price;
+                    if($sale->plan_id !=4){
+                        $totals[] = intval($num) * intval($price);
+                    }else{
+                        $totals[] = 0;
+                    }
+                }
+            }
+        }
+        if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
+            $gdpaper_total = intval(array_sum($totals));
+        }else{
+            $gdpaper_total = 0;
+        }
+        return $plan_price + $before_prom_price + $after_prom_price + $gdpaper_total;
     }
 }

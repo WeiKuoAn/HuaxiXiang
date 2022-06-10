@@ -24,13 +24,13 @@
                     @endif --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">新增方案資料</h5>
+                            <h5 class="card-title">新增其他收入</h5>
 
                             <!-- General Form Elements -->
-                            <form class="row g-3" action="{{ route('new-plan.data') }}" method="POST">
+                            <form class="row g-3" action="{{ route('new-income-suject.data') }}" method="POST">
                                 @csrf
                                 <div class="col-12">
-                                    <label for="inputNanme4" class="form-label">方案名稱</label>
+                                    <label for="inputNanme4" class="form-label">收入科目</label>
                                     <input type="text" class="form-control" id="name" name="name">
                                 </div>
                                 <div class="col-12">

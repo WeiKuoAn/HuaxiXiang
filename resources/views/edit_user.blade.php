@@ -18,12 +18,14 @@
                 <div class="row">
                     @if ($hint == '1')
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            恭喜你修改個人資料成功！<a href="{{ route('users') }}">回會員列表</a>
+                            恭喜你修改個人資料成功！@if(Auth::user()->level !=2)<a href="{{ route('users') }}">回會員列表</a>@endif
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+                    
                     <div class="card">
                         <div class="card-body">
+                            <br>
                             <h5 class="card-title">編輯會員資料</h5>
 
                             <!-- General Form Elements -->

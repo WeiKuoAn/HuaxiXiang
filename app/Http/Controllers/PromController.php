@@ -15,13 +15,13 @@ class PromController extends Controller
      */
     public function promA_index()
     {
-        $promAs = PromA::paginate(10);
+        $promAs = PromA::paginate(50);
         return view('promA')->with('promAs',$promAs);
     }
 
     public function promB_index()
     {
-        $promBs = PromB::paginate(10);
+        $promBs = PromB::paginate(50);
         return view('promB')->with('promBs',$promBs);
     }
 

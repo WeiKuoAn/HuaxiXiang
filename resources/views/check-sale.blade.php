@@ -36,7 +36,7 @@
                                     <th scope="col">後續處理A</th>
                                     <th scope="col">後續處理B</th>
                                     <th scope="col">付款方式</th>
-                                    <th scope="col">總價格</th>
+                                    <th scope="col">實收價格</th>
                                     <th scope="col">動作</th>
                                 </tr>
                             </thead>
@@ -46,19 +46,39 @@
                                         <td>{{ $sale->sale_on }}</td>
                                         <td>{{ $sale->user_name->name }}</td>
                                         <td>{{ $sale->sale_date }}</td>
-                                        <td>{{ $sale->cust_name->name }}</td>
-                                        <td>{{ $sale->type() }}</td>
-                                        <td>{{ $sale->plan_name->name }}</td>
+                                        <td>
+                                            @if (isset($sale->customer_id))
+                                                {{ $sale->cust_name->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->type))
+                                                {{ $sale->type() }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->plan_id))
+                                                {{ $sale->plan_name->name }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($sale->gdpapers as $gdpaper)
                                                 @if (isset($gdpaper->gdpaper_id))
-                                                    {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_total) }}元<br>
+                                                    @if ($sale->plan_id != '4')
+                                                        {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_total) }}元<br>
+                                                    @else
+                                                        {{ $gdpaper->gdpaper_name->name }}{{ number_format($gdpaper->gdpaper_num) }}份<br>
+                                                    @endif
                                                 @else
                                                     無
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $sale->promA_name->name }}</td>
+                                        <td>
+                                            @if (isset($sale->before_prom_id))
+                                                {{ $sale->promA_name->name }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($sale->promBs as $promB)
                                                 @if (isset($promB->after_prom_id))
@@ -68,8 +88,12 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $sale->pay_type() }}</td>
-                                        <td>{{ number_format($sale->total()) }}</td>
+                                        <td>
+                                            @if (isset($sale->pay_id))
+                                                {{ $sale->pay_type() }}
+                                            @endif
+                                        </td>
+                                        <td>{{ number_format($sale->pay_price) }}</td>
                                         <td>
                                             <a href="{{ route('check-sale', $sale->id) }}"><button type="button"
                                                     class="btn btn-danger btn-sm">確認對帳</button></a>

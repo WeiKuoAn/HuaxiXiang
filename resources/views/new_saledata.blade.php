@@ -27,11 +27,11 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="inputNanme4" class="form-label">日期</label>
-                                    <input type="date" class="form-control" id="sale_date" name="sale_date">
+                                    <input type="date" class="form-control" id="sale_date" name="sale_date" required>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mt-3">
+                                <div class="col-md-4 mt-3">
                                     <label class="col-sm-12 col-form-label">客戶名稱</label>
                                     <div class="col-sm-12">
                                         <select class="form-select" aria-label="Default select example"
@@ -43,9 +43,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6" style="margin-top: 21px;">
+                                <div class="col-md-4" style="margin-top: 21px;">
                                     <label for="inputNanme4" class="form-label">寵物名稱</label>
                                     <input type="text" class="form-control" id="pet_name" name="pet_name">
+                                </div>
+                                <div class="col-md-4" style="margin-top: 21px;">
+                                    <label for="inputNanme4" class="form-label">公斤數</label>
+                                    <input type="text" class="form-control" id="kg" name="kg">
                                 </div>
                             </div>
                             <div class="row">
@@ -183,7 +187,7 @@
                                 <div class="col-md-6">
                                     <label class="col-sm-12 col-form-label">付款方式</label>
                                     <div class="col-sm-12">
-                                        <select class="form-select" aria-label="Default select example" name="pay_id">
+                                        <select class="form-select" aria-label="Default select example" name="pay_id" required>
                                             <option value="" selected>請選擇</option>
                                             <option value="A">現金</option>
                                             <option value="B">匯款</option>
@@ -195,7 +199,7 @@
                                 <div class="col-md-6" style="margin-top: 21px;">
                                     <label for="validationDefault02" class="form-label">付款金額</label>
                                     <input type="text" class="form-control" id="validationDefault02" value=""
-                                        name="pay_price" required>
+                                        name="pay_price">
                                 </div>
                             </div>
                             <div class="col-md-12" style="margin-top: 21px;">
