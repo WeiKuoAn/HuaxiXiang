@@ -80,6 +80,9 @@
                                             <a href="{{ route('edit-restock', $restock->id) }}">
                                                 <button type="button" class="btn btn-primary btn-sm">修改</button>
                                             </a>
+                                            <a href="{{ route('del-restock', $restock->id) }}">
+                                                <button type="button" class="btn btn-success btn-sm">刪除</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

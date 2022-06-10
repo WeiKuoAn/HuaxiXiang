@@ -24,10 +24,10 @@
                     @endif --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">進貨金紙-編輯</h5>
+                            <h5 class="card-title">進貨金紙-刪除</h5>
 
                             <!-- General Form Elements -->
-                            <form class="row g-3" action="{{ route('edit-restock.data',$restock->id) }}" method="POST">
+                            <form class="row g-3" action="{{ route('del-restock.data',$restock->id) }}" method="POST">
                                 @csrf
                                 <div class="col-12">
                                     <label for="inputNanme4" class="form-label">進貨日期</label>
@@ -52,7 +52,7 @@
                                     <input type="text" class="form-control" id="num" name="num" value="{{ $restock->num }}">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">編輯</button>
+                                    <button type="submit" class="btn btn-primary">刪除</button>
                                     <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                                 </div>
                             </form><!-- End General Form Elements -->

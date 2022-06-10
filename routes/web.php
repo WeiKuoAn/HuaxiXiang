@@ -70,6 +70,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/gdpaper/new_restock', [GdpaperController::class, 'restock_store'])->name('new-restock.data');
     Route::get('/gdpaper/edit_restock/{id}', [GdpaperController::class, 'restock_show'])->name('edit-restock');
     Route::post('/gdpaper/edit_restock/{id}', [GdpaperController::class, 'restock_update'])->name('edit-restock.data');
+    Route::get('/gdpaper/del_restock/{id}', [GdpaperController::class, 'destroy'])->name('del-restock');
+    Route::post('/gdpaper/del_restock/{id}', [GdpaperController::class, 'delete'])->name('del-restock.data');
     /*後續方案B管理 */
     Route::get('/promA', [PromController::class, 'promA_index'])->name('promA');
     Route::get('/new_promA', [PromController::class, 'promA_create'])->name('new-promA');

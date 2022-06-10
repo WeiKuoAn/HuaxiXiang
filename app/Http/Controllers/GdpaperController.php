@@ -172,6 +172,16 @@ class GdpaperController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $restock = Gdpaperrestock::where('id', $id)->first();
+        return view('del_restock')->with('restock', $restock)
+            ->with('gdpapers', $gdpapers);
+    }
+
+    public function delete($id)
+    {
+        $restock = Gdpaperrestock::where('id', $id)->first();
+        $restock->delete();
+        return redirect()->route('gdpaper-restock');
     }
 }

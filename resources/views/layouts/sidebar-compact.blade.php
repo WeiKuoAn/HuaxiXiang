@@ -168,10 +168,21 @@
             {{-- 管理員常用 --}}
             <li class="nav-heading">常用</li>
             <li class="nav-item">
+
                 <a class="nav-link collapsed" href="{{ route('customer') }}"
                     class="{{ request()->is('customer') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
                     <span>客戶資料</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('customer') }}"
+                    class="{{ request()->is('new_customer') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>新增客戶</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-income') }}"
+                    class="{{ request()->is('new-income') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>收入Key單</span>
                 </a>
                 <a class="nav-link collapsed" href="{{ route('new-sale') }}"
                     class="{{ request()->is('new-sale') ? 'active' : '' }}">
@@ -201,6 +212,7 @@
                         </a>
                     </li>
                     <li>
+
                         <a href="{{ route('new-sale') }}" class="{{ request()->is('new-sale') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i>
                             <span>業務Key單</span>
@@ -226,6 +238,11 @@
                 class="{{ request()->is('customer') ? 'active' : '' }}">
                 <i class="bi bi-journal-text"></i>
                 <span>客戶資料</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('customer') }}"
+                class="{{ request()->is('new_customer') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>新增客戶</span>
             </a>
             <a class="nav-link collapsed" href="{{ route('new-sale') }}"
                 class="{{ request()->is('new-sale') ? 'active' : '' }}">
