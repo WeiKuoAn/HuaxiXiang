@@ -14,16 +14,16 @@
     <section class="section dashboard">
         <form action="{{ route('customer') }}" method="get">
             @csrf
-            <div class="row col-lg-12 mb-4 mt-4">
-                <div class="col-2">
+            <div class="row g-4">
+                <div class="col-md-2">
                     <label for="name">客戶姓名</label>
                     <input type="text" class="form-control date" id="name" name="name" value="{{ $request->name }}">
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                     <label for="mobile">客戶電話</label>
                     <input type="text" class="form-control date" id="mobile" name="mobile" value="{{ $request->mobile }}">
                 </div>
-                <div class="col">
+                <div class="col-md-2">
                     <div style="margin-top: 22px;">
                         <label for="after_date">&nbsp;</label>
                         <button type="submit" class="btn btn-danger">查詢</button>
@@ -31,6 +31,7 @@
                 </div>
             </div>
         </form>
+        <br>
         <div class="col-lg-12 mx-auto">
             <div class="row">
                 <div class="card">
