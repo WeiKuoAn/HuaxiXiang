@@ -174,8 +174,8 @@
                     <i class="bi bi-journal-text"></i>
                     <span>客戶資料</span>
                 </a>
-                <a class="nav-link collapsed" href="{{ route('customer') }}"
-                    class="{{ request()->is('new_customer') ? 'active' : '' }}">
+                <a class="nav-link collapsed" href="{{ route('new-customer') }}"
+                    class="{{ request()->is('new-customer') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
                     <span>新增客戶</span>
                 </a>
@@ -239,8 +239,8 @@
                 <i class="bi bi-journal-text"></i>
                 <span>客戶資料</span>
             </a>
-            <a class="nav-link collapsed" href="{{ route('customer') }}"
-                class="{{ request()->is('new_customer') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="{{ route('new-customer') }}"
+                class="{{ request()->is('new-customer') ? 'active' : '' }}">
                 <i class="bi bi-journal-text"></i>
                 <span>新增客戶</span>
             </a>
