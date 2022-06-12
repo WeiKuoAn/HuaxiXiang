@@ -24,26 +24,26 @@
                     @endif --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">編輯收入資料</h5>
+                            <h5 class="card-title">新增其他支出</h5>
 
                             <!-- General Form Elements -->
-                            <form class="row g-3" action="{{ route('edit-income-suject.data',$income->id) }}" method="POST">
+                            <form class="row g-3" action="{{ route('new-pay-suject.data') }}" method="POST">
                                 @csrf
                                 <div class="col-12">
-                                    <label for="inputNanme4" class="form-label">收入名稱</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ $income->name }}">
+                                    <label for="inputNanme4" class="form-label">支出科目</label>
+                                    <input type="text" class="form-control" id="name" name="name">
                                 </div>
                                 <div class="col-12">
                                     <label class="col-sm-2 col-form-label">狀態</label>
                                     <div class="col-sm-12">
                                         <select class="form-select" aria-label="Default select example" name="status">
-                                            <option value="up" @if($income->status == 'up') selected @endif>上架</option>
-                                            <option value="down" @if($income->status == 'down') selected @endif>下架</option>
+                                            <option value="up" selected>上架</option>
+                                            <option value="down">下架</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">編輯</button>
+                                    <button type="submit" class="btn btn-primary">新增</button>
                                     <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                                 </div>
                             </form><!-- End General Form Elements -->

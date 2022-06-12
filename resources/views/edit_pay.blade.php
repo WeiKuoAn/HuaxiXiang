@@ -24,21 +24,21 @@
                     @endif --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">編輯收入資料</h5>
+                            <h5 class="card-title">編輯支出資料</h5>
 
                             <!-- General Form Elements -->
-                            <form class="row g-3" action="{{ route('edit-income-suject.data',$income->id) }}" method="POST">
+                            <form class="row g-3" action="{{ route('edit-pay-suject.data',$pay->id) }}" method="POST">
                                 @csrf
                                 <div class="col-12">
-                                    <label for="inputNanme4" class="form-label">收入名稱</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ $income->name }}">
+                                    <label for="inputNanme4" class="form-label">支出名稱</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ $pay->name }}">
                                 </div>
                                 <div class="col-12">
                                     <label class="col-sm-2 col-form-label">狀態</label>
                                     <div class="col-sm-12">
                                         <select class="form-select" aria-label="Default select example" name="status">
-                                            <option value="up" @if($income->status == 'up') selected @endif>上架</option>
-                                            <option value="down" @if($income->status == 'down') selected @endif>下架</option>
+                                            <option value="up" @if($pay->status == 'up') selected @endif>上架</option>
+                                            <option value="down" @if($pay->status == 'down') selected @endif>下架</option>
                                         </select>
                                     </div>
                                 </div>

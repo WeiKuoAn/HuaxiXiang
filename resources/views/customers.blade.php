@@ -72,7 +72,7 @@
                             </tbody>
                         </table>
                         <!-- End Table with hoverable rows -->
-                        {{ $customers->appends($condition)->links('vendor.pagination.bootstrap-4') }}
+                        {{ $customers->links('vendor.pagination.bootstrap-4') }}
                     </div>
 
                 </div>

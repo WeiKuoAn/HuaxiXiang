@@ -30,6 +30,16 @@ class IncomeDataController extends Controller
                 $datas =  $datas->where('income_date', '>=', $after_date)->where('income_date', '<=', $before_date);
                 $sum_income  = $sum_income->where('income_date', '>=', $after_date)->where('income_date', '<=', $before_date);
             }
+            $income = $request->income;
+            if ($income != "null") {
+                if (isset($pay)) {
+                    $datas =  $datas->where('income_id', $income);
+                    $sum_income  = $sum_income->where('income_id', $income);
+                } else {
+                    $datas = $datas;
+                    $sum_income  = $sum_income;
+                }
+            }
             $user = $request->user;
             if ($user != "null") {
                 if (isset($user)) {

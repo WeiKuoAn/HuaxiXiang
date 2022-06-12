@@ -11,6 +11,8 @@ use App\Http\Controllers\SaleDataController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\IncomeDataController;
+use App\Http\Controllers\PayController;
+use App\Http\Controllers\PayDataController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -100,6 +102,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/incomes/edit_data/{id}', [IncomeDataController::class, 'update'])->name('edit-income.data');
     Route::get('/incomes/del_data/{id}', [IncomeDataController::class, 'delshow'])->name('del-income');
     Route::post('/incomes/del_data/{id}', [IncomeDataController::class, 'delete'])->name('del-income.data');
+
+    /*支出管理 */
+    Route::get('/pay/suject', [PayController::class, 'index'])->name('pays_suject');
+    Route::get('/pay/new_suject', [PayController::class, 'create'])->name('new-pay-suject');
+    Route::post('/pay/new_suject', [PayController::class, 'store'])->name('new-pay-suject.data');
+    Route::get('/pay/edit_suject/{id}', [PayController::class, 'show'])->name('edit-pay-suject');
+    Route::post('/pay/edit_suject/{id}', [PayController::class, 'update'])->name('edit-pay-suject.data');
+
+    Route::get('/pay/data', [PayDataController::class, 'index'])->name('pays');
+    Route::get('/pay/new_data', [PayDataController::class, 'create'])->name('new-pay');
+    Route::post('/pay/new_data', [PayDataController::class, 'store'])->name('new-pay.data');
+    Route::get('/pay/edit_data/{id}', [PayDataController::class, 'show'])->name('edit-pay');
+    Route::post('/pay/edit_data/{id}', [PayDataController::class, 'update'])->name('edit-pay.data');
+    Route::get('/pay/del_data/{id}', [PayDataController::class, 'delshow'])->name('del-pay');
+    Route::post('/pay/del_data/{id}', [PayDataController::class, 'delete'])->name('del-pay.data');
 
 
     /*業務key單 */

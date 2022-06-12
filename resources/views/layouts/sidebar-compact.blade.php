@@ -139,6 +139,32 @@
             </li><!-- 收入管理 -->
 
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-pay" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>支出管理</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="forms-pay" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('pays_suject') }}"
+                            class="{{ request()->is('pays_suject') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>支出科目</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('pays') }}" class="{{ request()->is('pays') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>支出管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('new-pay') }}"
+                            class="{{ request()->is('new-pay') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>支出Key單</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- 收入管理 -->
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#sale-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-layout-text-window-reverse"></i><span>業務管理</span><i
                         class="bi bi-chevron-down ms-auto"></i>
@@ -183,6 +209,11 @@
                     class="{{ request()->is('new-income') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
                     <span>收入Key單</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-pay') }}"
+                    class="{{ request()->is('new-pay') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>支出Key單</span>
                 </a>
                 <a class="nav-link collapsed" href="{{ route('new-sale') }}"
                     class="{{ request()->is('new-sale') ? 'active' : '' }}">
