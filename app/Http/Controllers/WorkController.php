@@ -24,14 +24,15 @@ class WorkController extends Controller
         $now = Carbon::now()->locale('zh-tw');
         $today = Carbon::today();
         $sale_today = Sale::where('sale_date',$today->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->count();
-        $total_today = Sale::where('sale_date',$today->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->sum('pay_price');
-        $income_today = IncomeData::where('income_date',$today->format("Y-m-d"))->sum('price');
+        $price = Sale::where('sale_date',$today->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->sum('pay_price');
+        $income = IncomeData::where('income_date',$today->format("Y-m-d"))->sum('price');
+        $total_today_incomes = intval($price) + intval($income);
         $check_sale = Sale::where('status',3)->count();
         $cust_nums = Customer::count();
         $work = Works::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
         // dd($now);
-        return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today , 'total_today'=>$total_today 
-                                      , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'income_today'=>$income_today]);
+        return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today 
+                                      , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes]);
         
     }
 
