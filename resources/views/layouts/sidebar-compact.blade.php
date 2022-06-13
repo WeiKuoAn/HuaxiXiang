@@ -156,8 +156,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('new-pay') }}"
-                            class="{{ request()->is('new-pay') ? 'active' : '' }}">
+                        <a href="{{ route('new-pay') }}" class="{{ request()->is('new-pay') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>支出Key單</span>
                         </a>
                     </li>
@@ -194,16 +193,10 @@
             {{-- 管理員常用 --}}
             <li class="nav-heading">常用</li>
             <li class="nav-item">
-
-                <a class="nav-link collapsed" href="{{ route('customer') }}"
-                    class="{{ request()->is('customer') ? 'active' : '' }}">
+                <a class="nav-link collapsed" href="{{ route('new-sale') }}"
+                    class="{{ request()->is('new-sale') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
-                    <span>客戶資料</span>
-                </a>
-                <a class="nav-link collapsed" href="{{ route('new-customer') }}"
-                    class="{{ request()->is('new-customer') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>新增客戶</span>
+                    <span>業務Key單</span>
                 </a>
                 <a class="nav-link collapsed" href="{{ route('new-income') }}"
                     class="{{ request()->is('new-income') ? 'active' : '' }}">
@@ -215,11 +208,18 @@
                     <i class="bi bi-journal-text"></i>
                     <span>支出Key單</span>
                 </a>
-                <a class="nav-link collapsed" href="{{ route('new-sale') }}"
-                    class="{{ request()->is('new-sale') ? 'active' : '' }}">
+                <a class="nav-link collapsed" href="{{ route('customer') }}"
+                    class="{{ request()->is('customer') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
-                    <span>業務Key單</span>
+                    <span>客戶資料</span>
                 </a>
+                <a class="nav-link collapsed" href="{{ route('new-customer') }}"
+                    class="{{ request()->is('new-customer') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>新增客戶</span>
+                </a>
+
+
                 <a class="nav-link collapsed" href="{{ route('wait-sale') }}"
                     class="{{ request()->is('wait-sale') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
@@ -244,7 +244,8 @@
                     </li>
                     <li>
 
-                        <a href="{{ route('new-sale') }}" class="{{ request()->is('new-sale') ? 'active' : '' }}">
+                        <a href="{{ route('new-sale') }}"
+                            class="{{ request()->is('new-sale') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i>
                             <span>業務Key單</span>
                         </a>
