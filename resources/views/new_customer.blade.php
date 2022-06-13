@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-12">
                                   <label for="inputEmail4" class="form-label">電話</label>
-                                  <input type="tel" class="form-control" id="mobile" name="mobile">
+                                  <input type="tel" class="form-control" id="mobile" name="mobile" required>
                                 </div>
                                 <div class="col-12">
                                   <label for="inputAddress" class="form-label">地址</label>
