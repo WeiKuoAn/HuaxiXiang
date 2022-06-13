@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::paginate(30);
         return view('users')->with('users', $users);
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
             if ($request->password_new === $request->password_conf) {
                 $user->password = Hash::make($request->password_new);
                 $user->save();
-                return view('Auth.login');
+                return view('auth.login');
             }
         } else {
             return view('edit_user_password')->with(['hint' => '1']);
