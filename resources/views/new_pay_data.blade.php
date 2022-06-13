@@ -24,7 +24,7 @@
                     @endif --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">其他支出Key單</h5>
+                            <h5 class="card-title">支出Key單</h5>
 
                             <!-- General Form Elements -->
                             <form class="row g-3" action="{{ route('new-pay.data') }}" method="POST">

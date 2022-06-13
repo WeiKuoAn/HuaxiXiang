@@ -118,10 +118,12 @@ class GdpaperController extends Controller
         return view('edit_restock')->with('restock', $restock)
             ->with('gdpapers', $gdpapers);
     }
-    public function restock_show_id($id)
-    {
-        $restocks = Gdpaperrestock::where('gdpaper_id', $id)->orderby('date', 'desc')->paginate(10);
-        return view('gdpaper_restock')->with('restocks', $restocks);
+    public function restock_show_id(Request $request , $id )
+    {   
+        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $condition = $request->all();
+        $restocks = Gdpaperrestock::where('gdpaper_id', $id)->orderby('date', 'desc')->paginate(30);
+        return view('gdpaper_restock')->with('restocks', $restocks)->with('request', $request)->with('gdpapers', $gdpapers)->with('condition',$condition);
     }
     /**
      * Show the form for editing the specified resource.
