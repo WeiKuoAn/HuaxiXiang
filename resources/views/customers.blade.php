@@ -42,7 +42,6 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">編號</th>
                                     <th scope="col">姓名</th>
                                     <th scope="col">電話</th>
                                     <th scope="col">新增時間</th>
@@ -52,7 +51,6 @@
                             <tbody>
                                 @foreach ($customers as $customer)
                                     <tr>
-                                        <td>{{ $customer->id }}</td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->mobile }}</td>
                                         <td>{{ date('Y-m-d', strtotime($customer->created_at)) }}</td>
