@@ -168,7 +168,7 @@ class WorkController extends Controller
     {
         if (Auth::user()->level == '0') {
             $work = Works::where('id', $workId)->first();
-            return view('delUserWork')->with(['work' => $work]);
+            return view('deluserwork')->with(['work' => $work]);
         } else {
             return redirect()->route('dashboard');
         }
