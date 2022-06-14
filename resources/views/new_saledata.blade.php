@@ -34,13 +34,16 @@
                                 <div class="col-md-4 mt-3">
                                     <label class="col-sm-12 col-form-label">客戶名稱</label>
                                     <div class="col-sm-12">
-                                        <select class="form-select" aria-label="Default select example"
+                                        {{-- <select class="form-select" aria-label="Default select example"
                                             name="customer_id">
                                             <option value="" selected>請選擇</option>
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
+                                        <input list="cust_name_list_q" class="form-control" id="cust_name_q" name="cust_name_q" placeholder="請輸入客戶姓名">
+                                        <datalist id="cust_name_list_q">
+                                        </datalist>
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="margin-top: 21px;">
@@ -273,5 +276,24 @@
             
         });
     </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $( "#cust_name_q" ).keydown(function() {
+            $value=$(this).val();
+            $.ajax({
+            type : 'get',
+            url : 'cust/customer',
+            data:{'cust_name':$value},
+            success:function(data){
+                $('#cust_name_list_q').html(data);
+            }
+            });
+        });
+    });
+</script>
+@endsection
+@section('page-js')
+
 @endsection
 

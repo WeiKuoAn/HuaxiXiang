@@ -16,6 +16,23 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+    /*ajax*/
+    public function customer(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = "";
+            $custs = Customer::where('name', 'like', $request->cust_name . '%')->get();
+
+            if($custs){
+                foreach ($custs as $key => $cust) {
+                    $output.=  '<option value="'.$cust->id.'" label="('.$cust->name.')-'.$cust->mobile.'">';
+                  }
+            }
+            return Response($output);
+        }
+       
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,12 +55,12 @@ class CustomerController extends Controller
                 $customers = Customer::where('name', 'like', $name)->where('mobile', 'like', $mobile)->paginate(30);
             }
             $condition = $request->all();
-        }else{
+        } else {
             $condition = '';
         }
         return view('customers')->with('customers', $customers)
             ->with('request', $request)
-            ->with('condition',$condition);
+            ->with('condition', $condition);
     }
 
 

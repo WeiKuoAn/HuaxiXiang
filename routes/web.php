@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users-password', [UserController::class, 'password_show'])->name('users-password');
     Route::post('/users-password', [UserController::class, 'password_update'])->name('users-password.data');
     /*客戶管理 */
+    Route::get('/cust/customer', [CustomerController::class, 'customer'])->name('cust.customer');
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('/new_customer', [CustomerController::class, 'create'])->name('new-customer');
     Route::post('/new_customer', [CustomerController::class, 'store'])->name('new-customer.data');

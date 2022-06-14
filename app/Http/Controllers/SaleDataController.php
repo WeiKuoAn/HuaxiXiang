@@ -247,12 +247,11 @@ class SaleDataController extends Controller
     {
         $gdcount = count($request->gdpaper_id);
         $after_count = count($request->after_prom_id);
-
         $sale = new Sale();
         $sale->sale_on = $request->sale_on;
         $sale->user_id = Auth::user()->id;
         $sale->sale_date = $request->sale_date;
-        $sale->customer_id = $request->customer_id;
+        $sale->customer_id = $request->cust_name_q;
         $sale->pet_name = $request->pet_name;
         $sale->kg = $request->kg;
         $sale->type = $request->type;
