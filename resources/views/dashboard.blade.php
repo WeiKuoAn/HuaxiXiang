@@ -42,11 +42,11 @@
                         <br>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">上班時間</label>
-                            <input type="datetime-local" class="form-control" id="name" name="worktime" value="" required>
+                            <input type="datetime-local" class="form-control" id="name" name="worktime" value="" >
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">下班時間</label>
-                            <input type="datetime-local" class="form-control" id="name" name="dutytime" value="" required>
+                            <input type="datetime-local" class="form-control" id="name" name="dutytime" value="" >
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">補簽原因</label>

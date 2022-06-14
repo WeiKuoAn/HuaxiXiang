@@ -30,6 +30,7 @@ class WorkController extends Controller
         $check_sale = Sale::where('status',3)->count();
         $cust_nums = Customer::count();
         $work = Works::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+        // dd($work);
         // dd($now);
         return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today 
                                       , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes]);
@@ -55,6 +56,7 @@ class WorkController extends Controller
     {
 
         $now = Carbon::now();
+        // dd($$request->work_time);。
         //0是上班，1是中途上班，2是加班，3是下班
         if ($request->work_time == '0') {
             $work = new Works;
