@@ -25,16 +25,24 @@
                 @if (!isset($work->worktime))
                     <button type="Submit" class="btn btn-primary" name="work_time" value="0">上班</button>
                     <button type="button" class="btn btn-success" name="overtime" value="1"
-                        id="overtime">加班</button>
-                    <div id="overtimecontent">
-                        <br>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">加班原因</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="remark"></textarea><br>
-                            <button type="Submit" class="btn btn-danger" name="overtime"
-                                value="1">送出</button>
+                        id="overtime">補簽</button>
+                        <div id="overtimecontent">
+                            <br>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">上班時間</label>
+                                <input type="datetime-local" class="form-control" id="name" name="worktime" value="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">下班時間</label>
+                                <input type="datetime-local" class="form-control" id="name" name="dutytime" value="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">補簽原因</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="remark"></textarea><br>
+                                <button type="Submit" class="btn btn-danger" name="overtime"
+                                    value="1">送出</button>
+                            </div>
                         </div>
-                    </div>
                 @elseif($work->dutytime != null)
                     <button type="Submit" class="btn btn-primary" name="work_time" value="0">上班</button>
                     <button type="button" class="btn btn-success" value="1" id="overtime">補簽</button>
