@@ -116,7 +116,10 @@
                                         <td>{{ $sale->sale_date }}</td>
                                         <td>
                                             @if (isset($sale->customer_id))
-                                                {{ $sale->cust_name->name }}
+                                                @if(isset($sale->cust_name))
+                                                    {{ $sale->cust_name->name }}
+                                                @else
+                                                {{ $sale->customer_id }}
                                             @endif
                                         </td>
                                         <td>
