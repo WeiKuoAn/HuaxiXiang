@@ -120,6 +120,7 @@
                                                     {{ $sale->cust_name->name }}
                                                 @else
                                                 {{ $sale->customer_id }}
+                                                @endif
                                             @endif
                                         </td>
                                         <td>
