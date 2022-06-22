@@ -67,18 +67,14 @@ class SaleDataController extends Controller
 
             $condition = $request->all();
 
-            foreach($sales as $sale){
+            foreach ($sales as $sale) {
                 $sale_ids[] = $sale->id;
             }
-            // if(isset($sale_ids)){
-            //     if($request){
-            //         $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
-            //     }else{
-            //         $gdpaper_total = Sale_gdpaper::sum('gdpaper_total');
-            //     }
-            // }
-            
-
+            if (isset($sale_ids)) {
+                $gdpaper_total = Sale_gdpaper::whereIn('sale_id', $sale_ids)->sum('gdpaper_total');
+            } else {
+                $gdpaper_total = 0;
+            }
         } else {
             $condition = ' ';
             $price_total = Sale::where('status', '1')->sum('pay_price');
@@ -89,8 +85,8 @@ class SaleDataController extends Controller
             ->with('users', $users)
             ->with('request', $request)
             ->with('condition', $condition)
-            ->with('price_total', $price_total);
-            // ->with('gdpaper_total', $gdpaper_total)
+            ->with('price_total', $price_total)
+            ->with('gdpaper_total', $gdpaper_total);
     }
 
     public function preson_index(Request $request)
@@ -129,12 +125,12 @@ class SaleDataController extends Controller
             $price_total = $sales->sum('pay_price');
             $condition = $request->all();
 
-            foreach($sales as $sale){
+            foreach ($sales as $sale) {
                 $sale_ids[] = $sale->id;
             }
-            if(isset($sale_ids)){
-                $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
-            }else{
+            if (isset($sale_ids)) {
+                $gdpaper_total = Sale_gdpaper::whereIn('sale_id', $sale_ids)->sum('gdpaper_total');
+            } else {
                 $gdpaper_total = 0;
             }
         } else {
@@ -197,13 +193,13 @@ class SaleDataController extends Controller
             $price_total = $sales->sum('pay_price');
             $condition = $request->all();
 
-            foreach($sales as $sale){
+            foreach ($sales as $sale) {
                 $sale_ids[] = $sale->id;
             }
 
-            if(isset($sale_ids)){
-                $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
-            }else{
+            if (isset($sale_ids)) {
+                $gdpaper_total = Sale_gdpaper::whereIn('sale_id', $sale_ids)->sum('gdpaper_total');
+            } else {
                 $gdpaper_total = 0;
             }
         } else {
@@ -212,7 +208,7 @@ class SaleDataController extends Controller
             $price_total = Sale::where('user_id', $id)->where('status', '1')->sum('pay_price');
         }
 
-        
+
         return view('user_sale')->with('sales', $sales)
             ->with('user', $user)
             ->with('request', $request)
@@ -276,9 +272,9 @@ class SaleDataController extends Controller
             $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
             if ($request->gdpaper_id[$i] != null) {
                 $gdpaper_price = Gdpaper::where('id', $request->gdpaper_id[$i])->first();
-                if($request->plan_id!='4'){
+                if ($request->plan_id != '4') {
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
-                }else{
+                } else {
                     $gdpaper->gdpaper_total = 0;
                 }
             } else {
@@ -363,11 +359,11 @@ class SaleDataController extends Controller
                 $sale->status = '9';
                 $sale->save();
             }
-            if($request->admin_check == 'not_check') {
+            if ($request->admin_check == 'not_check') {
                 $sale->status = '1';
                 $sale->save();
             }
-            if($request->admin_check == 'reset') {
+            if ($request->admin_check == 'reset') {
                 $sale->status = '1';
                 $sale->save();
             }
@@ -466,9 +462,9 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                if($sale->plan_id!='4'  || $request->gdpaper_id != null){
+                if ($sale->plan_id != '4'  || $request->gdpaper_id != null) {
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
-                }else{
+                } else {
                     $gdpaper->gdpaper_total = 0;
                 }
                 $gdpaper->save();
@@ -492,9 +488,9 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                if($sale->plan_id!='4' || $request->gdpaper_id != null){
+                if ($sale->plan_id != '4' || $request->gdpaper_id != null) {
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
-                }else{
+                } else {
                     $gdpaper->gdpaper_total = 0;
                 }
                 $gdpaper->save();
@@ -509,9 +505,9 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                if($sale->plan_id!='4' || $request->gdpaper_id != null){
+                if ($sale->plan_id != '4' || $request->gdpaper_id != null) {
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
-                }else{
+                } else {
                     $gdpaper->gdpaper_total = 0;
                 }
                 $gdpaper->save();
@@ -600,7 +596,7 @@ class SaleDataController extends Controller
 
     private function total()
     {
-        $sale = Sale::orderby('id','desc')->first();
+        $sale = Sale::orderby('id', 'desc')->first();
         $plan_price = intval($sale->plan_price);
         $before_prom_price = intval($sale->before_prom_price);
         $after_prom_price = Sale_promB::where('sale_id', $sale->id)->sum('after_prom_total');
@@ -611,9 +607,9 @@ class SaleDataController extends Controller
                 if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
                     $num = $gdpaper->gdpaper_num;
                     $price = $gdpaper->gdpaper_name->price;
-                    if($sale->plan_id !=4){
+                    if ($sale->plan_id != 4) {
                         $totals[] = intval($num) * intval($price);
-                    }else{
+                    } else {
                         $totals[] = 0;
                     }
                 }
@@ -621,7 +617,7 @@ class SaleDataController extends Controller
         }
         if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
             $gdpaper_total = intval(array_sum($totals));
-        }else{
+        } else {
             $gdpaper_total = 0;
         }
         return $plan_price + $before_prom_price + $after_prom_price + $gdpaper_total;
@@ -629,7 +625,7 @@ class SaleDataController extends Controller
 
     private function update_total($id)
     {
-        $sale = Sale::where('id',$id)->first();
+        $sale = Sale::where('id', $id)->first();
         $plan_price = intval($sale->plan_price);
         $before_prom_price = intval($sale->before_prom_price);
         $after_prom_price = Sale_promB::where('sale_id', $sale->id)->sum('after_prom_total');
@@ -640,9 +636,9 @@ class SaleDataController extends Controller
                 if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
                     $num = $gdpaper->gdpaper_num;
                     $price = $gdpaper->gdpaper_name->price;
-                    if($sale->plan_id !=4){
+                    if ($sale->plan_id != 4) {
                         $totals[] = intval($num) * intval($price);
-                    }else{
+                    } else {
                         $totals[] = 0;
                     }
                 }
@@ -650,7 +646,7 @@ class SaleDataController extends Controller
         }
         if (isset($gdpaper->gdpaper_id) && $gdpaper->gdpaper_id != null) {
             $gdpaper_total = intval(array_sum($totals));
-        }else{
+        } else {
             $gdpaper_total = 0;
         }
         return $plan_price + $before_prom_price + $after_prom_price + $gdpaper_total;
