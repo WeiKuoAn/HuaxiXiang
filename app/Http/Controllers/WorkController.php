@@ -121,7 +121,7 @@ class WorkController extends Controller
     {
         if (Auth::user()->level == '0') {
             $work = Works::where('id', $workId)->first();
-            return view('edituserWork')->with(['work' => $work]);
+            return view('edituserwork')->with(['work' => $work]);
         } else {
             return redirect()->route('dashboard');
         }
