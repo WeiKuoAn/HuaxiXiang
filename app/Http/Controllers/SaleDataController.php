@@ -64,15 +64,18 @@ class SaleDataController extends Controller
             }
             $price_total = $sales->sum('pay_price');
             $sales = $sales->orderby('id', 'desc')->paginate(50);
+
             $condition = $request->all();
 
             foreach($sales as $sale){
                 $sale_ids[] = $sale->id;
             }
             if(isset($sale_ids)){
-                $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
-            }else{
-                $gdpaper_total = 0;
+                if($request){
+                    $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
+                }else{
+                    $gdpaper_total = Sale_gdpaper::sum('gdpaper_total');
+                }
             }
             
 
@@ -463,7 +466,7 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                if($sale->plan_id!='4'){
+                if($sale->plan_id!='4'  || $request->gdpaper_id != null){
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
                 }else{
                     $gdpaper->gdpaper_total = 0;

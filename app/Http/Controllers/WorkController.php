@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Sale;
 use App\Models\IncomeData;
 use App\Models\Customer;
+use App\Models\Pay;
+use App\Models\PayData;
 use Illuminate\Support\Facades\Auth;
 
 class WorkController extends Controller
@@ -23,8 +25,15 @@ class WorkController extends Controller
 
         $now = Carbon::now()->locale('zh-tw');
         $today = Carbon::today();
+        $firstDay = Carbon::now()->firstOfMonth();
+        $lastDay = Carbon::now()->lastOfMonth();
+
         $sale_today = Sale::where('sale_date',$today->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->count();
         $price = Sale::where('sale_date',$today->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->sum('pay_price');
+        //月營收
+        $price_month = Sale::where('sale_date','>=',$firstDay->format("Y-m-d"))->where('sale_date','<=',$lastDay->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->sum('pay_price');
+        //月支出
+        $pay_month = PayData::where('pay_date','>=',$firstDay->format("Y-m-d"))->where('pay_date','<=',$lastDay->format("Y-m-d"))->sum('price');
         $income = IncomeData::where('income_date',$today->format("Y-m-d"))->sum('price');
         $total_today_incomes = intval($price) + intval($income);
         $check_sale = Sale::where('status',3)->count();
@@ -33,7 +42,8 @@ class WorkController extends Controller
         // dd($work);
         // dd($now);
         return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today 
-                                      , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes]);
+                                      , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes
+                                      , 'price_month'=>$price_month , 'pay_month'=>$pay_month]);
         
     }
 
@@ -74,7 +84,7 @@ class WorkController extends Controller
                 $work->worktime = $request->worktime;
                 $work->dutytime = $request->dutytime;
                 $work->status = '1';
-                $work->total = floor(Carbon::parse($request->worktime)->floatDiffInMinutes($request->dutytime));
+                $work->total = floor(Carbon::parse($request->worktime)->floatDiffInHours($request->dutytime));
                 $work->remark = $request->remark;
                 $work->save();
             }
@@ -120,7 +130,7 @@ class WorkController extends Controller
         $work->worktime = $request->worktime;
         $work->dutytime = $request->dutytime;
         $work->status = $request->status;
-        $work->total = floor(Carbon::parse($request->worktime)->floatDiffInMinutes($request->dutytime));
+        $work->total = floor(Carbon::parse($request->worktime)->floatDiffInHours($request->dutytime));
         if ($request->remark == '') {
             $work->remark = '';
         } else {

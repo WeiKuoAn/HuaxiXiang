@@ -28,7 +28,7 @@ class Works extends Model
     {
         $work = self::where('id',$workId)->first();
         $num = '';
-        $work_num = Carbon::parse($work->worktime)->floatDiffInMinutes($work->dutytime);
+        $work_num = Carbon::parse($work->worktime)->floatDiffInHours($work->dutytime);
         return $work_num;
     }
 

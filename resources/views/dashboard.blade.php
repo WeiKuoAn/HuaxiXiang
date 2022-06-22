@@ -158,7 +158,7 @@
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ number_format(0) }}元</h6>
+                                        <h6>{{ number_format($price_month) }}元</h6>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ number_format(0) }}元</h6>
+                                        <h6>{{ number_format($pay_month) }}元</h6>
                                     </div>
                                 </div>
                             </div>
