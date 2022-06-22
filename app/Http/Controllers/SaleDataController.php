@@ -70,13 +70,13 @@ class SaleDataController extends Controller
             foreach($sales as $sale){
                 $sale_ids[] = $sale->id;
             }
-            if(isset($sale_ids)){
-                if($request){
-                    $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
-                }else{
-                    $gdpaper_total = Sale_gdpaper::sum('gdpaper_total');
-                }
-            }
+            // if(isset($sale_ids)){
+            //     if($request){
+            //         $gdpaper_total = Sale_gdpaper::whereIn('sale_id',$sale_ids)->sum('gdpaper_total');
+            //     }else{
+            //         $gdpaper_total = Sale_gdpaper::sum('gdpaper_total');
+            //     }
+            // }
             
 
         } else {
@@ -89,8 +89,8 @@ class SaleDataController extends Controller
             ->with('users', $users)
             ->with('request', $request)
             ->with('condition', $condition)
-            ->with('price_total', $price_total)
-            ->with('gdpaper_total', $gdpaper_total);
+            ->with('price_total', $price_total);
+            // ->with('gdpaper_total', $gdpaper_total)
     }
 
     public function preson_index(Request $request)
