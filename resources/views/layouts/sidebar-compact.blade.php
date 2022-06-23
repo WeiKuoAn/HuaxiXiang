@@ -164,6 +164,25 @@
             </li><!-- 收入管理 -->
 
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#cash-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>零用金管理</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="cash-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('cashs') }}" class="{{ request()->is('cashs') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>零用金管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('new-cash') }}" class="{{ request()->is('new-cash') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>零用金Key單</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#sale-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-layout-text-window-reverse"></i><span>業務管理</span><i
                         class="bi bi-chevron-down ms-auto"></i>
@@ -179,6 +198,8 @@
                             <i class="bi bi-circle"></i>
                             <span>業務Key單</span>
                         </a>
+                    </li>
+                    <li>
                         <a href="{{ route('wait-sale') }}"
                             class="{{ request()->is('wait-sale') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i>
@@ -187,6 +208,8 @@
                     </li>
                 </ul>
             </li>
+
+            
         @endif
 
         @if (Auth::user()->level != 2 && Auth::user()->status == 0)
@@ -207,6 +230,11 @@
                     class="{{ request()->is('new-pay') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>
                     <span>支出Key單</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-cash') }}"
+                    class="{{ request()->is('new-cash') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>零用金Key單</span>
                 </a>
                 <a class="nav-link collapsed" href="{{ route('customer') }}"
                     class="{{ request()->is('customer') ? 'active' : '' }}">

@@ -63,7 +63,7 @@ class SaleDataController extends Controller
                 $sales = $sales->where('pay_id', $pay_id);
             }
             $price_total = $sales->sum('pay_price');
-            $sales = $sales->orderby('id', 'desc')->paginate(50);
+            $sales = $sales->orderby('sale_date', 'desc')->paginate(50);
 
             $condition = $request->all();
 
@@ -78,7 +78,7 @@ class SaleDataController extends Controller
         } else {
             $condition = ' ';
             $price_total = Sale::where('status', '1')->sum('pay_price');
-            $sales = Sale::orderby('id', 'desc')->where('status', '1')->paginate(50);
+            $sales = Sale::orderby('sale_date', 'desc')->where('status', '1')->paginate(50);
         }
         $users = User::get();
         return view('sale')->with('sales', $sales)
@@ -121,7 +121,7 @@ class SaleDataController extends Controller
             if ($pay_id) {
                 $sales = $sales->where('pay_id', $pay_id);
             }
-            $sales = $sales->orderby('id', 'desc')->paginate(15);
+            $sales = $sales->orderby('sale_date', 'desc')->paginate(15);
             $price_total = $sales->sum('pay_price');
             $condition = $request->all();
 
@@ -136,7 +136,7 @@ class SaleDataController extends Controller
         } else {
             $condition = ' ';
             $price_total = Sale::where('status', '1')->sum('pay_price');
-            $sales = Sale::orderby('id', 'desc')->where('status', '1')->paginate(15);
+            $sales = Sale::orderby('sale_date', 'desc')->where('status', '1')->paginate(15);
         }
         return view('preson-sale')->with('sales', $sales)
             ->with('request', $request)
@@ -147,13 +147,13 @@ class SaleDataController extends Controller
 
     public function wait_index(Request $request) //代確認業務單
     {
-        $sales = Sale::where('status', 3)->orderby('id', 'desc')->get();
+        $sales = Sale::where('status', 3)->orderby('sale_date', 'desc')->get();
         return view('wait-sale')->with('sales', $sales);
     }
 
     public function user_wait_index() //代確認業務單
     {
-        $sales = Sale::where('status', 3)->where('user_id', Auth::user()->id)->orderby('id', 'desc')->get();
+        $sales = Sale::where('status', 3)->where('user_id', Auth::user()->id)->orderby('sale_date', 'desc')->get();
         return view('wait-sale')->with('sales', $sales);
     }
 
@@ -189,7 +189,7 @@ class SaleDataController extends Controller
             if ($pay_id) {
                 $sales = $sales->where('pay_id', $pay_id);
             }
-            $sales = $sales->orderby('id', 'desc')->paginate(15);
+            $sales = $sales->orderby('sale_date', 'desc')->paginate(15);
             $price_total = $sales->sum('pay_price');
             $condition = $request->all();
 
@@ -263,7 +263,7 @@ class SaleDataController extends Controller
         $sale->comm = $request->comm;
         $sale->save();
 
-        $sale_id = Sale::orderby('id', 'desc')->first();
+        $sale_id = Sale::orderby('sale_date', 'desc')->first();
 
         for ($i = 0; $i < $gdcount; $i++) {
             $gdpaper = new Sale_gdpaper();
@@ -596,7 +596,7 @@ class SaleDataController extends Controller
 
     private function total()
     {
-        $sale = Sale::orderby('id', 'desc')->first();
+        $sale = Sale::orderby('sale_date', 'desc')->first();
         $plan_price = intval($sale->plan_price);
         $before_prom_price = intval($sale->before_prom_price);
         $after_prom_price = Sale_promB::where('sale_id', $sale->id)->sum('after_prom_total');

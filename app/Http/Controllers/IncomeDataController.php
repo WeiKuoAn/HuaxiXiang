@@ -51,10 +51,10 @@ class IncomeDataController extends Controller
                 }
             }
             $sum_income  = $sum_income->sum('price');
-            $datas = $datas->paginate(50);
+            $datas = $datas->orderby('income_date','desc')->paginate(50);
             $condition = $request->all();
         }else{
-            $datas = IncomeData::paginate(50);
+            $datas = IncomeData::orderby('income_date','desc')->paginate(50);
             $sum_income  = IncomeData::sum('price');
             $condition = '';
         }

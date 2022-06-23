@@ -51,10 +51,10 @@ class PayDataController extends Controller
                 }
             }
             $sum_pay  = $sum_pay->sum('price');
-            $datas = $datas->paginate(50);
+            $datas = $datas->orderby('pay_date','desc')->paginate(50);
             $condition = $request->all();
         }else{
-            $datas = PayData::paginate(50);
+            $datas = PayData::orderby('pay_date','desc')->paginate(50);
             $sum_pay  = PayData::sum('price');
             $condition = '';
         }

@@ -13,6 +13,7 @@ use App\Http\Controllers\WorkController;
 use App\Http\Controllers\IncomeDataController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\PayDataController;
+use App\Http\Controllers\CashController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -110,6 +111,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/pay/new_suject', [PayController::class, 'store'])->name('new-pay-suject.data');
     Route::get('/pay/edit_suject/{id}', [PayController::class, 'show'])->name('edit-pay-suject');
     Route::post('/pay/edit_suject/{id}', [PayController::class, 'update'])->name('edit-pay-suject.data');
+
+    /*零用金管理*/
+    Route::get('/cashs', [CashController::class, 'index'])->name('cashs');
+    Route::get('/cashs/new', [CashController::class, 'create'])->name('new-cash');
+    Route::post('/cashs/new', [CashController::class, 'store'])->name('new-cash.data');
+    Route::get('/cashs/edit/{id}', [CashController::class, 'show'])->name('edit-cash');
+    Route::post('/cashs/edit/{id}', [CashController::class, 'update'])->name('edit-cash.data');
+    Route::get('/cashs/del/{id}', [CashController::class, 'destroy'])->name('del-cash');
+    Route::post('/cashs/del/{id}', [CashController::class, 'delete'])->name('del-cash.data');
 
     Route::get('/pay/data', [PayDataController::class, 'index'])->name('pays');
     Route::get('/pay/new_data', [PayDataController::class, 'create'])->name('new-pay');

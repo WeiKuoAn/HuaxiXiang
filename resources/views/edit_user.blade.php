@@ -118,7 +118,7 @@
                                 </fieldset>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">編輯</button>
-                                    <button type="reset" class="btn btn-secondary">重設</button>
+                                    <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                                 </div>
                             </form><!-- End General Form Elements -->
 
