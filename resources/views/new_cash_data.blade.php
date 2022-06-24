@@ -31,7 +31,16 @@
                                 @csrf
                                 <div class="col-12">
                                     <label for="inputNanme4" class="form-label">日期</label>
-                                    <input type="date" class="form-control" id="cash_date" name="cash_date">
+                                    <input type="date" class="form-control" id="cash_date" name="cash_date" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="col-sm-2 col-form-label">狀態</label>
+                                    <div class="col-sm-12">
+                                        <select class="form-select" aria-label="Default select example" name="status">
+                                            <option value="1" selected>支出</option>
+                                            <option value="0">收入</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <label for="inputNanme4" class="form-label">名稱</label>

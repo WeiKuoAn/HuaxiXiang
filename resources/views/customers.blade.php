@@ -17,11 +17,13 @@
             <div class="row g-4">
                 <div class="col-md-2">
                     <label for="name">客戶姓名</label>
-                    <input type="text" class="form-control date" id="name" name="name" value="{{ $request->name }}">
+                    <input type="text" class="form-control date" id="name" name="name"
+                        value="{{ $request->name }}">
                 </div>
                 <div class="col-md-2">
                     <label for="mobile">客戶電話</label>
-                    <input type="text" class="form-control date" id="mobile" name="mobile" value="{{ $request->mobile }}">
+                    <input type="text" class="form-control date" id="mobile" name="mobile"
+                        value="{{ $request->mobile }}">
                 </div>
                 <div class="col-md-2">
                     <div style="margin-top: 22px;">
@@ -60,12 +62,14 @@
                                             @if (Auth::user()->level != 2)
                                                 <a href="{{ route('edit-customer', $customer->id) }}"><button
                                                         type="button" class="btn btn-primary btn-sm">修改</button></a>
+                                                <a href="{{ route('del-customer', $customer->id) }}"><button
+                                                        type="button" class="btn btn-danger btn-sm">刪除</button></a>
                                             @else
                                                 <a href="{{ route('edit-customer', $customer->id) }}"><button
                                                         type="button" class="btn btn-primary btn-sm">查看</button></a>
                                             @endif
-                                            <a href="{{ route('customer-sale', $customer->id) }}"><button
-                                                type="button" class="btn btn-danger btn-sm">業務紀錄</button></a>
+                                            <a href="{{ route('customer-sale', $customer->id) }}"><button type="button"
+                                                    class="btn btn-success btn-sm">業務紀錄</button></a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -205,6 +205,14 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::where('id', $id)->first();
+        return view('del_customer')->with('customer', $customer);
+    }
+
+    public function delete($id)
+    {
+        $customer = Customer::where('id', $id)->first();
+        $customer->delete();
+        return redirect()->route('customer');
     }
 }

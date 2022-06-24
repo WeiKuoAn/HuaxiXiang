@@ -31,7 +31,7 @@
                                 @csrf
                                 <div class="col-12">
                                     <label for="inputNanme4" class="form-label">收入日期</label>
-                                    <input type="date" class="form-control" id="income_date" name="income_date">
+                                    <input type="date" class="form-control" id="income_date" name="income_date" required>
                                 </div>
                                 <div class="col-12">
                                     <label class="col-sm-2 col-form-label">名稱</label>

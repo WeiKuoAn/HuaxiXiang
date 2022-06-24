@@ -25,6 +25,14 @@
                     <input type="date" class="form-control date" id="before_date" name="before_date"
                         value="{{ $request->before_date }}">
                 </div>
+                <div class="col-auto">
+                    <label for="after_date">狀態</label>
+                    <select id="inputState" class="form-select" name="status" onchange="this.form.submit()">
+                        <option value="NULL" @if (!isset($request->status) || $request->status == "NULL") selected @endif>不限</option>
+                        <option value="1" @if ($request->status == '1') selected @endif>支出</option>
+                        <option value="0" @if ($request->status == '0') selected @endif>收入</option>
+                    </select>
+                </div>
                 <div class="col">
                     <div style="margin-top: 22px;">
                         <label for="after_date">&nbsp;</label>
@@ -40,7 +48,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <h2 class="card-title" style="font-size: 1.6em;text-align:right;">總收入：<b
+                                <h2 class="card-title" style="font-size: 1.6em;text-align:right;">餘額：<b
                                         style="color:red;">{{ number_format($cash_sums) }}</b>元</h2>
                             </div>
                         </div>
@@ -48,8 +56,9 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">收入日期</th>
-                                    <th scope="col">收入科目</th>
+                                    <th scope="col">日期</th>
+                                    <th scope="col">狀態</th>
+                                    <th scope="col">名稱</th>
                                     <th scope="col">價格</th>
                                     <th scope="col">Key單人員</th>
                                     <th scope="col">動作</th>
@@ -59,6 +68,13 @@
                                 @foreach ($datas as $data)
                                     <tr>
                                         <td>{{ $data->cash_date }}</td>
+                                        <td>
+                                            @if($data->status == 1)
+                                                支出
+                                            @else
+                                                <b style="color:red;">存入</b>
+                                            @endif
+                                        </td>
                                         <td>{{ $data->title }}</td>
                                         <td>{{ number_format($data->price) }}</td>
                                         <td>{{ $data->user_name->name }}</td>

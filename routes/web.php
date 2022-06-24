@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/new_customer', [CustomerController::class, 'store'])->name('new-customer.data');
     Route::get('/edit_customer/{id}', [CustomerController::class, 'show'])->name('edit-customer');
     Route::post('/edit_customer/{id}', [CustomerController::class, 'update'])->name('edit-customer.data');
+    Route::get('/del_customer/{id}', [CustomerController::class, 'destroy'])->name('del-customer');
+    Route::post('/del_customer/{id}', [CustomerController::class, 'delete'])->name('del-customer.data');
     /*方案管理 */
     Route::get('/plan', [PlanController::class, 'index'])->name('plan');
     Route::get('/new_plan', [PlanController::class, 'create'])->name('new-plan');

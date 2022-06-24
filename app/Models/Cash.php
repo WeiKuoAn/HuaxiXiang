@@ -17,6 +17,7 @@ class Cash extends Model
         'cash_date',
         'price',
         'comment',
+        'status'
     ];
 
     public function user_name(){

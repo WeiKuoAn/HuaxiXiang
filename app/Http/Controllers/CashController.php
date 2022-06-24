@@ -16,32 +16,43 @@ class CashController extends Controller
      */
     public function index(Request $request)
     {
-        if($request){
-            $datas = Cash::paginate(50);
-            $cash_sums = Cash::sum('price');
+        if ($request) {
+            $datas = Cash::whereIn('status', [0, 1]);
+            $cash_pay = Cash::where('status', 1); //零用金支出
+            $cash_income = Cash::where('status', 0); //零用金收入
+            $status = $request->status;
+            if ($status != "NULL") {
+                if (isset($status)) {
+                    $datas = Cash::where('status', $status);
+                    $cash_pay = Cash::where('status', 1);
+                    $cash_income = Cash::where('status', 0);
+                }
+            }
             $after_date = $request->after_date;
-            if($after_date){
-                $datas = Cash::where('cash_date','>=',$after_date)->paginate(50);
-                $cash_sums = Cash::where('cash_date','>=',$after_date)->sum('price');
+            if ($after_date) {
+                $datas = $datas->where('cash_date', '>=', $after_date);
+                $cash_pay = $cash_pay->where('cash_date', '>=', $after_date);
+                $cash_income = $cash_income->where('cash_date', '>=', $after_date);
             }
             $before_date = $request->before_date;
-            if($before_date){
-                $datas = Cash::where('cash_date','<=',$before_date)->paginate(50);
-                $cash_sums = Cash::where('cash_date','<=',$before_date)->sum('price');
+            if ($before_date) {
+                $datas = $datas->where('cash_date', '<=', $before_date);
+                $cash_pay = $cash_pay->where('cash_date', '<=', $before_date);
+                $cash_income = $cash_income->where('cash_date', '<=', $before_date);
             }
-            if($after_date && $before_date){
-                $datas = Cash::where('cash_date','>=',$after_date)->where('cash_date','<=',$before_date)->paginate(50);
-                $cash_sums = Cash::where('cash_date','>=',$after_date)->where('cash_date','<=',$before_date)->sum('price');
-            }
+            $datas = $datas->orderby('cash_date','desc')->paginate(50);
+            $cash_pay = $cash_pay->sum('price');
+            $cash_income = $cash_income->sum('price');
+            $cash_sums = $cash_income + ($cash_pay * -1);
             $condition = $request->all();
-        }else{
+        } else {
             $condition = '';
         }
-        
-        return view('cashs')->with('request',$request)
-                            ->with('datas',$datas)
-                            ->with('condition',$condition)
-                            ->with('cash_sums',$cash_sums);
+
+        return view('cashs')->with('request', $request)
+            ->with('datas', $datas)
+            ->with('condition', $condition)
+            ->with('cash_sums', $cash_sums);
     }
 
     /**
@@ -66,6 +77,7 @@ class CashController extends Controller
         $cash->title = $request->title;
         $cash->cash_date = $request->cash_date;
         $cash->price = $request->price;
+        $cash->status = $request->status;
         $cash->comment = $request->comment;
         $cash->user_id = Auth::user()->id;
         $cash->save();
@@ -80,8 +92,8 @@ class CashController extends Controller
      */
     public function show($id)
     {
-        $data = Cash::where('id',$id)->first();
-        return view('edit_cash')->with('data',$data);
+        $data = Cash::where('id', $id)->first();
+        return view('edit_cash')->with('data', $data);
     }
 
     /**
@@ -104,7 +116,7 @@ class CashController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Cash::where('id',$id)->first();
+        $data = Cash::where('id', $id)->first();
         $data->title = $request->title;
         $data->cash_date = $request->cash_date;
         $data->price = $request->price;
@@ -122,13 +134,13 @@ class CashController extends Controller
      */
     public function destroy($id)
     {
-        $data = Cash::where('id',$id)->first();
-        return view('del_cash')->with('data',$data);
+        $data = Cash::where('id', $id)->first();
+        return view('del_cash')->with('data', $data);
     }
 
     public function delete($id)
     {
-        $data = Cash::where('id',$id)->first();
+        $data = Cash::where('id', $id)->first();
         $data->delete();
         return redirect()->route('cashs');
     }
