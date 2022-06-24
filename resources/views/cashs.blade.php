@@ -30,7 +30,7 @@
                     <select id="inputState" class="form-select" name="status" onchange="this.form.submit()">
                         <option value="NULL" @if (!isset($request->status) || $request->status == "NULL") selected @endif>不限</option>
                         <option value="1" @if ($request->status == '1') selected @endif>支出</option>
-                        <option value="0" @if ($request->status == '0') selected @endif>收入</option>
+                        <option value="0" @if ($request->status == '0') selected @endif>存入</option>
                     </select>
                 </div>
                 <div class="col">
