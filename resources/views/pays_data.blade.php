@@ -71,6 +71,7 @@
                                     <th scope="col">支出日期</th>
                                     <th scope="col">支出科目</th>
                                     <th scope="col">價格</th>
+                                    <th scope="col">備註</th>
                                     <th scope="col">Key單人員</th>
                                     <th scope="col">動作</th>
                                 </tr>
@@ -81,6 +82,7 @@
                                         <td>{{ $data->pay_date }}</td>
                                         <td>{{ $data->pay_name->name }}</td>
                                         <td>{{ number_format($data->price) }}</td>
+                                        <td>{{ $data->comment }}</td>
                                         <td>{{ $data->user_name->name }}</td>
                                         <td>
                                             <a href="{{ route('edit-pay', $data->id) }}"><button type="button"
