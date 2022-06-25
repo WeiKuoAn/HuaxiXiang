@@ -45,9 +45,14 @@ class WorkController extends Controller
         $work = Works::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
         // dd($work);
         // dd($now);
-        return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today 
-                                      , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes
-                                      , 'price_month'=>$price_month , 'pay_month'=>$pay_month]);
+        if(Auth::user()->status != 1){
+            return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today 
+            , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes
+            , 'price_month'=>$price_month , 'pay_month'=>$pay_month]);
+        }else{
+            return view('Auth.login');
+        }
+       
         
     }
 
