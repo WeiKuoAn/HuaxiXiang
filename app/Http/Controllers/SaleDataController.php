@@ -263,7 +263,7 @@ class SaleDataController extends Controller
         $sale->comm = $request->comm;
         $sale->save();
 
-        $sale_id = Sale::orderby('sale_date', 'desc')->first();
+        $sale_id = Sale::orderby('id', 'desc')->first();
 
         for ($i = 0; $i < $gdcount; $i++) {
             $gdpaper = new Sale_gdpaper();
