@@ -28,7 +28,9 @@ class Rpg01Controller extends Controller
             }
             $sales = Sale::where('sale_date', $period->format("Y-m-d"))->whereIn('pay_id',['A','B','C'])->get();
             foreach($sales as $sale){
-                $datas[$period->format("Y-m-d")][$sale->plan_id]['count']++;
+                if(isset($sale->plan_id)){
+                    $datas[$period->format("Y-m-d")][$sale->plan_id]['count']++;
+                }
             }
         }
 
