@@ -14,6 +14,7 @@ use App\Http\Controllers\IncomeDataController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\PayDataController;
 use App\Http\Controllers\CashController;
+use App\Http\Controllers\Rpg01Controller;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -162,6 +163,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/deluserwork/{workId}', [WorkController::class, 'deluserwork'])->middleware(['auth'])->name('delUserWork.data');
     //使用者出勤畫面
     Route::get('/personwork', [WorkController::class, 'personwork'])->middleware(['auth'])->name('personwork');
+
+    //報表管理
+    Route::get('/rpg/rpg01', [Rpg01Controller::class, 'rpg01'])->middleware(['auth'])->name('rpg01');
 });
 
 
