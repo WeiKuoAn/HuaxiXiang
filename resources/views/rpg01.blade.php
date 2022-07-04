@@ -19,25 +19,25 @@
                     <label for="after_date">年度</label>
                     <select id="inputState" class="form-select" name="year" onchange="this.form.submit()">
                         @foreach($years as $year)
-                        <option value="{{$year}}" >{{ $year }}年</option>
+                        <option value="{{$year}}" @if($request->year == $year) selected @endif >{{ $year }}年</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-auto">
                     <label for="after_date">月份</label>
                     <select id="inputState" class="form-select" name="month" onchange="this.form.submit()">
-                        <option value="01">一月</option>
-                        <option value="02">二月</option>
-                        <option value="03">三月</option>
-                        <option value="04">四月</option>
-                        <option value="05">五月</option>
-                        <option value="06">六月</option>
-                        <option value="07">七月</option>
-                        <option value="08">八月</option>
-                        <option value="09">九月</option>
-                        <option value="10">十月</option>
-                        <option value="11">十一月</option>
-                        <option value="12">十二月</option>
+                        <option value="01" @if($request->month == "01" ) selected  @endif>一月</option>
+                        <option value="02" @if($request->month == "02" ) selected  @endif>二月</option>
+                        <option value="03" @if($request->month == "03" ) selected  @endif>三月</option>
+                        <option value="04" @if($request->month == "04" ) selected  @endif>四月</option>
+                        <option value="05" @if($request->month == "05" ) selected  @endif>五月</option>
+                        <option value="06" @if($request->month == "06" ) selected  @endif>六月</option>
+                        <option value="07" @if($request->month == "07" ) selected  @endif>七月</option>
+                        <option value="08" @if($request->month == "08" ) selected  @endif>八月</option>
+                        <option value="09" @if($request->month == "09" ) selected  @endif>九月</option>
+                        <option value="10" @if($request->month == "10" ) selected  @endif>十月</option>
+                        <option value="11" @if($request->month == "11" ) selected  @endif>十一月</option>
+                        <option value="12" @if($request->month == "12" ) selected  @endif>十二月</option>
                     </select>
                 </div>
                 <div class="col-auto">

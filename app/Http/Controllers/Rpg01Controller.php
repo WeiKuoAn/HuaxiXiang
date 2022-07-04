@@ -53,6 +53,7 @@ class Rpg01Controller extends Controller
         return view('rpg01')->with('datas', $datas)
             ->with('sums', $sums)
             ->with('plans', $plans)
-            ->with('years', $years);
+            ->with('years', $years)
+            ->with('request', $request);
     }
 }
