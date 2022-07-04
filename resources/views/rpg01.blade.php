@@ -26,6 +26,7 @@
                 <div class="col-auto">
                     <label for="after_date">月份</label>
                     <select id="inputState" class="form-select" name="month" onchange="this.form.submit()">
+                        <option value="" selected >請選擇</option>
                         <option value="01" @if($request->month == "01" ) selected  @endif>一月</option>
                         <option value="02" @if($request->month == "02" ) selected  @endif>二月</option>
                         <option value="03" @if($request->month == "03" ) selected  @endif>三月</option>
@@ -61,7 +62,7 @@
                                 <tr align="center">
                                     <th scope="col" width="15%">日期</th>
                                     @foreach ($plans as $key => $plan)
-                                        <th scope="col">{{ $plan->id }}{{ $plan->name }}</th>
+                                        <th scope="col">{{ $plan->name }}</th>
                                     @endforeach
                                 </tr>
                             </thead>
