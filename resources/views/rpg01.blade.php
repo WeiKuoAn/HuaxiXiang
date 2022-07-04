@@ -61,7 +61,7 @@
                                 <tr align="center">
                                     <th scope="col" width="15%">日期</th>
                                     @foreach ($plans as $key => $plan)
-                                        <th scope="col">{{ $plan->name }}</th>
+                                        <th scope="col">{{ $plan->id }}{{ $plan->name }}</th>
                                     @endforeach
                                 </tr>
                             </thead>
@@ -70,8 +70,8 @@
                                     <tr align="center">
                                         <td>{{ $key }}</td>
                                         @foreach ($plans as $key => $plan)
-                                            @if (isset($data[$key]['count']) && $data[$key]['count'] != 0)
-                                                <td>{{ $data[$key]['count'] }}</td>
+                                            @if (isset($data[$plan->id]['count']) && $data[$plan->id]['count'] != 0)
+                                                <td>{{ $data[$plan->id]['count'] }}</td>
                                             @else
                                                 <td></td>
                                             @endif
@@ -81,8 +81,8 @@
                                 <tr align="center" style="color:red;font-weight:500;">
                                     <td>總單量</td>
                                     @foreach ($plans as $key => $plan)
-                                        @if (isset($sums[$key]['count']) && $sums[$key]['count'] != 0)
-                                            <td>{{ $sums[$key]['count'] }}單</td>
+                                        @if (isset($sums[$plan->id]['count']) && $sums[$plan->id]['count'] != 0)
+                                            <td>{{ $sums[$plan->id]['count'] }}單</td>
                                         @else
                                             <td>0單</td>
                                         @endif

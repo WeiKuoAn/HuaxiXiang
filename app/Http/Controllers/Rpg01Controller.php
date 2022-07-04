@@ -40,6 +40,7 @@ class Rpg01Controller extends Controller
                 }
             }
         }
+        // dd($datas);
 
         foreach ($periods as $period) {
             foreach ($plans as $plan) {
