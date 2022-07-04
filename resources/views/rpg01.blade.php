@@ -12,6 +12,42 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+        <form action="{{ route('rpg01') }}" method="get">
+            @csrf
+            <div class="row col-lg-12 mb-4 mt-4">
+                <div class="col-auto">
+                    <label for="after_date">年度</label>
+                    <select id="inputState" class="form-select" name="year" onchange="this.form.submit()">
+                        @foreach($years as $year)
+                        <option value="{{$year}}" >{{ $year }}年</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="after_date">月份</label>
+                    <select id="inputState" class="form-select" name="month" onchange="this.form.submit()">
+                        <option value="01">一月</option>
+                        <option value="02">二月</option>
+                        <option value="03">三月</option>
+                        <option value="04">四月</option>
+                        <option value="05">五月</option>
+                        <option value="06">六月</option>
+                        <option value="07">七月</option>
+                        <option value="08">八月</option>
+                        <option value="09">九月</option>
+                        <option value="10">十月</option>
+                        <option value="11">十一月</option>
+                        <option value="12">十二月</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <div style="margin-top: 22px;">
+                        <label for="after_date">&nbsp;</label>
+                        <button type="submit" class="btn btn-danger">查詢</button>
+                    </div>
+                </div>
+            </div>
+        </form>
         <!-- Left side columns -->
         <div class="col-lg-12 mx-auto">
             <div class="row">
