@@ -55,7 +55,7 @@
                                 <tr align="center">
                                     <th scope="col" width="20%">科目</th>
                                     <th scope="col" width="15%">支出金額</th>
-                                    <th scope="col" width="20%">備註</th>
+                                    <th scope="col" width="40%">備註</th>
                                     <th scope="col" width="">百分比</th>
                                 </tr>
                             </thead>
@@ -64,7 +64,7 @@
                                     <tr align="center">
                                         <td>{{ $data['pay_name'] }}</td>
                                         <td align="right">{{ number_format($data['total_price']) }}</td>
-                                        <td>{{ $data['comment'] }}</td>
+                                        <td align="right">{{ $data['comment'] }}</td>
                                         <td>{{ $data['percent'] }}%</td>
                                     </tr>
                                 @endforeach
