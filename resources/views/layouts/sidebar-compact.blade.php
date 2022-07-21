@@ -220,6 +220,12 @@
                             <i class="bi bi-circle"></i><span>Rpg01</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('rpg02') }}"
+                            class="{{ request()->is('rpg02') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>Rpg02-支出統計</span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="{{ route('pays') }}" class="{{ request()->is('pays') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>支出管理</span>

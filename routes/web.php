@@ -15,6 +15,7 @@ use App\Http\Controllers\PayController;
 use App\Http\Controllers\PayDataController;
 use App\Http\Controllers\CashController;
 use App\Http\Controllers\Rpg01Controller;
+use App\Http\Controllers\Rpg02Controller;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -166,6 +167,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //報表管理
     Route::get('/rpg/rpg01', [Rpg01Controller::class, 'rpg01'])->middleware(['auth'])->name('rpg01');
+    Route::get('/rpg/rpg02', [Rpg02Controller::class, 'rpg02'])->middleware(['auth'])->name('rpg02');
 });
 
 
