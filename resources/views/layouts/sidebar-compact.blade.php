@@ -10,6 +10,7 @@
             </a>
         </li><!-- End Dashboard Nav -->
         @if (Auth::user()->level != 2)
+         @if(Auth::user()->level == 0)
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>用戶管理</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -48,6 +49,7 @@
           </li> --}}
                 </ul>
             </li><!-- 資料設定 -->
+            @endif
         @endif
 
         <li class="nav-item">
@@ -208,6 +210,7 @@
                     </li>
                 </ul>
             </li>
+            @if(Auth::user()->level == 0)
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-rpg" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-layout-text-window-reverse"></i><span>報表管理</span><i
@@ -238,7 +241,7 @@
                     </li> --}}
                 </ul>
             </li><!-- 收入管理 -->
-            
+            @endif
         @endif
 
         @if (Auth::user()->level != 2 && Auth::user()->status == 0)
