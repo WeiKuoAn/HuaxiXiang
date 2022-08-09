@@ -60,7 +60,7 @@
                                     <th scope="col">狀態</th>
                                     <th scope="col">名稱</th>
                                     <th scope="col">價格</th>
-                                    <th scope="col">備註</th>
+                                    <th scope="col" width="25%">備註</th>
                                     <th scope="col">Key單人員</th>
                                     <th scope="col">動作</th>
                                 </tr>
