@@ -16,6 +16,7 @@ use App\Http\Controllers\PayDataController;
 use App\Http\Controllers\CashController;
 use App\Http\Controllers\Rpg01Controller;
 use App\Http\Controllers\Rpg02Controller;
+use App\Http\Controllers\Rpg03Controller;
 use Illuminate\Support\Facades\Auth;
 
 /*

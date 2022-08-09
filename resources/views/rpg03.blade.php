@@ -26,15 +26,6 @@
                     @if(!isset($request->before_date)) value="{{ $last_date->format("Y-m-d") }}" @endif value="{{ $request->before_date }}">
                 </div>
                 <div class="col-auto">
-                    <label for="after_date">科目</label>
-                    <select id="inputState" class="form-select" name="pay" onchange="this.form.submit()">
-                        <option value="" @if(!isset($request->pay)) selected @endif>不限</option>
-                        @foreach($pays as $pay)
-                        <option value="{{$pay->id}}" @if($request->pay == $pay->id) selected @endif >{{ $pay->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-auto">
                     <div style="margin-top: 22px;">
                         <label for="after_date">&nbsp;</label>
                         <button type="submit" class="btn btn-danger">查詢</button>
@@ -62,7 +53,7 @@
                             <tbody>
                                 @foreach($datas as $key=>$data)
                                     <tr align="center">
-                                        <td>{{ $data['pay_name'] }}</td>
+                                        <td>{{ $data['title'] }}</td>
                                         <td align="right">{{ number_format($data['total_price']) }}</td>
                                         <td align="right">{{ $data['comment'] }}</td>
                                         <td>{{ $data['percent'] }}%</td>
