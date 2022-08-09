@@ -210,7 +210,8 @@
                     </li>
                 </ul>
             </li>
-            @if(Auth::user()->level == 0 || Auth::user()->level == 1)
+            @if(Auth::user()->level == 0)
+            {{-- @if(Auth::user()->level == 0 || Auth::user()->level == 1) --}}
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-rpg" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-layout-text-window-reverse"></i><span>報表管理</span><i
