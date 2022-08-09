@@ -23,14 +23,14 @@ class Rpg03Controller extends Controller
         if($request){
             $after_date = $request->after_date;
             if($after_date){
-                $cash_datas = Cash::where('cash_date','>=',$after_date)->get();
+                $cash_datas = Cash::where('cash_date','>=',$after_date)->where('status',1)->get();
             }
             $before_date = $request->before_date;
             if($before_date){
-                $cash_datas = Cash::where('cash_date','<=',$before_date)->get();
+                $cash_datas = Cash::where('cash_date','<=',$before_date)->where('status',1)->get();
             }
             if($after_date && $before_date){
-                $cash_datas = Cash::where('cash_date','>=',$after_date)->where('cash_date','<=',$before_date)->get();
+                $cash_datas = Cash::where('cash_date','>=',$after_date)->where('cash_date','<=',$before_date)->where('status',1)->get();
             }
         }
 
