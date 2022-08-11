@@ -168,6 +168,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     //報表管理
     Route::get('/rpg/rpg01', [Rpg01Controller::class, 'rpg01'])->middleware(['auth'])->name('rpg01');
+    Route::get('/rpg/rpg01/detail', [Rpg01Controller::class, 'detail'])->middleware(['auth'])->name('rpg01.detail');
+
     Route::get('/rpg/rpg02', [Rpg02Controller::class, 'rpg02'])->middleware(['auth'])->name('rpg02');
     Route::get('/rpg/rpg03', [Rpg03Controller::class, 'rpg03'])->middleware(['auth'])->name('rpg03');
 });
