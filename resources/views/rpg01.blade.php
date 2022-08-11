@@ -72,7 +72,7 @@
                                         <td>{{ $key }}</td>
                                         @foreach ($plans as  $plan)
                                             @if (isset($data[$plan->id]['count']) && $data[$plan->id]['count'] != 0)
-                                                <td><a href="{{ route('rpg01.detail',request()->fullUrlWithQuery(['date'=>$key,'plan_id'=>$plan->id])) }}">{{ $data[$plan->id]['count'] }}</a></td>
+                                                <td><a href="{{ route('rpg01.detail',['date'=>$key,'plan_id'=>$plan->id]) }}">{{ $data[$plan->id]['count'] }}</a></td>
                                             @else
                                                 <td></td>
                                             @endif

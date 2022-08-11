@@ -58,10 +58,10 @@ class Rpg01Controller extends Controller
             ->with('request', $request);
     }
 
-    public function detail(Request $request)
+    public function detail(Request $request , $date , $plan_id)
     {
-        $date = $request->date;
-        $plan_id = $request->plan_id;
+        // $date = $request->date;
+        // $plan_id = $request->plan_id;
         $plans = Plan::where('status', 'up')->orderby('id')->get();
         foreach($plans as $plan){
             $plan_name[$plan->id] = $plan->name; 

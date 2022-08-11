@@ -28,7 +28,15 @@
                                 @foreach($datas as $key=>$data)
                                     <tr align="center">
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $data->user_name->name }}</td>
+                                        <td>
+                                            @if (isset($data->customer_id))
+                                                @if(isset($data->cust_name))
+                                                    {{ $data->cust_name->name }}
+                                                @else
+                                                {{ $data->customer_id }}
+                                                @endif
+                                            @endif
+                                        </td>
                                         <td>{{ $data->pet_name }}</td>
                                         <td>
                                             @if (isset($data->before_prom_id))
