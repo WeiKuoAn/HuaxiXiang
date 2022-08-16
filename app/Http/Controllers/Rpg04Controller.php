@@ -39,7 +39,7 @@ class Rpg04Controller extends Controller
             if($after_date && $before_date){
                 $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->get();
             }
-            $periods = CarbonPeriod::create( $request->after_date, $request->before_date);
+            $periods = CarbonPeriod::create($after_date, $before_date);
         }
 
         $datas = [];
