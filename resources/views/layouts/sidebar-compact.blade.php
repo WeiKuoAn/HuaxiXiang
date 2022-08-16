@@ -236,6 +236,12 @@
                             <i class="bi bi-circle"></i><span>Rpg03-零用金統計</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('rpg04') }}"
+                            class="{{ request()->is('rpg04') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>Rpg04-金紙統計</span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="{{ route('pays') }}" class="{{ request()->is('pays') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>支出管理</span>
