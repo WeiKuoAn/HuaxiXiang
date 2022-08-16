@@ -20,6 +20,7 @@ class Rpg04Controller extends Controller
 
         $after_date = Carbon::now()->firstOfMonth();
         $before_date = Carbon::now()->lastOfMonth();
+        $periods = CarbonPeriod::create($after_date, $before_date);
        
 
         $gdpapers = Gdpaper::where('status','up')->get();
@@ -38,8 +39,8 @@ class Rpg04Controller extends Controller
             if($after_date && $before_date){
                 $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->get();
             }
+            $periods = CarbonPeriod::create( $request->after_date, $request->before_date);
         }
-        $periods = CarbonPeriod::create($after_date, $before_date);
 
         $datas = [];
         $sums = [];
