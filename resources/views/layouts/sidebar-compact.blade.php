@@ -221,25 +221,25 @@
                     <li>
                         <a href="{{ route('rpg01') }}"
                             class="{{ request()->is('rpg01') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>Rpg01</span>
+                            <i class="bi bi-circle"></i><span>方案報表</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('rpg02') }}"
                             class="{{ request()->is('rpg02') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>Rpg02-支出統計</span>
+                            <i class="bi bi-circle"></i><span>支出報表</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('rpg03') }}"
                             class="{{ request()->is('rpg03') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>Rpg03-零用金統計</span>
+                            <i class="bi bi-circle"></i><span>零用金報表</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('rpg04') }}"
                             class="{{ request()->is('rpg04') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>Rpg04-金紙統計</span>
+                            <i class="bi bi-circle"></i><span>金紙報表</span>
                         </a>
                     </li>
                     {{-- <li>
