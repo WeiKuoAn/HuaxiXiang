@@ -6,7 +6,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">報表管理</li>
-                <li class="breadcrumb-item active">Rpg02-支出統計</li>
+                <li class="breadcrumb-item active">支出報表</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
