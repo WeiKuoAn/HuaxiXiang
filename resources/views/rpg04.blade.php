@@ -39,12 +39,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
-
+                        <div style="float:right;margin-right:1em;font-size:1.5em;color:red;font-weight:bold;margin-bottom:2em;">
+                            <span>共計：{{ number_format($sums['total']) }}元</span>
+                        </div>
                         <!-- Table with hoverable rows -->
                         <table class="table table-hover">
                             <thead>
                                 <tr align="center">
-                                    <th scope="col" width="20%">日期</th>
+                                    <th scope="col" width="10%">日期</th>
                                     @foreach ($gdpapers as $gdpaper)
                                         <th>{{ $gdpaper->name }}</th>
                                     @endforeach
@@ -75,9 +77,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div style="float:right;margin-right:3em;font-size:1.5em">
-                            <span>共計：{{ number_format($sums['total']) }}元</span>
-                        </div>
                         <!-- End Table with hoverable rows -->
                     </div>
 
