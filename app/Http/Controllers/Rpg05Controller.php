@@ -52,14 +52,11 @@ class Rpg05Controller extends Controller
 
         $datas = [];
         $sums = [];
-        foreach($sale_datas as $sale_data){
-            $datas[$sale_data->sale_date]['sum_total'] = 0;
-        }
-        foreach($income_datas as $income_data){
-            $datas[$income_data->income_date]['income_total'] = 0;
-        }
-        foreach($pay_datas as $pay_data){
-            $datas[$pay_data->pay_date]['pay_total'] = 0;
+
+        foreach($periods as $period){
+            $datas[$period->format("Y-m-d")]['sum_total'] = 0;
+            $datas[$period->format("Y-m-d")]['income_total'] = 0;
+            $datas[$period->format("Y-m-d")]['pay_total'] = 0;
         }
         
         //業務收入
@@ -76,12 +73,11 @@ class Rpg05Controller extends Controller
         }
         dd($datas);
         
-        foreach($datas as $date=>$data){
-            $sums['sum_total'] = 0;
-            $sums['income_total'] = 0;
-            $sums['pay_total'] = 0;
-            $sums['total'] = 0;
-        }
+
+        $sums['sum_total'] = 0;
+        $sums['income_total'] = 0;
+        $sums['pay_total'] = 0;
+        $sums['total'] = 0;
         foreach($datas as $date=>$data){
             $sums['sum_total'] += $data['sum_total'];
             $sums['income_total'] += $data['income_total'];
@@ -90,7 +86,7 @@ class Rpg05Controller extends Controller
             $sums[$date]['day_total'] = $data['sum_total'] + $data['income_total'] - $data['pay_total'];
         }
 
-        // dd($sums);
+        dd($sums);
 
 
         return view('rpg05')->with('request',$request)
