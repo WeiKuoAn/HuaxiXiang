@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-        <form action="{{ route('rpg04') }}" method="get">
+        <form action="{{ route('rpg05') }}" method="get">
             @csrf
             <div class="row col-lg-12 mb-4 mt-4">
                 <div class="col-auto">
