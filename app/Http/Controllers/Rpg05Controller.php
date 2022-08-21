@@ -71,7 +71,7 @@ class Rpg05Controller extends Controller
         foreach($pay_datas as $pay_data){
             $datas[$pay_data->pay_date]['pay_total'] += $pay_data->price;
         }
-        dd($datas);
+        // dd($datas);
         
 
         $sums['sum_total'] = 0;
@@ -86,7 +86,7 @@ class Rpg05Controller extends Controller
             $sums[$date]['day_total'] = $data['sum_total'] + $data['income_total'] - $data['pay_total'];
         }
 
-        dd($sums);
+        // dd($sums);
 
 
         return view('rpg05')->with('request',$request)
