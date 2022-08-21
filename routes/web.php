@@ -18,6 +18,7 @@ use App\Http\Controllers\Rpg01Controller;
 use App\Http\Controllers\Rpg02Controller;
 use App\Http\Controllers\Rpg03Controller;
 use App\Http\Controllers\Rpg04Controller;
+use App\Http\Controllers\Rpg05Controller;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -174,6 +175,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/rpg/rpg02', [Rpg02Controller::class, 'rpg02'])->middleware(['auth'])->name('rpg02');
     Route::get('/rpg/rpg03', [Rpg03Controller::class, 'rpg03'])->middleware(['auth'])->name('rpg03');
     Route::get('/rpg/rpg04', [Rpg04Controller::class, 'rpg04'])->middleware(['auth'])->name('rpg04');
+    Route::get('/rpg/rpg05', [Rpg05Controller::class, 'rpg05'])->middleware(['auth'])->name('rpg05');
 });
 
 
