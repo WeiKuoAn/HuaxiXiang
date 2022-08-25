@@ -82,9 +82,19 @@ class Rpg05Controller extends Controller
             $sums['sum_total'] += $data['sum_total'];
             $sums['income_total'] += $data['income_total'];
             $sums['pay_total'] += $data['pay_total'];
+            $sums['all_income_total'] = $sums['sum_total'] + $sums['income_total'];
             $sums['total'] = $sums['sum_total'] + $sums['income_total'] - $sums['pay_total'];
-            $sums[$date]['day_total'] = $data['sum_total'] + $data['income_total'] - $data['pay_total'];
+            $sums[$date]['day_income'] = $data['sum_total'] + $data['income_total'];
+            $sums[$date]['day_total'] =  $sums['sum_total'] +  $sums['income_total'] - $sums['pay_total'];
         }
+
+        // foreach($datas as $date=>$data){
+        //     $sums['sum_total'] += $data['sum_total'];
+        //     $sums['income_total'] += $data['income_total'];
+        //     $sums['pay_total'] += $data['pay_total'];
+        //     $sums['total'] = $sums['sum_total'] + $sums['income_total'] - $sums['pay_total'];
+        //     $sums[$date]['day_total'] = $data['sum_total'] + $data['income_total'] - $data['pay_total'];
+        // }
 
         // dd($sums);
 

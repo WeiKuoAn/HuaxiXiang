@@ -39,9 +39,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
-                        <div style="float:right;margin-right:1em;font-size:1.5em;color:red;font-weight:bold;margin-bottom:2em;">
+                        <div style="float:right;margin-right:1em;font-size:1.5em;font-weight:bold;margin-bottom:2em;">
                             @if( $sums['total'] < 0)
-                                <span>共計： {{   number_format($sums['total']) }}元</span>
+                                <span style="color:red;">共計： {{   number_format($sums['total']) }}元</span>
                             @else
                                 <span>共計：+{{   number_format($sums['total']) }}元</span>
                             @endif
@@ -55,6 +55,7 @@
                                     <th scope="col" width="">其他收入</th>
                                     <th scope="col" width="">支出</th>
                                     <th scope="col" width="">當日營收</th>
+                                    <th scope="col" width="">累積淨利</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,8 +66,9 @@
                                             @foreach($datas[$period->format("Y-m-d")] as $data)
                                                 <td>{{ number_format($data) }}</td>
                                             @endforeach
-                                                @if( $sums[$period->format("Y-m-d")]['day_total'] < 0)
-                                                    <td style="color:red;">{{ number_format($sums[$period->format("Y-m-d")]['day_total']) }}</td>
+                                                <td>{{ number_format($sums[$period->format("Y-m-d")]['day_income']) }}</td>
+                                                @if(number_format($sums[$period->format("Y-m-d")]['day_total']) < 0)
+                                                <td style="color: red;">{{ number_format($sums[$period->format("Y-m-d")]['day_total']) }}</td>
                                                 @else
                                                     <td>{{ number_format($sums[$period->format("Y-m-d")]['day_total']) }}</td>
                                                 @endif
@@ -83,11 +85,12 @@
                                     <td>{{  number_format($sums['sum_total']) }}</td>
                                     <td>{{  number_format($sums['income_total']) }}</td>
                                     <td>{{  number_format($sums['pay_total']) }}</td>
-                                        @if( $sums['total'] < 0)
-                                            <td style="color:red;">{{ number_format($sums['total']) }}</td>
-                                        @else
-                                            <td>{{ number_format($sums['total']) }}</td>
-                                        @endif
+                                    <td>{{ number_format($sums['all_income_total']) }}</td>
+                                    @if( number_format($sums['total']) < 0)
+                                        <td>{{ number_format($sums['total']) }}</td>
+                                    @else
+                                        <td>{{  number_format($sums['total']) }}</td>
+                                    @endif
                                 </tr>
                             </tbody>
                         </table>
