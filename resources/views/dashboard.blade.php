@@ -76,7 +76,7 @@
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
                                 <h5 class="card-title"><b>今日營收</b></h5>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
 
                             {{-- <div class="filter">
@@ -130,7 +130,7 @@
                     </div><!-- End Sales Card -->
 
                     <!-- Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
                                 <h5 class="card-title"><b>待對帳單量</b></h5>
@@ -148,7 +148,25 @@
                         </div>
                     </div><!-- End Revenue Card -->
 
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
+                        <div class="card info-card customers-card">
+                            <div class="card-body">
+                                <h5 class="card-title"><b>金紙營收</b></h5>
+
+                                 <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ number_format($gdpaper_month) }}元</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
                                 <h5 class="card-title"><b>當月營收</b></h5>
@@ -166,7 +184,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
                                 <h5 class="card-title"><b>當月支出</b></h5>
@@ -184,8 +202,26 @@
                         </div>
                     </div>
 
+                    <div class="col-xxl-3 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title"><b>營業淨利</b></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6 @if($net_income<0) style="color: red;" @endif>{{ number_format($net_income) }}元</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <!-- Customers Card -->
-                    <div class="col-xxl-4 col-xl-12">
+                    <div class="col-xxl-3 col-xl-12">
 
                         <div class="card info-card customers-card">
                             <div class="card-body">

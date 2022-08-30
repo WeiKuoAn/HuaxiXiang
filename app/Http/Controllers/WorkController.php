@@ -11,6 +11,7 @@ use App\Models\IncomeData;
 use App\Models\Customer;
 use App\Models\Pay;
 use App\Models\PayData;
+use App\Models\Sale_gdpaper;
 use Illuminate\Support\Facades\Auth;
 
 class WorkController extends Controller
@@ -35,9 +36,14 @@ class WorkController extends Controller
         $sale_month = Sale::where('sale_date','>=',$firstDay->format("Y-m-d"))->where('sale_date','<=',$lastDay->format("Y-m-d"))->sum('pay_price');
         $income_month = IncomeData::where('income_date','>=',$firstDay->format("Y-m-d"))->where('income_date','<=',$lastDay->format("Y-m-d"))->sum('price');
         $price_month = $sale_month + $income_month;
+        $gdpaper_month = Sale_gdpaper::where('created_at','>=',$firstDay->format("Y-m-d"))->where('created_at','<=',$lastDay->format("Y-m-d"))->sum('gdpaper_total');
         
         //月支出
         $pay_month = PayData::where('pay_date','>=',$firstDay->format("Y-m-d"))->where('pay_date','<=',$lastDay->format("Y-m-d"))->sum('price');
+        
+        //營業淨利
+        $net_income =  $price_month -  $pay_month;
+
         $income = IncomeData::where('income_date',$today->format("Y-m-d"))->sum('price');
         $total_today_incomes = intval($price) + intval($income);
         $check_sale = Sale::where('status',3)->count();
@@ -48,7 +54,7 @@ class WorkController extends Controller
         if(Auth::user()->status != 1){
             return view('dashboard')->with(['now' => $now, 'work' => $work , 'sale_today'=>$sale_today 
             , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes
-            , 'price_month'=>$price_month , 'pay_month'=>$pay_month]);
+            , 'price_month'=>$price_month , 'pay_month'=>$pay_month , 'net_income'=>$net_income , 'gdpaper_month'=>$gdpaper_month]);
         }else{
             return view('Auth.login');
         }
