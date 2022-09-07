@@ -62,10 +62,10 @@
                                 <div class="col-md-4 mt-3">
                                     <label class="col-sm-12 col-form-label">案件來源</label>
                                     <div class="col-sm-12">
-                                        <select class="form-select" aria-label="Default select example" name="type">
+                                        <select class="form-select" aria-label="Default select example" name="type" disabled="disabled">
                                             <option value="" selected>請選擇</option>
                                             @foreach($sources as $source)
-                                            <option value="{{ $source->code }}" @if($source->code == $sale->type) selected @endif>{{ $source->name }}</option>
+                                            <option value="{{ $source->code }}" @if($source->code == $sale->type) selected @endif >{{ $source->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
