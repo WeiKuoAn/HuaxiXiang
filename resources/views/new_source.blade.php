@@ -31,7 +31,7 @@
                                 @csrf
                                 <div class="col-12">
                                     <label for="inputNanme4" class="form-label">來源代號</label>
-                                    <input type="text" class="form-control" id="code" name="code">
+                                    <input type="text" class="form-control" id="code" name="code" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="inputNanme4" class="form-label">來源名稱</label>
