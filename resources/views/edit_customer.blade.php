@@ -40,19 +40,35 @@
                                     <input type="tel" class="form-control" id="mobile" name="mobile"
                                         value="{{ $customer->mobile }}">
                                 </div>
+                                <div id="twzipcode" class="row g-3">
+                                    <label for="inputEmail4" class="form-label">新地址</label>
+                                    <div class="col-md-2">
+                                        <div data-role="county" data-style="form-control" data-name="county" data-value="{{ $customer->county }}"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div data-role="district" data-style="form-control" data-name="district" data-value="{{ $customer->district }}"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div data-role="zipcode" data-style="form-control" data-name="zipcode" data-value=""></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="輸入地址"  value="{{ $customer->address }}">
+                                    </div>
+                                </div>
+                                
                                 <div class="col-12">
-                                    <label for="inputAddress" class="form-label">地址</label>
-                                    <input type="text" class="form-control" id="address" name="address"
+                                    <label for="inputAddress" class="form-label">舊地址</label>
+                                    <input type="text" class="form-control" id="address" name="old-address"
                                         value="{{ $customer->address }}">
                                 </div>
                                 @if (Auth::user()->level != 2)
-                                    <div class="text-center">
+                                    <div class="text-center mt-5">
                                         <button type="submit" class="btn btn-primary">編輯</button>
                                         <button type="button" class="btn btn-secondary"
                                             onclick="history.go(-1)">回上一頁</button>
                                     </div>
                                 @else
-                                    <div class="text-center mt-2">
+                                    <div class="text-center mt-5">
                                         <button type="button" class="btn btn-secondary"
                                             onclick="history.go(-1)">回上一頁</button>
                                     </div>

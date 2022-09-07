@@ -37,11 +37,22 @@
                                   <label for="inputEmail4" class="form-label">電話</label>
                                   <input type="tel" class="form-control" id="mobile" name="mobile" required>
                                 </div>
-                                <div class="col-12">
-                                  <label for="inputAddress" class="form-label">地址</label>
-                                  <input type="text" class="form-control" id="address" name="address">
+                                <div id="twzipcode" class="row g-3">
+                                    <label for="inputEmail4" class="form-label">地址</label>
+                                    <div class="col-md-2">
+                                        <div data-role="county" data-style="form-control" data-name="county" data-value=""></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div data-role="district" data-style="form-control" data-name="district" data-value=""></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div data-role="zipcode" data-style="form-control" data-name="zipcode" data-value=""></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="輸入地址">
+                                    </div>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-center mt-5">
                                   <button type="submit" class="btn btn-primary">新增</button>
                                   <button type="reset" class="btn btn-secondary">重設</button>
                                 </div>
@@ -55,4 +66,7 @@
         </div><!-- End Right side columns -->
 
     </section>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
+    <script src="{{ asset('js/twzipcode.js') }}"></script>
+    
 @endsection

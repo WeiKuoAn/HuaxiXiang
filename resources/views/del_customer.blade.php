@@ -43,7 +43,7 @@
                                 <div class="col-12">
                                     <label for="inputAddress" class="form-label">地址</label>
                                     <input type="text" class="form-control" id="address" name="address"
-                                        value="{{ $customer->address }}">
+                                        value="{{ $customer->county.$customer->district.$customer->address }}">
                                 </div>
                                 @if (Auth::user()->level != 2)
                                     <div class="text-center">

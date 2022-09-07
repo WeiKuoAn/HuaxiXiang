@@ -152,6 +152,8 @@ class CustomerController extends Controller
         $customer = new Customer;
         $customer->name = $request->name;
         $customer->mobile = $request->mobile;
+        $customer->county = $request->county;
+        $customer->district = $request->district;
         $customer->address = $request->address;
         $customer->created_up = Auth::user()->id;
         $customer->save();
@@ -192,6 +194,8 @@ class CustomerController extends Controller
         $customer = Customer::where('id', $id)->first();
         $customer->name = $request->name;
         $customer->mobile = $request->mobile;
+        $customer->county = $request->county;
+        $customer->district = $request->district;
         $customer->address = $request->address;
         $customer->save();
         return redirect()->route('customer');

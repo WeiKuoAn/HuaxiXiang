@@ -70,7 +70,17 @@
 <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
-    <script src="{{ asset('js/overtime.js') }}"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+    <script src="{{ asset('js/overtime.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#twzipcode").twzipcode();
+
+        });
+    
+       
+      </script>
 
 </html>
