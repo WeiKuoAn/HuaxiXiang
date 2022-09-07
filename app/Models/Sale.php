@@ -59,10 +59,9 @@ class Sale extends Model
         return $this->hasOne('App\Models\PromA', 'id', 'before_prom_id');
     }
 
-    public function type()
+    public function source_type()
     {
-        $sale_type = ['I' => '網路', 'H' => '醫院', 'F' => '朋友', 'O' => '老客戶', 'B' => '禮儀社'];
-        return $sale_type[$this->type];
+        return $this->belongsTo('App\Models\SaleSource', 'type', 'code');
     }
 
     public function pay_type()

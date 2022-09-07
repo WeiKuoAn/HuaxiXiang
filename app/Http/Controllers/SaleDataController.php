@@ -12,6 +12,7 @@ use App\Models\Sale_gdpaper;
 use App\Models\Sale_promB;
 use App\Models\Sale;
 use App\Models\User;
+use App\Models\SaleSource;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -81,12 +82,15 @@ class SaleDataController extends Controller
             $sales = Sale::orderby('sale_date', 'desc')->where('status', '1')->paginate(50);
         }
         $users = User::get();
+        $sources = SaleSource::where('status','up')->get();
+
         return view('sale')->with('sales', $sales)
             ->with('users', $users)
             ->with('request', $request)
             ->with('condition', $condition)
             ->with('price_total', $price_total)
-            ->with('gdpaper_total', $gdpaper_total);
+            ->with('gdpaper_total', $gdpaper_total)
+            ->with('sources',$sources);
     }
 
     public function preson_index(Request $request)
@@ -224,6 +228,7 @@ class SaleDataController extends Controller
      */
     public function create()
     {
+        $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
         $gdpapers = Gdpaper::where('status', 'up')->get();
@@ -233,7 +238,8 @@ class SaleDataController extends Controller
             ->with('plans', $plans)
             ->with('gdpapers', $gdpapers)
             ->with('promAs', $promAs)
-            ->with('promBs', $promBs);
+            ->with('promBs', $promBs)
+            ->with('sources',$sources);;
     }
 
     /**
@@ -312,6 +318,7 @@ class SaleDataController extends Controller
      */
     public function show($id)
     {
+        $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
         $gdpapers = Gdpaper::where('status', 'up')->get();
@@ -327,11 +334,13 @@ class SaleDataController extends Controller
             ->with('promAs', $promAs)
             ->with('promBs', $promBs)
             ->with('sale_promBs', $sale_promBs)
-            ->with('sale_gdpapers', $sale_gdpapers);
+            ->with('sale_gdpapers', $sale_gdpapers)
+            ->with('sources',$sources);;
     }
 
     public function check($id)
     {
+        $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
         $gdpapers = Gdpaper::where('status', 'up')->get();
@@ -347,11 +356,13 @@ class SaleDataController extends Controller
             ->with('promAs', $promAs)
             ->with('promBs', $promBs)
             ->with('sale_promBs', $sale_promBs)
-            ->with('sale_gdpapers', $sale_gdpapers);
+            ->with('sale_gdpapers', $sale_gdpapers)
+            ->with('sources',$sources);;
     }
 
     public function check_update(Request $request, $id)
     {
+        
         $sale = Sale::where('id', $id)->first();
 
         if (Auth::user()->level != 2) {
@@ -462,7 +473,7 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                if ($sale->plan_id != '4'  || $request->gdpaper_id != null) {
+                if ($sale->plan_id != '4'  && $request->gdpaper_id[$i] != null) {
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
                 } else {
                     $gdpaper->gdpaper_total = 0;
@@ -505,7 +516,7 @@ class SaleDataController extends Controller
                 $gdpaper->sale_id = $id;
                 $gdpaper->gdpaper_id = $request->gdpaper_id[$i];
                 $gdpaper->gdpaper_num = $request->gdpaper_num[$i];
-                if ($sale->plan_id != '4' || $request->gdpaper_id != null) {
+                if ($sale->plan_id != '4'  && $request->gdpaper_id[$i] != null) {
                     $gdpaper->gdpaper_total = intval($gdpaper_price->price) * intval($request->gdpaper_num[$i]);
                 } else {
                     $gdpaper->gdpaper_total = 0;
@@ -565,6 +576,7 @@ class SaleDataController extends Controller
 
     public function delete($id)
     {
+        $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
         $gdpapers = Gdpaper::where('status', 'up')->get();
@@ -580,7 +592,8 @@ class SaleDataController extends Controller
             ->with('promAs', $promAs)
             ->with('promBs', $promBs)
             ->with('sale_promBs', $sale_promBs)
-            ->with('sale_gdpapers', $sale_gdpapers);
+            ->with('sale_gdpapers', $sale_gdpapers)
+            ->with('sources',$sources);
     }
     public function destroy($id)
     {

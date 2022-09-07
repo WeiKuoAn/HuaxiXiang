@@ -77,6 +77,11 @@
                 </a>
                 <ul id="other-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
+                        <a href="{{ route('source') }}" class="{{ request()->is('source') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>來源資料</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('plan') }}" class="{{ request()->is('plan') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>方案資料</span>
                         </a>

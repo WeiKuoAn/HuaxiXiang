@@ -61,11 +61,9 @@
                                     <div class="col-sm-12">
                                         <select class="form-select" aria-label="Default select example" name="type">
                                             <option value="" selected>請選擇</option>
-                                            <option value="I">網路</option>
-                                            <option value="H">醫院</option>
-                                            <option value="F">朋友</option>
-                                            <option value="O">老客戶</option>
-                                            <option value="B">禮儀社</option>
+                                            @foreach($sources as $source)
+                                            <option value="{{ $source->code }}">{{ $source->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

@@ -125,7 +125,7 @@
                                         </td>
                                         <td>
                                             @if (isset($sale->type))
-                                                {{ $sale->type() }}
+                                                {{ $sale->source_type->name }}
                                             @endif
                                         </td>
                                         <td>

@@ -19,6 +19,7 @@ use App\Http\Controllers\Rpg02Controller;
 use App\Http\Controllers\Rpg03Controller;
 use App\Http\Controllers\Rpg04Controller;
 use App\Http\Controllers\Rpg05Controller;
+use App\Http\Controllers\SaleSourceController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -96,6 +97,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/new_promB', [PromController::class, 'promB_store'])->name('new-promB.data');
     Route::get('/edit_promB/{id}', [PromController::class, 'promB_show'])->name('edit-promB');
     Route::post('/edit_promB/{id}', [PromController::class, 'promB_update'])->name('edit-promB.data');
+
+    /*案件來源管理 */
+    Route::get('/source', [SaleSourceController::class, 'index'])->name('source');
+    Route::get('/new_source', [SaleSourceController::class, 'create'])->name('new-source');
+    Route::post('/new_source', [SaleSourceController::class, 'store'])->name('new-source.data');
+    Route::get('/edit_source/{id}', [SaleSourceController::class, 'show'])->name('edit-source');
+    Route::post('/edit_source/{id}', [SaleSourceController::class, 'update'])->name('edit-source.data');
 
     /*收入管理 */
     Route::get('/incomes/suject', [IncomeController::class, 'suject_index'])->name('incomes_suject');
