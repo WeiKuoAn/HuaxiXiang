@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomrtGruopController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\GdpaperController;
 use App\Http\Controllers\PromController;
@@ -55,7 +56,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/users-profile/{id}', [UserController::class, 'update'])->name('users-profile.data');
     Route::get('/users-password', [UserController::class, 'password_show'])->name('users-password');
     Route::post('/users-password', [UserController::class, 'password_update'])->name('users-password.data');
+    
     /*客戶管理 */
+    Route::get('/customer/group', [CustomrtGruopController::class, 'index'])->name('customer.group');
+    Route::get('/new_customer_group', [CustomrtGruopController::class, 'create'])->name('new-customer.group');
+    Route::post('/new_customer_group', [CustomrtGruopController::class, 'store'])->name('new-customer.group.data');
+    Route::get('/edit_customer_group/{id}', [CustomrtGruopController::class, 'show'])->name('edit-customer.group');
+    Route::post('/edit_customer_group/{id}', [CustomrtGruopController::class, 'update'])->name('edit-customer.group.data');
+
     Route::get('/cust/customer', [CustomerController::class, 'customer'])->name('cust.customer');
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('/new_customer', [CustomerController::class, 'create'])->name('new-customer');
@@ -176,6 +184,7 @@ Route::group(['middleware' => ['auth']], function () {
     //使用者出勤畫面
     Route::get('/personwork', [WorkController::class, 'personwork'])->middleware(['auth'])->name('personwork');
 
+    
     //報表管理
     Route::get('/rpg/rpg01', [Rpg01Controller::class, 'rpg01'])->middleware(['auth'])->name('rpg01');
     Route::get('/rpg/rpg01/detail/{date}/{plan_id}', [Rpg01Controller::class, 'detail'])->middleware(['auth'])->name('rpg01.detail');

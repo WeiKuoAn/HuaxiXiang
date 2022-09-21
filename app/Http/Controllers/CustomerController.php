@@ -12,6 +12,7 @@ use App\Models\Sale_gdpaper;
 use App\Models\Sale_promB;
 use App\Models\Sale;
 use App\Models\User;
+use App\Models\CustGroup;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
@@ -138,7 +139,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('new_customer');
+        $groups = CustGroup::where('status','up')->get();
+        return view('new_customer')->with('groups',$groups);
     }
 
     /**
@@ -155,6 +157,7 @@ class CustomerController extends Controller
         $customer->county = $request->county;
         $customer->district = $request->district;
         $customer->address = $request->address;
+        $customer->group_id = $request->group_id;
         $customer->created_up = Auth::user()->id;
         $customer->save();
         return redirect()->route('customer');
@@ -168,8 +171,9 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
+        $groups = CustGroup::where('status','up')->get();
         $customer = Customer::where('id', $id)->first();
-        return view('edit_customer')->with('customer', $customer);
+        return view('edit_customer')->with('customer', $customer)->with('groups',$groups);
     }
 
     /**
@@ -197,6 +201,7 @@ class CustomerController extends Controller
         $customer->county = $request->county;
         $customer->district = $request->district;
         $customer->address = $request->address;
+        $customer->group_id = $request->group_id;
         $customer->save();
         return redirect()->route('customer');
     }
@@ -209,8 +214,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
+        $groups = CustGroup::where('status','up')->get();
         $customer = Customer::where('id', $id)->first();
-        return view('del_customer')->with('customer', $customer);
+        return view('del_customer')->with('customer', $customer)->with('groups',$groups);
     }
 
     public function delete($id)

@@ -14,6 +14,14 @@ class Customer extends Model
     protected $fillable = [
         'name',
         'mobile',
-        'address'
+        'county',
+        'district',
+        'address',
+        'created_up',
+        'group_id'
     ];
+    public function group()
+    {
+        return $this->belongsTo('App\Models\CustGroup', 'group_id', 'id');
+    }
 }

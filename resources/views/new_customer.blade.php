@@ -37,6 +37,15 @@
                                   <label for="inputEmail4" class="form-label">電話</label>
                                   <input type="tel" class="form-control" id="mobile" name="mobile" required>
                                 </div>
+                                <div class="col-sm-12">
+                                    <label for="inputEmail4" class="form-label">群組</label>
+                                    <select class="form-select" aria-label="Default select example" name="group_id">
+                                        <option value="" selected>請選擇</option>
+                                        @foreach($groups as $group)
+                                        <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div id="twzipcode" class="row g-3">
                                     <label for="inputEmail4" class="form-label">地址</label>
                                     <div class="col-md-2">

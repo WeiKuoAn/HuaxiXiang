@@ -47,6 +47,7 @@
                                     <th scope="col">編號</th>
                                     <th scope="col">姓名</th>
                                     <th scope="col">電話</th>
+                                    <th scope="col">群組</th>
                                     <th scope="col">新增時間</th>
                                     <th scope="col">動作</th>
                                 </tr>
@@ -57,6 +58,11 @@
                                         <td>{{ $customer->id }}</td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->mobile }}</td>
+                                        <td>
+                                            @if(isset($customer->group_id))
+                                            {{ $customer->group->name }}
+                                            @endif
+                                        </td>
                                         <td>{{ date('Y-m-d', strtotime($customer->created_at)) }}</td>
                                         <td>
                                             @if (Auth::user()->level != 2)

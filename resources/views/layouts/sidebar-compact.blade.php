@@ -64,6 +64,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('customer.group') }}" class="{{ request()->is('customer.group') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>客戶群組</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('customer') }}" class="{{ request()->is('customer') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>客戶資料</span>
                     </a>

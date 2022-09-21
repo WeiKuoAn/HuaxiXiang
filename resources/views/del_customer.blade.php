@@ -40,6 +40,15 @@
                                     <input type="tel" class="form-control" id="mobile" name="mobile"
                                         value="{{ $customer->mobile }}">
                                 </div>
+                                <div class="col-sm-12">
+                                    <label for="inputEmail4" class="form-label">群組</label>
+                                    <select class="form-select" aria-label="Default select example" name="group_id">
+                                        <option value="" selected>請選擇</option>
+                                        @foreach($groups as $group)
+                                        <option value="{{ $group->id }}" @if( $customer->group_id == $group->id ) selected @endif>{{ $group->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="col-12">
                                     <label for="inputAddress" class="form-label">地址</label>
                                     <input type="text" class="form-control" id="address" name="address"
