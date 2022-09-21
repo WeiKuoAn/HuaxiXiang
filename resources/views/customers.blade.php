@@ -59,7 +59,7 @@
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->mobile }}</td>
                                         <td>
-                                            @if(isset($customer->group_id))
+                                            @if(isset($customer->group))
                                             {{ $customer->group->name }}
                                             @endif
                                         </td>
