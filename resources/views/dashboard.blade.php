@@ -72,7 +72,7 @@
             </div>
         </div><!-- End Reports -->
         <div class="row">
-            @if(Auth::user()->level == '0')
+            @if(Auth::user()->level != '2')
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
