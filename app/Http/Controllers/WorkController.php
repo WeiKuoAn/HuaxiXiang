@@ -56,7 +56,7 @@ class WorkController extends Controller
             , 'cust_nums'=>$cust_nums , 'check_sale'=>$check_sale , 'total_today_incomes'=>$total_today_incomes
             , 'price_month'=>$price_month , 'pay_month'=>$pay_month , 'net_income'=>$net_income , 'gdpaper_month'=>$gdpaper_month]);
         }else{
-            return view('Auth.login');
+            return view('auth.login');
         }
        
         
