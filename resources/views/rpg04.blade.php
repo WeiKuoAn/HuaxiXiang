@@ -53,6 +53,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr align="center" style="color: red;">
+                                    <td>總計</td>
+                                    @foreach ($gdpapers as $gdpaper)
+                                        @if(isset($sums[$gdpaper->id]))
+                                            <td>{{ number_format($sums[$gdpaper->id]) }}</td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                    @endforeach
+                                </tr>
                                 @foreach($periods as $period)
                                     <tr align="center">
                                         <td>{{ $period->format("Y-m-d") }}</td>
@@ -65,16 +75,6 @@
                                         @endforeach
                                     </tr>
                                 @endforeach
-                                <tr align="center" style="color: red;">
-                                    <td>總計</td>
-                                    @foreach ($gdpapers as $gdpaper)
-                                        @if(isset($sums[$gdpaper->id]))
-                                            <td>{{ number_format($sums[$gdpaper->id]) }}</td>
-                                        @else
-                                            <td></td>
-                                        @endif
-                                    @endforeach
-                                </tr>
                             </tbody>
                         </table>
                         <!-- End Table with hoverable rows -->
