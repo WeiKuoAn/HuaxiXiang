@@ -38,6 +38,11 @@
                     <input type="text" class="form-control date" id="cust_mobile" name="cust_mobile"
                         value="{{ $request->cust_mobile }}">
                 </div>
+                <div class="col-1">
+                    <label for="pet_name">寶貝名稱</label>
+                    <input type="text" class="form-control date" id="pet_name" name="pet_name"
+                        value="{{ $request->pet_name }}">
+                </div>
                 <div class="col">
                     <label for="after_date">狀態</label>
                     <select id="inputState" class="form-select" name="status" onchange="this.form.submit()">
@@ -89,6 +94,7 @@
                                     <th scope="col">Key單人員</th>
                                     <th scope="col">日期</th>
                                     <th scope="col">客戶</th>
+                                    <th scope="col">寶貝名</th>
                                     <th scope="col">類別</th>
                                     <th scope="col">方案</th>
                                     <th scope="col">金紙</th>
@@ -108,6 +114,11 @@
                                         <td>
                                             @if (isset($sale->customer_id))
                                                 {{ $sale->cust_name->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->pet_name))
+                                                {{ $sale->pet_name }}
                                             @endif
                                         </td>
                                         <td>

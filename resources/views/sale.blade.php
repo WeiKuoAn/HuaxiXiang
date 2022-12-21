@@ -29,16 +29,21 @@
                         value="{{ $request->before_date }}">
                 </div>
                 <div class="col-2">
-                    <label for="sale_on">單號</label>
-                    <input type="text" class="form-control date" id="sale_on" name="sale_on"
-                        value="{{ $request->sale_on }}">
-                </div>
-                <div class="col-2">
                     <label for="cust_mobile">客戶電話</label>
                     <input type="text" class="form-control date" id="cust_mobile" name="cust_mobile"
                         value="{{ $request->cust_mobile }}">
                 </div>
-                <div class="col">
+                <div class="col-1">
+                    <label for="sale_on">單號</label>
+                    <input type="text" class="form-control date" id="sale_on" name="sale_on"
+                        value="{{ $request->sale_on }}">
+                </div>
+                <div class="col-1">
+                    <label for="pet_name">寶貝名稱</label>
+                    <input type="text" class="form-control date" id="pet_name" name="pet_name"
+                        value="{{ $request->pet_name }}">
+                </div>
+                <div class="col-auto">
                     <label for="after_date">業務</label>
                     <select id="inputState" class="form-select" name="user" onchange="this.form.submit()">
                         <option value="null" @if (isset($request->user) || $request->user == '') selected @endif>請選擇</option>
@@ -48,14 +53,14 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <label for="after_date">狀態</label>
                     <select id="inputState" class="form-select" name="status" onchange="this.form.submit()">
                         <option value="not_check" @if (isset($request->status) || $request->status == 'not_check') selected @endif>未對帳</option>
                         <option value="check" @if ($request->status == 'check') selected @endif>已對帳</option>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <label for="after_date">付款方式</label>
                     <select id="inputState" class="form-select" name="pay_id" onchange="this.form.submit()">
                         <option value="" @if (!isset($request->pay_id)) selected @endif>請選擇</option>
@@ -98,6 +103,7 @@
                                     <th scope="col">Key單人員</th>
                                     <th scope="col">日期</th>
                                     <th scope="col">客戶</th>
+                                    <th scope="col">寶貝名</th>
                                     <th scope="col">類別</th>
                                     <th scope="col">方案</th>
                                     <th scope="col">金紙</th>
@@ -121,6 +127,11 @@
                                                 @else
                                                 {{ $sale->customer_id }}
                                                 @endif
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->pet_name))
+                                                {{ $sale->pet_name }}
                                             @endif
                                         </td>
                                         <td>

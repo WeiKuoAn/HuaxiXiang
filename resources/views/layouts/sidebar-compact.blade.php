@@ -1,7 +1,108 @@
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
+        @if (Auth::user()->level != 2 && Auth::user()->status == 0)
+            {{-- 管理員常用 --}}
+            <li class="nav-heading">常用</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('customer') }}"
+                    class="{{ request()->is('customer') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>客戶資料</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-customer') }}"
+                    class="{{ request()->is('new-customer') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>新增客戶</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-sale') }}"
+                    class="{{ request()->is('new-sale') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>業務Key單</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-income') }}"
+                    class="{{ request()->is('new-income') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>收入Key單</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-pay') }}"
+                    class="{{ request()->is('new-pay') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>支出Key單</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('new-cash') }}"
+                    class="{{ request()->is('new-cash') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>零用金Key單</span>
+                </a>
+                <a class="nav-link collapsed" href="{{ route('wait-sale') }}"
+                    class="{{ request()->is('wait-sale') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>業務確認對帳</span>
+                </a>
+            </li>
+        @endif
 
+        {{-- 使用者常用 --}}
+        @if (Auth::user()->level == 2 && Auth::user()->status == 0)
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#sale-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>業務管理</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="sale-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('preson-sale') }}"
+                            class="{{ request()->is('preson-sale') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>查看業務Key單</span>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="{{ route('new-sale') }}"
+                            class="{{ request()->is('new-sale') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i>
+                            <span>業務Key單</span>
+                        </a>
+                        <a href="{{ route('wait-sale') }}"
+                            class="{{ request()->is('wait-sale') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i>
+                            <span>業務待確認對帳</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <a class="nav-link collapsed" href="{{ route('personwork') }}"
+                class="{{ request()->is('personwork') ? 'active' : '' }}">
+                <i class="bi bi-layout-text-window-reverse"></i>
+                <span>出勤狀況</span>
+            </a>
+
+            <li class="nav-item">
+
+            <li class="nav-heading">常用</li>
+            <a class="nav-link collapsed" href="{{ route('customer') }}"
+                class="{{ request()->is('customer') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>客戶資料</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('new-customer') }}"
+                class="{{ request()->is('new-customer') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>新增客戶</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('new-sale') }}"
+                class="{{ request()->is('new-sale') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>業務Key單</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('user-wait-sale') }}"
+                class="{{ request()->is('wait-sale') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>業務待確認對帳</span>
+            </a>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link " href="{{ route('dashboard') }}"
                 class="{{ request()->is('dashboard') ? 'active' : '' }}">
@@ -275,110 +376,7 @@
             @endif
         @endif
 
-        @if (Auth::user()->level != 2 && Auth::user()->status == 0)
-            {{-- 管理員常用 --}}
-            <li class="nav-heading">常用</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('new-sale') }}"
-                    class="{{ request()->is('new-sale') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>業務Key單</span>
-                </a>
-                <a class="nav-link collapsed" href="{{ route('new-income') }}"
-                    class="{{ request()->is('new-income') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>收入Key單</span>
-                </a>
-                <a class="nav-link collapsed" href="{{ route('new-pay') }}"
-                    class="{{ request()->is('new-pay') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>支出Key單</span>
-                </a>
-                <a class="nav-link collapsed" href="{{ route('new-cash') }}"
-                    class="{{ request()->is('new-cash') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>零用金Key單</span>
-                </a>
-                <a class="nav-link collapsed" href="{{ route('customer') }}"
-                    class="{{ request()->is('customer') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>客戶資料</span>
-                </a>
-                <a class="nav-link collapsed" href="{{ route('new-customer') }}"
-                    class="{{ request()->is('new-customer') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>新增客戶</span>
-                </a>
-
-
-                <a class="nav-link collapsed" href="{{ route('wait-sale') }}"
-                    class="{{ request()->is('wait-sale') ? 'active' : '' }}">
-                    <i class="bi bi-journal-text"></i>
-                    <span>業務確認對帳</span>
-                </a>
-            </li>
-        @endif
-
-        {{-- 使用者常用 --}}
-        @if (Auth::user()->level == 2 && Auth::user()->status == 0)
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#sale-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>業務管理</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="sale-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('preson-sale') }}"
-                            class="{{ request()->is('preson-sale') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>查看業務Key單</span>
-                        </a>
-                    </li>
-                    <li>
-
-                        <a href="{{ route('new-sale') }}"
-                            class="{{ request()->is('new-sale') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i>
-                            <span>業務Key單</span>
-                        </a>
-                        <a href="{{ route('wait-sale') }}"
-                            class="{{ request()->is('wait-sale') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i>
-                            <span>業務待確認對帳</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <a class="nav-link collapsed" href="{{ route('personwork') }}"
-                class="{{ request()->is('personwork') ? 'active' : '' }}">
-                <i class="bi bi-layout-text-window-reverse"></i>
-                <span>出勤狀況</span>
-            </a>
-
-            <li class="nav-item">
-
-            <li class="nav-heading">常用</li>
-            <a class="nav-link collapsed" href="{{ route('customer') }}"
-                class="{{ request()->is('customer') ? 'active' : '' }}">
-                <i class="bi bi-journal-text"></i>
-                <span>客戶資料</span>
-            </a>
-            <a class="nav-link collapsed" href="{{ route('new-customer') }}"
-                class="{{ request()->is('new-customer') ? 'active' : '' }}">
-                <i class="bi bi-journal-text"></i>
-                <span>新增客戶</span>
-            </a>
-            <a class="nav-link collapsed" href="{{ route('new-sale') }}"
-                class="{{ request()->is('new-sale') ? 'active' : '' }}">
-                <i class="bi bi-journal-text"></i>
-                <span>業務Key單</span>
-            </a>
-            <a class="nav-link collapsed" href="{{ route('user-wait-sale') }}"
-                class="{{ request()->is('wait-sale') ? 'active' : '' }}">
-                <i class="bi bi-journal-text"></i>
-                <span>業務待確認對帳</span>
-            </a>
-            </li>
-        @endif
+        
 
         {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="users-profile.html">

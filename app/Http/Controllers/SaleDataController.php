@@ -51,6 +51,19 @@ class SaleDataController extends Controller
                 $customer = Customer::where('mobile', $cust_mobile)->first();
                 $sales = $sales->where('customer_id', $customer->id);
             }
+
+            $pet_name = $request->pet_name;
+            if ($pet_name) {
+                $pet_name = $request->pet_name.'%';
+                $sales = $sales->where('pet_name', 'like' ,$pet_name);
+            }
+
+            $pet_name = $request->pet_name;
+            if ($pet_name) {
+                $pet_name = $request->pet_name.'%';
+                $sales = $sales->where('pet_name', 'like' ,$pet_name);
+            }
+
             $user = $request->user;
             if ($user != "null") {
                 if (isset($user)) {

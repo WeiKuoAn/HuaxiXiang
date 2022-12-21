@@ -14,21 +14,35 @@
     <section class="section dashboard">
         <form action="{{ route('customer') }}" method="get">
             @csrf
-            <div class="row g-4">
-                <div class="col-md-2">
-                    <label for="name">客戶姓名</label>
-                    <input type="text" class="form-control date" id="name" name="name"
-                        value="{{ $request->name }}">
-                </div>
-                <div class="col-md-2">
-                    <label for="mobile">客戶電話</label>
-                    <input type="text" class="form-control date" id="mobile" name="mobile"
-                        value="{{ $request->mobile }}">
-                </div>
-                <div class="col-md-2">
-                    <div style="margin-top: 22px;">
-                        <label for="after_date">&nbsp;</label>
-                        <button type="submit" class="btn btn-danger">查詢</button>
+            <div class="row">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="col-auto">
+                            <label for="name">客戶姓名</label>
+                            <input type="text" class="form-control date" id="name" name="name"
+                                value="{{ $request->name }}">
+                        </div>
+                    </div> 
+                    <div class="col-2">  
+                        <div class="col-auto">
+                            <label for="mobile">客戶電話</label>
+                            <input type="text" class="form-control date" id="mobile" name="mobile"
+                                value="{{ $request->mobile }}">
+                        </div>
+                    </div>  
+                    <div class="col-2">   
+                        <div class="col-auto">
+                            <div style="margin-top: 22px;">
+                                <label for="after_date">&nbsp;</label>
+                                <button type="submit" class="btn btn-danger">查詢</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-6">
+                        <h2 class="card-title" style="font-size: 1.6em;text-align:right;">
+                            <a href="{{ route('new-customer') }}"><button
+                                type="button" class="btn btn-dark">新增會員</button></a>
+                        </h2>
                     </div>
                 </div>
             </div>

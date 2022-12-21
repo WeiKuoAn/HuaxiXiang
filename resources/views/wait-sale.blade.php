@@ -30,6 +30,7 @@
                                     <th scope="col">Key單人員</th>
                                     <th scope="col">日期</th>
                                     <th scope="col">客戶</th>
+                                    <th scope="col">寶貝名</th>
                                     <th scope="col">類別</th>
                                     <th scope="col">方案</th>
                                     <th scope="col">金紙</th>
@@ -49,6 +50,11 @@
                                         <td>
                                             @if (isset($sale->customer_id))
                                                 {{ $sale->cust_name->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (isset($sale->pet_name))
+                                                {{ $sale->pet_name }}
                                             @endif
                                         </td>
                                         <td>
