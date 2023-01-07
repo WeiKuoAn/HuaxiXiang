@@ -21,4 +21,9 @@ class PayItem extends Model
         'vender_id',
     ];
 
+    public function vender_data()
+    {
+        return $this->belongsTo('App\Models\Vender', 'vender_id', 'id');
+    }
+
 }

@@ -188,7 +188,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/personwork', [WorkController::class, 'personwork'])->middleware(['auth'])->name('personwork');
 
     //廠商管理
-    Route::get('/vender/number', [VenderController::class, 'number'])->middleware(['auth'])->name('vender.number');
+    Route::get('pay/vender/number', [VenderController::class, 'number'])->middleware(['auth'])->name('vender.number');
     Route::get('/vender', [VenderController::class, 'index'])->middleware(['auth'])->name('vender');
     Route::get('/vender/new_data', [VenderController::class, 'create'])->name('new-vender');
     Route::post('/vender/new_data', [VenderController::class, 'store'])->name('new-vender.data');

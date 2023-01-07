@@ -98,7 +98,9 @@
                                                 </select>
                                             </td>
                                             <td>
-                                            <input id="vendor-{{ $key }}" class="form-control" type="text" name="vender_id[]" value="{{ $item->vender_id }}">
+                                                <input list="vender_number_list_q" class="form-control" id="vendor-{{ $key }}" name="vender_id[]" placeholder="請輸入統編號碼" value="{{ $item->vender_data->name }}">
+                                                <datalist id="vender_number_list_q">
+                                                </datalist>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -176,15 +178,35 @@
             $newRow += '</select>';
             $newRow += '</td>';
             $newRow += '<td>';
-            $newRow += '<input id="vendor-'+$rowCount+'" class="form-control" type="text" name="vender_id[]" value="">';
+            $newRow += '<input list="vender_number_list_q" class="form-control" id="vendor-'+$rowCount+'" name="vender_id[]" placeholder="請輸入統編號碼">';
+            $newRow += '<datalist id="vender_number_list_q">';
+            $newRow += '</datalist>';
             $newRow += '</td>';
             $newRow += '</tr>';
 
             $lastRow.after($newRow); //add in the new row at the end
         });
+        $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
     });
     </script>
-    <script>
-        // $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-    </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                rowCount = $('#cart tr').length - 1;
+                for(var i = 0; i < rowCount; i++)
+                {
+                    $('#vendor-'+i).keydown(function() {
+                        $value=$(this).val();
+                        $.ajax({
+                        type : 'get',
+                        url : '{{ route('vender.number') }}',
+                        data:{'number':$value},
+                        success:function(data){
+                            $('#vender_number_list_q').html(data);
+                        }
+                        });
+                        console.log($value);
+                    });
+                }
+            });
+        </script>
 @endsection

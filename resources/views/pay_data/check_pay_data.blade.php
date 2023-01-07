@@ -96,7 +96,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                            <input id="vendor-{{ $key }}" class="form-control" type="text" name="vender_id[]" value="{{ $item->vender_id }}">
+                                            <input id="vendor-{{ $key }}" class="form-control" type="text" name="vender_id[]" value="{{ $item->vender_data->name }}">
                                             </td>
                                         </tr>
                                     @endforeach

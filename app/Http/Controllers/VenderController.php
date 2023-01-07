@@ -4,24 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vender;
-use App\Models\Customer;
 
 class VenderController extends Controller
 {
-    // public function customer(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $output = "";
-    //         $custs = Customer::where('name', 'like', $request->cust_name . '%')->get();
+    public function number(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = "";
+            $venders = Vender::where('number', 'like', $request->number . '%')->get();
 
-    //         if($custs){
-    //             foreach ($custs as $key => $cust) {
-    //                 $output.=  '<option value="'.$cust->id.'" label="('.$cust->name.')-'.$cust->mobile.'">';
-    //               }
-    //         }
-    //         return Response($output);
-    //     }
-    // }
+            if($venders){
+                foreach ($venders as $key => $vender) {
+                    $output.=  '<option value="'.$vender->id.'" label="('.$vender->name.')-'.$vender->number.'">';
+                  }
+            }
+            return Response($output);
+        }
+    }
     public function index()
     {
         $datas = Vender::paginate(50);
