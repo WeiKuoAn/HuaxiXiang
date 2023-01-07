@@ -97,9 +97,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                                <input list="cust_name_list_q" class="form-control" id="cust_name_q" name="cust_name_q" placeholder="請輸入客戶姓名">
-                                                <datalist id="cust_name_list_q">
-                                                </datalist>
+                                            <input id="vendor-{{ $i }}" class="form-control" type="text" name="vender_id[]" value="">
                                             </td>
                                         </tr>
                                     @endfor
@@ -147,7 +145,6 @@
                 }
                 console.log(pay_total);
             });
-
             
 
             
@@ -183,22 +180,8 @@
 
                 $lastRow.after($newRow); //add in the new row at the end
             });
+            $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         });
     </script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $( "#cust_name_q" ).keydown(function() {
-            $value=$(this).val();
-            $.ajax({
-            type : 'get',
-            url : 'cust/customer',
-            data:{'cust_name':$value},
-            success:function(data){
-                $('#cust_name_list_q').html(data);
-            }
-            });
-            console.log($value);
-        });
-    });
-</script>
+    
 @endsection
