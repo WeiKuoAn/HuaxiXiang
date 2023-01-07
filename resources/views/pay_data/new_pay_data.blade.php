@@ -60,7 +60,7 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">購買清單</h5>
+                            <h5 class="card-title">發票清單</h5>
                             <div class="table-responsive">
                                 <table id="cart" class="table table-striped">
                                     <thead>
