@@ -5,7 +5,7 @@
         <h1>廠商管理</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">廠商管理</li>
+                <li class="breadcrumb-item">其他管理</li>
                 <li class="breadcrumb-item active">廠商統編</li>
             </ol>
         </nav>
