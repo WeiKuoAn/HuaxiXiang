@@ -28,17 +28,19 @@
                     <input type="date" class="form-control date" id="before_date" name="before_date"
                         value="{{ $request->before_date }}">
                 </div>
-                <div class="col-2">
+                <div class="col-auto">
                     <label for="cust_mobile">客戶電話</label>
                     <input type="text" class="form-control date" id="cust_mobile" name="cust_mobile"
-                        value="{{ $request->cust_mobile }}">
+                        value="{{ $request->cust_mobile }}" >
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <label for="sale_on">單號</label>
                     <input type="text" class="form-control date" id="sale_on" name="sale_on"
                         value="{{ $request->sale_on }}">
                 </div>
-                <div class="col-1">
+            </div>
+             <div class="row col-lg-12 mb-4 mt-4">
+                <div class="col-auto">
                     <label for="pet_name">寶貝名稱</label>
                     <input type="text" class="form-control date" id="pet_name" name="pet_name"
                         value="{{ $request->pet_name }}">
@@ -50,6 +52,16 @@
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}" @if ($request->user == $user->id) selected @endif>
                                 {{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="after_date">方案</label>
+                    <select id="inputState" class="form-select" name="plan" onchange="this.form.submit()">
+                        <option value="null" @if (isset($request->plan) || $request->plan == '') selected @endif>請選擇</option>
+                        @foreach ($plans as $plan)
+                            <option value="{{ $plan->id }}" @if ($request->plan == $plan->id) selected @endif>
+                                {{ $plan->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -70,10 +82,18 @@
                         <option value="D" @if ($request->pay_id == 'D') selected @endif>尾款</option>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <div style="margin-top: 22px;">
                         <label for="after_date">&nbsp;</label>
                         <button type="submit" class="btn btn-danger">查詢</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="margin-top: 22px; text-align:right;">
+                        <label for="after_date">&nbsp;</label>
+                        <a href="{{ route('new-pay') }}">
+                            <button type="button" class="btn btn-outline-dark">新增支出單</button>
+                        </a>
                     </div>
                 </div>
             </div>

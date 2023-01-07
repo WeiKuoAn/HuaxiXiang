@@ -45,7 +45,8 @@ Route::get('/index', function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/dashboard', [WorkController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard_index', [WorkController::class, 'index'])->name('dashboard_index');
+    Route::get('/dashboard', [WorkController::class, 'loginSuccess'])->name('dashboard');
     Route::post('/dashboard', [WorkController::class, 'store'])->name('dashboard.worktime');
     /*用戶管理 */
     Route::get('/users', [UserController::class, 'index'])->name('users');
@@ -149,6 +150,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/pay/new_data', [PayDataController::class, 'store'])->name('new-pay.data');
     Route::get('/pay/edit_data/{id}', [PayDataController::class, 'show'])->name('edit-pay');
     Route::post('/pay/edit_data/{id}', [PayDataController::class, 'update'])->name('edit-pay.data');
+    Route::get('/pay/check_data/{id}', [PayDataController::class, 'check'])->name('check-pay');
     Route::get('/pay/del_data/{id}', [PayDataController::class, 'delshow'])->name('del-pay');
     Route::post('/pay/del_data/{id}', [PayDataController::class, 'delete'])->name('del-pay.data');
 

@@ -21,6 +21,9 @@ class WorkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function loginSuccess(){
+        return view('dashboard_index');
+    }
     public function index()
     {
 

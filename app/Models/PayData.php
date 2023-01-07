@@ -24,4 +24,9 @@ class PayData extends Model
     public function user_name(){
         return $this->hasOne('App\Models\User','id','user_id');
     }
+
+    public function pay_items(){
+        return $this->hasMany('App\Models\PayItem','pay_data_id','id');
+    }
+
 }

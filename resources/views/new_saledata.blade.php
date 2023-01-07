@@ -221,7 +221,7 @@
         </div>
 
     </form>
-    <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
+    
     <script>
         $(document).ready(function(){
             var i=1;

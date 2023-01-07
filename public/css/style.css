@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: '微軟正黑體';
   background: #f6f9ff;
   color: #444444;
 }
@@ -53,6 +53,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
 }
 .pagetitle h1 {
+  font-family: '微軟正黑體';
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
@@ -290,7 +291,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Breadcrumbs */
 .breadcrumb {
   font-size: 14px;
-  font-family: "Nunito", sans-serif;
+  font-family: '微軟正黑體';
   color: #899bbd;
   font-weight: 600;
 }
@@ -344,7 +345,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .logo span {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 500;
   color: #012970;
   font-family: "Nunito", sans-serif;
 }

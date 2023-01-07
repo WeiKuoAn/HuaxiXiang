@@ -30,6 +30,13 @@
                                 value="{{ $request->mobile }}">
                         </div>
                     </div>  
+                    <div class="col-2">  
+                        <div class="col-auto">
+                            <label for="pet_name">寶貝名稱</label>
+                            <input type="text" class="form-control date" id="pet_name" name="pet_name"
+                                value="{{ $request->pet_name }}">
+                        </div>
+                    </div>  
                     <div class="col-2">   
                         <div class="col-auto">
                             <div style="margin-top: 22px;">
@@ -38,10 +45,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 col-md-6">
+                    <div class="col-4">
                         <h2 class="card-title" style="font-size: 1.6em;text-align:right;">
                             <a href="{{ route('new-customer') }}"><button
-                                type="button" class="btn btn-dark">新增會員</button></a>
+                                type="button" class="btn btn-outline-dark">新增會員</button></a>
                         </h2>
                     </div>
                 </div>
@@ -61,6 +68,7 @@
                                     <th scope="col">編號</th>
                                     <th scope="col">姓名</th>
                                     <th scope="col">電話</th>
+                                    <th scope="col">寶貝名稱</th>
                                     <th scope="col">群組</th>
                                     <th scope="col">新增時間</th>
                                     <th scope="col">動作</th>
@@ -72,6 +80,13 @@
                                         <td>{{ $customer->id }}</td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->mobile }}</td>
+                                        <td>
+                                            @if(isset($customer->sale_datas))
+                                                @foreach ($customer->sale_datas as $sale_data)
+                                                    {{ $sale_data->pet_name }}<br>
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td>
                                             @if(isset($customer->group))
                                             {{ $customer->group->name }}

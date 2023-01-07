@@ -3,6 +3,13 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         @if (Auth::user()->level != 2 && Auth::user()->status == 0)
             {{-- 管理員常用 --}}
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('dashboard_index') }}"
+                    class="{{ request()->is('dashboard') ? 'active' : '' }}">
+                    <i class="bi bi-grid"></i>
+                    <span>當月總表</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
             <li class="nav-heading">常用</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('customer') }}"
@@ -103,13 +110,7 @@
             </a>
             </li>
         @endif
-        <li class="nav-item">
-            <a class="nav-link " href="{{ route('dashboard') }}"
-                class="{{ request()->is('dashboard') ? 'active' : '' }}">
-                <i class="bi bi-grid"></i>
-                <span>首頁</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
+        
         @if (Auth::user()->level != 2)
          @if(Auth::user()->level == 0)
             <li class="nav-item">

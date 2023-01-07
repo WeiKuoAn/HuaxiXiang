@@ -60,10 +60,6 @@
                                             @endif
                                             <a href="{{ route('user-sale', $user->id) }}"><button type="button"
                                                     class="btn btn-primary btn-sm">查看業務單</button></a>
-                                            @if(Auth::user()->level == 0)
-                                            <a href="{{ route('userwork', $user->id) }}"><button type="button"
-                                                    class="btn btn-success btn-sm">出勤狀況</button></a>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

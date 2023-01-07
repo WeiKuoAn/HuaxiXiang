@@ -48,8 +48,16 @@ class SaleDataController extends Controller
             }
             $cust_mobile = $request->cust_mobile;
             if ($cust_mobile) {
-                $customer = Customer::where('mobile', $cust_mobile)->first();
-                $sales = $sales->where('customer_id', $customer->id);
+                $cust_mobile = $request->cust_mobile.'%';
+                $customers = Customer::where('mobile', 'like' ,$cust_mobile)->get();
+                foreach($customers as $customer) {
+                    $customer_ids[] = $customer->id;
+                }
+                if(isset($customer_ids)){
+                    $sales = $sales->whereIn('customer_id', $customer_ids);
+                }else{
+                    $sales = $sales;
+                }
             }
 
             $pet_name = $request->pet_name;
@@ -72,6 +80,16 @@ class SaleDataController extends Controller
                     $sales = $sales;
                 }
             }
+
+            $plan = $request->plan;
+            if ($plan != "null") {
+                if (isset($plan)) {
+                    $sales = $sales->where('plan_id', $plan);
+                } else {
+                    $sales = $sales;
+                }
+            }
+
             $pay_id = $request->pay_id;
             if ($pay_id) {
                 $sales = $sales->where('pay_id', $pay_id);
@@ -96,6 +114,7 @@ class SaleDataController extends Controller
         }
         $users = User::get();
         $sources = SaleSource::where('status','up')->get();
+        $plans = Plan::where('status','up')->get();
 
         return view('sale')->with('sales', $sales)
             ->with('users', $users)
@@ -103,7 +122,8 @@ class SaleDataController extends Controller
             ->with('condition', $condition)
             ->with('price_total', $price_total)
             ->with('gdpaper_total', $gdpaper_total)
-            ->with('sources',$sources);
+            ->with('sources',$sources)
+            ->with('plans',$plans);
     }
 
     public function preson_index(Request $request)
@@ -316,11 +336,9 @@ class SaleDataController extends Controller
         $sale->total = $this->total();
         $sale->save();
 
-        if (Auth::user()->level != 2) {
-            return redirect()->route('sale');
-        } else {
-            return redirect()->route('preson-sale');
-        }
+        
+        return redirect()->route('new-sale');
+        
     }
 
     /**

@@ -24,4 +24,9 @@ class Customer extends Model
     {
         return $this->belongsTo('App\Models\CustGroup', 'group_id', 'id');
     }
+
+    public function sale_datas()
+    {
+        return $this->hasMany('App\Models\Sale', 'customer_id', 'id')->select('pet_name')->distinct();
+    }
 }

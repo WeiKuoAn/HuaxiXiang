@@ -44,16 +44,32 @@ class CustomerController extends Controller
 
         $customers = Customer::paginate(30);
         if ($request) {
-            $name = $request->name . '%';
+            $name = $request->name;
             if (!empty($name)) {
+                $name = $request->name . '%';
                 $customers = Customer::where('name', 'like', $name)->paginate(30);
             }
-            $mobile = $request->mobile . '%';
+            $mobile = $request->mobile;
             if (!empty($mobile)) {
+                $mobile = $request->mobile . '%';
                 $customers = Customer::where('mobile', 'like', $mobile)->paginate(30);
             }
-            if (!empty($name) && !empty($mobile)) {
-                $customers = Customer::where('name', 'like', $name)->where('mobile', 'like', $mobile)->paginate(30);
+            $pet_name = $request->pet_name;
+            if (!empty($pet_name)) {
+                $pet_name = $request->pet_name . '%';
+                $sales  = Sale::where('pet_name', 'like', $pet_name)->get();
+                foreach($sales as $sale){
+                    $customer_ids[] = $sale->customer_id;
+                }
+                $customers = Customer::whereIn('id', $customer_ids)->paginate(30);
+            }
+            if (!empty($name) && !empty($mobile) && !empty($pet_name)) {
+                $pet_name = $request->pet_name . '%';
+                $sales  = Sale::where('pet_name', 'like', $pet_name)->get();
+                foreach($sales as $sale){
+                    $customer_ids[] = $sale->customer_id;
+                }
+                $customers = Customer::where('name', 'like', $name)->where('mobile', 'like', $mobile)->whereIn('id', $customer_ids)->paginate(30);
             }
             $condition = $request->all();
         } else {

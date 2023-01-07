@@ -51,12 +51,20 @@
                         <button type="submit" class="btn btn-danger">查詢</button>
                     </div>
                 </div>
+                <div class="col">
+                    <div style="margin-top: 22px; text-align:right;">
+                        <label for="after_date">&nbsp;</label>
+                        <a href="{{ route('new-pay') }}">
+                            <button type="button" class="btn btn-outline-dark">新增支出單</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         </form>
         <!-- Left side columns -->
         <div class="col-lg-12 mx-auto">
             <div class="row">
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-12">
@@ -70,10 +78,11 @@
                                 <tr>
                                     <th scope="col">支出日期</th>
                                     <th scope="col">支出科目</th>
-                                    <th scope="col">價格</th>
-                                    <th scope="col">備註</th>
-                                    <th scope="col">Key單人員</th>
-                                    <th scope="col">動作</th>
+                                    <th scope="col" width="20%">發票號碼</th>
+                                    <th scope="col">支出總價格</th>
+                                    <th scope="col" width="15%">備註</th>
+                                    <th scope="col">瀏覽</th>
+                                    <th scope="col" width="10%">動作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,16 +90,28 @@
                                     <tr>
                                         <td>{{ $data->pay_date }}</td>
                                         <td>{{ $data->pay_name->name }}</td>
+                                        <td>
+                                            @if(isset($data->pay_items))
+                                                @foreach ($data->pay_items as $item)
+                                                    <b>{{ $item->invoice_number }}</b> - ${{ number_format($item->price) }}<br>
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td>{{ number_format($data->price) }}</td>
                                         <td>{{ $data->comment }}</td>
-                                        <td>{{ $data->user_name->name }}</td>
+                                        <td>
+                                            <a href="{{ route('check-pay', $data->id) }}">
+                                                <i style="font-size: 2em;color:gray;" class="bx bxs-file"></i>
+                                            </a>
+                                        </td>
                                         <td>
                                             <a href="{{ route('edit-pay', $data->id) }}"><button type="button"
-                                                    class="btn btn-primary btn-sm">修改</button></a>
+                                                    class="btn btn-secondary btn-sm"><i class="bx bxs-edit" >編輯</i></button></a>
                                             <a href="{{ route('del-pay', $data->id) }}"><button type="button"
-                                                    class="btn btn-danger btn-sm">刪除</button></a>
+                                                    class="btn btn-danger btn-sm"><i class="bx bxs-trash" >刪除</i></button></a>
                                         </td>
                                     </tr>
+                                </a>
                                 @endforeach
                             </tbody>
                         </table>
