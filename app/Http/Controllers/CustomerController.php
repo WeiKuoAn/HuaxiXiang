@@ -31,7 +31,6 @@ class CustomerController extends Controller
             }
             return Response($output);
         }
-       
     }
 
     /**

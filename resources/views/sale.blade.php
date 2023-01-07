@@ -91,8 +91,8 @@
                 <div class="col">
                     <div style="margin-top: 22px; text-align:right;">
                         <label for="after_date">&nbsp;</label>
-                        <a href="{{ route('new-pay') }}">
-                            <button type="button" class="btn btn-outline-dark">新增支出單</button>
+                        <a href="{{ route('new-sale') }}">
+                            <button type="button" class="btn btn-outline-dark">新增業務單</button>
                         </a>
                     </div>
                 </div>

@@ -12,6 +12,8 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+        <form class="row g-3  pb-1" action="{{ route('edit-pay.data',$data->id) }}" method="POST">
+
         <div class="row">
 
             <!-- Left side columns -->
@@ -25,7 +27,6 @@
                     @endif --}}
                     <div class="card">
                         <div class="card-body">
-                            <form class="row g-3  pb-1" action="{{ route('edit-pay.data',$data->id) }}" method="POST">
                             @csrf
                             <h5 class="card-title pb-0">支出總單</h5><hr>
                             <table class="table table-striped mt-1">
@@ -114,14 +115,14 @@
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">編輯</button>
+                        <button type="submit" class="btn btn-primary" id="btn_submit">編輯</button>
                         <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                     </div>
-                    </form>
                 </div>
             </div><!-- End News & Updates -->
 
         </div><!-- End Right side columns -->
+    </form>
 
     </section>
     <script>
@@ -130,39 +131,60 @@
             $('#row-'+$number).remove();
         }
 
+        $(document).ready(function(){
+
+            $("#btn_submit").click(function(){
+                rowCount = $('#cart tr').length - 1;
+                total_price = $("#price").val();
+                pay_total = 0;
+                for(var i = 0; i < rowCount; i++)
+                {
+                    pay_total += parseInt($('#pay_price-'+i).val(),10);
+
+                    // pay_total+= Number($('#pay_price-'+$rowCount).val());
+                }
+                if(total_price != pay_total){
+                    alert('金額錯誤！');
+                    return false;
+                }
+                console.log(pay_total);
+            });
             
-        $("#add_row").click(function(){
-                $rowCount = $('#cart tr').length - 1;
-                var $lastRow = $("#cart tr:last"); //grab row before the last row
+            $("#add_row").click(function(){
+            $rowCount = $('#cart tr').length - 1;
+            var $lastRow = $("#cart tr:last"); //grab row before the last row
 
-                $newRow = '<tr id="row-'+$rowCount+'">';
-                $newRow += '<td>';
-                                         
-                $newRow += '<button class="btn btn-primary del-row" alt="'+$rowCount+'" type="button" name="button" onclick="del_row(this)">刪除</button>';
-                $newRow += '</td>';
-                $newRow += '<td scope="row">';
-                $newRow += '<input id="pay_date-'+$rowCount+'" alt="'+$rowCount+'" class="form-control" type="date" name="pay_data_date[]" value="" required>';
-                $newRow += '</td>';
-                $newRow += '<td>';
-                $newRow += '<input id="pay_invoice-'+$rowCount+'" class="form-control" type="text" name="pay_invoice_number[]" value="" required>';
-                $newRow += '</td>';
-                $newRow += '<td>';
-                $newRow += '<input id="pay_price-'+$rowCount+'" class="form-control" type="text" name="pay_price[]" value="" required>';
-                $newRow += '</td>';
-                $newRow += '<td>';
-                $newRow += '<select i;d;="pay_invoice_type-'+$rowCount+'" class="form-select" aria-label="Default select example" name="pay_invoice_type[]">';
-                $newRow += '<option value="" selected>請選擇</option>';
-                $newRow += '<option value="FreeUniform" >免用統一發票</option>';
-                $newRow += '<option value="Uniform" >統一發票</option>';
-                $newRow += '<option value="Other" >其他</option>';
-                $newRow += '</select>';
-                $newRow += '</td>';
-                $newRow += '<td>';
-                $newRow += '<input id="vendor-'+$rowCount+'" class="form-control" type="text" name="vender_id[]" value="">';
-                $newRow += '</td>';
-                $newRow += '</tr>';
+            $newRow = '<tr id="row-'+$rowCount+'">';
+            $newRow += '<td>';    
+            $newRow += '<button class="btn btn-primary del-row" alt="'+$rowCount+'" type="button" name="button" onclick="del_row(this)">刪除</button>';
+            $newRow += '</td>';
+            $newRow += '<td scope="row">';
+            $newRow += '<input id="pay_date-'+$rowCount+'" class="form-control" type="date" name="pay_data_date[]" value="" required>';
+            $newRow += '</td>';
+            $newRow += '<td>';
+            $newRow += '<input id="pay_invoice-'+$rowCount+'" class="form-control" type="text" name="pay_invoice_number[]" value="" required>';
+            $newRow += '</td>';
+            $newRow += '<td>';
+            $newRow += '<input id="pay_price-'+$rowCount+'" class="form-control" type="text" name="pay_price[]" value="" required>';
+            $newRow += '</td>';
+            $newRow += '<td>';
+            $newRow += '<select id="pay_invoice_type-'+$rowCount+'" class="form-select" aria-label="Default select example" name="pay_invoice_type[]">';
+            $newRow += '<option value="" selected>請選擇</option>';
+            $newRow += '<option value="FreeUniform" >免用統一發票</option>';
+            $newRow += '<option value="Uniform" >統一發票</option>';
+            $newRow += '<option value="Other" >其他</option>';
+            $newRow += '</select>';
+            $newRow += '</td>';
+            $newRow += '<td>';
+            $newRow += '<input id="vendor-'+$rowCount+'" class="form-control" type="text" name="vender_id[]" value="">';
+            $newRow += '</td>';
+            $newRow += '</tr>';
 
-                $lastRow.after($newRow); //add in the new row at the end
+            $lastRow.after($newRow); //add in the new row at the end
         });
+    });
+    </script>
+    <script>
+        // $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
     </script>
 @endsection

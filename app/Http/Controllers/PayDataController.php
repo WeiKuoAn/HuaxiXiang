@@ -69,7 +69,7 @@ class PayDataController extends Controller
     }
 
     public function store(Request $request){
-        dd($request->pay_data_date);
+        // dd($request->pay_data_date);
 
         $PayData = new PayData();
         $PayData->pay_date = $request->pay_date;
@@ -99,7 +99,7 @@ class PayDataController extends Controller
             }
         }
 
-        return redirect()->route('pays');
+        return redirect()->route('new-pay');
     }
 
     public function show($id){
@@ -116,6 +116,8 @@ class PayDataController extends Controller
 
     public function update(Request $request,$id){
 
+        // dd($request->pay_data_date);
+
         $pay = PayData::where('id',$id)->first();
         $pay->pay_date = $request->pay_date;
         $pay->price = $request->price;
@@ -125,45 +127,40 @@ class PayDataController extends Controller
         $pay->save();
 
         $pay_items = PayItem::where('pay_data_id',$id)->get();
-
-        if(count($request->pay_data_date)>0){dd('1');};
-        // if(count($pay_items) == 0){
-        //         foreach($request->pay_data_date as $key=>$data){
-        //             $Pay_Item = new PayItem();
-        //             $Pay_Item->pay_data_id = $id;
-        //             $Pay_Item->pay_date = $request->pay_data_date[$key];
-        //             $Pay_Item->invoice_number = $request->pay_invoice_number[$key];
-        //             $Pay_Item->price = $request->pay_price[$key];
-        //             $Pay_Item->invoice_type = $request->pay_invoice_type[$key];
-        //             if(isset($request->vender_id[$key])){
-        //                 $Pay_Item->vender_id = $request->vender_id[$key];
-        //             }else{
-        //                 $Pay_Item->vender_id = null;
-        //             }
-        //             $Pay_Item->save();
-        //     }
-        // }elseif(count($pay_items) > 0){
-        //     PayItem::where('pay_data_id', $id)->delete();
-        //     if(isset($request->pay_data_date)){
-        //         foreach($request->pay_data_date as $key=>$data){
-        //             $Pay_Item = new PayItem();
-        //             $Pay_Item->pay_data_id = $id;
-        //             $Pay_Item->pay_date = $request->pay_data_date[$key];
-        //             $Pay_Item->invoice_number = $request->pay_invoice_number[$key];
-        //             $Pay_Item->price = $request->pay_price[$key];
-        //             $Pay_Item->invoice_type = $request->pay_invoice_type[$key];
-        //             if(isset($request->vender_id[$key])){
-        //                 $Pay_Item->vender_id = $request->vender_id[$key];
-        //             }else{
-        //                 $Pay_Item->vender_id = null;
-        //             }
-        //             $Pay_Item->save();
-        //         }
-        //     }
-        // }
-
-
-        
+        if(count($pay_items) == 0){
+                foreach($request->pay_data_date as $key=>$data){
+                    $Pay_Item = new PayItem();
+                    $Pay_Item->pay_data_id = $id;
+                    $Pay_Item->pay_date = $request->pay_data_date[$key];
+                    $Pay_Item->invoice_number = $request->pay_invoice_number[$key];
+                    $Pay_Item->price = $request->pay_price[$key];
+                    $Pay_Item->invoice_type = $request->pay_invoice_type[$key];
+                    if(isset($request->vender_id[$key])){
+                        $Pay_Item->vender_id = $request->vender_id[$key];
+                    }else{
+                        $Pay_Item->vender_id = null;
+                    }
+                    $Pay_Item->save();
+            }
+        }elseif(count($pay_items) > 0){
+            PayItem::where('pay_data_id', $id)->delete();
+            if(isset($request->pay_data_date)){
+                foreach($request->pay_data_date as $key=>$data){
+                    $Pay_Item = new PayItem();
+                    $Pay_Item->pay_data_id = $id;
+                    $Pay_Item->pay_date = $request->pay_data_date[$key];
+                    $Pay_Item->invoice_number = $request->pay_invoice_number[$key];
+                    $Pay_Item->price = $request->pay_price[$key];
+                    $Pay_Item->invoice_type = $request->pay_invoice_type[$key];
+                    if(isset($request->vender_id[$key])){
+                        $Pay_Item->vender_id = $request->vender_id[$key];
+                    }else{
+                        $Pay_Item->vender_id = null;
+                    }
+                    $Pay_Item->save();
+                }
+            }
+        }
 
         return redirect()->route('pays');
     }
@@ -177,14 +174,21 @@ class PayDataController extends Controller
 
     public function delshow($id){
         $pays_name = Pay::where('status','up')->get();
-        $pay = PayData::where('id',$id)->first();
-        return view('pay_data.del_pay_data')->with('pay',$pay)
-                                   ->with('pays_name',$pays_name);
+        $data = PayData::where('id',$id)->first();
+        $pays = Pay::where('status','up')->get();
+        return view('pay_data.del_pay_data')->with('pays',$pays)
+                                   ->with('pays_name',$pays_name)
+                                   ->with('data',$data);
     }
 
     public function delete(Request $request,$id){
         $pay = PayData::where('id',$id)->first();
         $pay->delete();
+
+        $pay_items = PayItem::where('pay_data_id',$id)->get();
+        foreach($pay_items as $item){
+            $item->delete();
+        }
         return redirect()->route('pays');
         
     }

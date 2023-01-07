@@ -217,7 +217,7 @@
 
         <div class="text-center mt-2">
             <button type="submit" class="btn btn-primary">新增</button>
-            <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
+            <a href="{{ route('sale') }}"><button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button></a>
         </div>
 
     </form>
@@ -287,6 +287,7 @@
                 $('#cust_name_list_q').html(data);
             }
             });
+            console.log($value);
         });
     });
 </script>

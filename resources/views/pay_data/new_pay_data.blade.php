@@ -74,7 +74,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {{-- @for ($i = 0; $i < 2; $i++)
+                                    @for ($i = 0; $i < 2; $i++)
                                         <tr id="row-{{ $i }}">
                                             <td>
                                             <button class="btn btn-primary del-row" alt="{{ $i }}" type="button" name="button" onclick="del_row(this)">刪除</button>
@@ -97,10 +97,12 @@
                                             </select>
                                             </td>
                                             <td>
-                                            <input id="vendor-{{ $i }}" class="form-control" type="text" name="vender_id[]" value="">
+                                                <input list="cust_name_list_q" class="form-control" id="cust_name_q" name="cust_name_q" placeholder="請輸入客戶姓名">
+                                                <datalist id="cust_name_list_q">
+                                                </datalist>
                                             </td>
                                         </tr>
-                                    @endfor --}}
+                                    @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -113,8 +115,8 @@
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">新增</button>
-                        <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
+                        <button type="submit" class="btn btn-primary" id="btn_submit">新增</button>
+                        <a href="{{ route('pays') }}"><button type="button" class="btn btn-secondary" >回上一頁</button></a>
                     </div>
                     </form>
                 </div>
@@ -129,8 +131,27 @@
             $('#row-'+$number).remove();
         }
         $(document).ready(function(){
+            $("#btn_submit").click(function(){
+                rowCount = $('#cart tr').length - 1;
+                total_price = $("#price").val();
+                pay_total = 0;
+                for(var i = 0; i < rowCount; i++)
+                {
+                    pay_total += parseInt($('#pay_price-'+i).val(),10);
+
+                    // pay_total+= Number($('#pay_price-'+$rowCount).val());
+                }
+                if(total_price != pay_total){
+                    alert('金額錯誤！');
+                    return false;
+                }
+                console.log(pay_total);
+            });
+
             
-                $("#add_row").click(function(){
+
+            
+            $("#add_row").click(function(){
                 $rowCount = $('#cart tr').length - 1;
                 var $lastRow = $("#cart tr:last"); //grab row before the last row
 
@@ -162,9 +183,22 @@
 
                 $lastRow.after($newRow); //add in the new row at the end
             });
-            $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         });
     </script>
-    <script>
-    </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $( "#cust_name_q" ).keydown(function() {
+            $value=$(this).val();
+            $.ajax({
+            type : 'get',
+            url : 'cust/customer',
+            data:{'cust_name':$value},
+            success:function(data){
+                $('#cust_name_list_q').html(data);
+            }
+            });
+            console.log($value);
+        });
+    });
+</script>
 @endsection

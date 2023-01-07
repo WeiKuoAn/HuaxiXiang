@@ -210,6 +210,11 @@
                             <i class="bi bi-circle"></i><span>後續處理B</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('vender') }}" class="{{ request()->is('vender') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>廠商資料</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 

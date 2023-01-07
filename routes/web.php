@@ -21,6 +21,7 @@ use App\Http\Controllers\Rpg03Controller;
 use App\Http\Controllers\Rpg04Controller;
 use App\Http\Controllers\Rpg05Controller;
 use App\Http\Controllers\SaleSourceController;
+use App\Http\Controllers\VenderController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -186,6 +187,13 @@ Route::group(['middleware' => ['auth']], function () {
     //使用者出勤畫面
     Route::get('/personwork', [WorkController::class, 'personwork'])->middleware(['auth'])->name('personwork');
 
+    //廠商管理
+    Route::get('/vender/number', [VenderController::class, 'number'])->middleware(['auth'])->name('vender.number');
+    Route::get('/vender', [VenderController::class, 'index'])->middleware(['auth'])->name('vender');
+    Route::get('/vender/new_data', [VenderController::class, 'create'])->name('new-vender');
+    Route::post('/vender/new_data', [VenderController::class, 'store'])->name('new-vender.data');
+    Route::get('/vender/edit_data/{id}', [VenderController::class, 'show'])->name('edit-vender');
+    Route::post('/vender/edit_data/{id}', [VenderController::class, 'update'])->name('edit-vender.data');
     
     //報表管理
     Route::get('/rpg/rpg01', [Rpg01Controller::class, 'rpg01'])->middleware(['auth'])->name('rpg01');
