@@ -98,7 +98,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input list="vender_number_list_q" class="form-control" id="vendor-{{ $key }}" name="vender_id[]" placeholder="請輸入統編號碼" value="{{ $item->vender_data->name }}">
+                                                <input list="vender_number_list_q" class="form-control" id="vendor-{{ $key }}" name="vender_id[]" placeholder="請輸入統編號碼" @if(isset($item->vender_data)) value="{{ $item->vender_data->name }}" @endif>
                                                 <datalist id="vender_number_list_q">
                                                 </datalist>
                                             </td>

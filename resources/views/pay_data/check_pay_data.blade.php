@@ -96,7 +96,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                            <input id="vendor-{{ $key }}" class="form-control" type="text" name="vender_id[]" value="{{ $item->vender_data->name }}">
+                                            <input id="vendor-{{ $key }}" class="form-control" type="text" name="vender_id[]" @if(isset($item->vender_data)) value="{{ $item->vender_data->name }}" @else value="" @endif>
                                             </td>
                                         </tr>
                                     @endforeach
