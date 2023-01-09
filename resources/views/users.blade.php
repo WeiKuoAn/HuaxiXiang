@@ -60,6 +60,8 @@
                                             @endif
                                             <a href="{{ route('user-sale', $user->id) }}"><button type="button"
                                                     class="btn btn-primary btn-sm">查看業務單</button></a>
+                                            <a href="{{ route('userwork', $user->id) }}"><button type="button"
+                                                    class="btn btn-success btn-sm">出勤狀況</button></a>
                                         </td>
                                     </tr>
                                 @endforeach
