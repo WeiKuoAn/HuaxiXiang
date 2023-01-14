@@ -83,7 +83,7 @@
                                             <input id="pay_date-{{ $i }}" class="form-control" type="date" name="pay_data_date[]" value="" required>
                                             </td>
                                             <td>
-                                            <input id="pay_invoice-{{ $i }}" class="form-control" type="text" name="pay_invoice_number[]" value="" required>
+                                            <input id="pay_invoice-{{ $i }}" class="form-control" type="text" name="pay_invoice_number[]" value="">
                                             </td>
                                             <td>
                                             <input id="pay_price-{{ $i }}" class="form-control" type="text" name="pay_price[]" value="" required>
@@ -162,7 +162,7 @@
                 $newRow += '<input id="pay_date-'+$rowCount+'" class="form-control" type="date" name="pay_data_date[]" value="" required>';
                 $newRow += '</td>';
                 $newRow += '<td>';
-                $newRow += '<input id="pay_invoice-'+$rowCount+'" class="form-control" type="text" name="pay_invoice_number[]" value="" required>';
+                $newRow += '<input id="pay_invoice-'+$rowCount+'" class="form-control" type="text" name="pay_invoice_number[]" value="" >';
                 $newRow += '</td>';
                 $newRow += '<td>';
                 $newRow += '<input id="pay_price-'+$rowCount+'" class="form-control" type="text" name="pay_price[]" value="" required>';
