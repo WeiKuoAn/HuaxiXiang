@@ -388,6 +388,12 @@
                             <i class="bi bi-circle"></i><span>營收總表</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('rpg06') }}"
+                            class="{{ request()->is('rpg06') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>法會查詢</span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="{{ route('pays') }}" class="{{ request()->is('pays') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>支出管理</span>
