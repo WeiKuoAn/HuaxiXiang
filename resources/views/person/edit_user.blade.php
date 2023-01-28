@@ -18,12 +18,12 @@
                 <div class="row">
                     @if ($hint == '1')
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            恭喜你修改個人資料成功！若之後修改人事資料請聯繫人資主管！
+                            恭喜你修改個人資料成功！@if(Auth::user()->level == 2)若之後修改人事資料請聯繫人資主管！@endif
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     
-                    @if($user->state == 0)
+                    @if(Auth::user()->level == 2 &&  $user->state == 0)
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             若要修改人事資料請聯繫人資主管！
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -154,7 +154,7 @@
                                     </div>
                                 </div>
 
-                                @if($user->state == 1)
+                                @if($user->state == 1 || Auth::user()->level == 0)
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">編輯</button>
                                         <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
