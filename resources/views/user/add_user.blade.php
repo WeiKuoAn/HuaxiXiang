@@ -24,6 +24,16 @@
                             <form class="row g-3" action="{{ route('users-add.data') }}" method="POST">
                                 @csrf
                                 <div class="row mb-3 mt-2">
+                                    <label class="col-sm-2 col-form-label">職稱</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-select" aria-label="Default select example" name="job_id">
+                                            @foreach($jobs as $job)
+                                            <option value="{{ $job->id }}" selected>{{ $job->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 ">
                                     <label for="name" class="col-sm-2 col-form-label">姓名</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="name" name="name"

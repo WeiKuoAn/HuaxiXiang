@@ -53,4 +53,9 @@ class User extends Authenticatable
         $level_state = [ '0'=>'超級管理者' , '1'=>'管理者' , '2'=>'一般使用者' ];
         return $level_state[$this->level];
     }
+
+    public function job_data()
+    {
+        return $this->hasOne('App\Models\Job', 'id', 'job_id');
+    }
 }

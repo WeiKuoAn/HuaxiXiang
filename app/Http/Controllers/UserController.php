@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserLog;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\Job;
 
 class UserController extends Controller
 {
@@ -29,7 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.add_user');
+        $jobs = Job::where('status','up')->get();
+        return view('user.add_user')->with('jobs',$jobs);
     }
 
     /**
@@ -46,6 +48,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'mobile' => $request->mobile,
             'entry_date' => $request->entry_date,
+            'job_id'=> $request->job_id,
             'level' => '2',
             'state' => '1' //剛開始由管理員新增時
         ]);
@@ -62,8 +65,10 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->first();
+        $jobs = Job::where('status','up')->get();
         return view('user.edit_user')->with('user', $user)
-                                    ->with('hint', '0');
+                                     ->with('hint', '0')
+                                     ->with('jobs',$jobs);
     }
 
     public function password_show()
@@ -111,6 +116,7 @@ class UserController extends Controller
 
     public function update(Request $request , $id)
     {
+        $jobs = Job::where('status','up')->get();
         $user = User::where('id', $id)->first();
         //取得舊資料，要寫入log中
         $old_name = $user->name;
@@ -133,6 +139,7 @@ class UserController extends Controller
             $user->urgent_name = $request->urgent_name;
             $user->urgent_relation = $request->urgent_relation;
             $user->urgent_mobile = $request->urgent_mobile;
+            $user->job_id = $request->job_id;
             $user->state = 0; //用戶只能修改第一次,第一次修改後 只能透過人資去修改，所以狀態是0
             $user->save();
         }else{
@@ -162,7 +169,8 @@ class UserController extends Controller
             $user_log->save();
         }
         return view('user.edit_user')->with('user', $user)
-                                    ->with('hint','1');
+                                    ->with('hint','1')
+                                    ->with('jobs',$jobs);
     }
 
     /**

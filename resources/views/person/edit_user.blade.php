@@ -49,7 +49,7 @@
                                     <label for="name" class="col-sm-2 col-form-label">職稱</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="job_id" name="job_id"
-                                            value="員工" readonly>
+                                         @if(isset($user->job_data))   value="{{ $user->job_data->name }}" @endif readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3 ">

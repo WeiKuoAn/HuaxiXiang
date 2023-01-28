@@ -23,6 +23,7 @@ use App\Http\Controllers\Rpg05Controller;
 use App\Http\Controllers\SaleSourceController;
 use App\Http\Controllers\VenderController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\DebitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,6 +67,9 @@ Route::group(['middleware' => ['auth']], function () {
     //用戶個人
     Route::get('/user-profile', [PersonController::class, 'show'])->name('users-profile');
     Route::post('/user-profile', [PersonController::class, 'update'])->name('users-profile.data');
+    //用戶申請借支補錢
+    Route::get('/debit/new_data', [PersonController::class, 'debit_create'])->name('new-debit');
+    Route::post('/debit/new_data', [PersonController::class, 'debit_store'])->name('new-debit.data');
     
     /*客戶管理 */
     Route::get('/customer/group', [CustomrtGruopController::class, 'index'])->name('customer.group');
@@ -202,11 +206,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/vender/new_data', [VenderController::class, 'store'])->name('new-vender.data');
     Route::get('/vender/edit_data/{id}', [VenderController::class, 'show'])->name('edit-vender');
     Route::post('/vender/edit_data/{id}', [VenderController::class, 'update'])->name('edit-vender.data');
+
+    //職稱資料
+    Route::get('/job', [JobController::class, 'index'])->middleware(['auth'])->name('jobs');
+    Route::get('/job/new_data', [JobController::class, 'create'])->name('new-job');
+    Route::post('/job/new_data', [JobController::class, 'store'])->name('new-job.data');
+    Route::get('/job/edit_data/{id}', [JobController::class, 'show'])->name('edit-job');
+    Route::post('/job/edit_data/{id}', [JobController::class, 'update'])->name('edit-job.data');
     
     //借支
     Route::get('/debit', [DebitController::class, 'index'])->middleware(['auth'])->name('debit');
-    Route::get('/debit/new_data', [DebitController::class, 'create'])->name('new-debit');
-    Route::post('/debit/new_data', [DebitController::class, 'store'])->name('new-debit.data');
+    Route::get('/debit/edit_data/{id}', [DebitController::class, 'show'])->name('edit-debit');
+    Route::post('/debit/edit_data/{id}', [DebitController::class, 'update'])->name('edit-debit.data');
+
 
 
     //報表管理

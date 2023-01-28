@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\UserLog;
+use App\Models\Debit;
 
 class PersonController extends Controller
 {
@@ -82,4 +83,22 @@ class PersonController extends Controller
         return view('person.edit_user')->with('user', $user)
                                         ->with('hint','1');
     }
+
+     //員工送出借出。補錢單
+     public function debit_create()
+     {
+         return view('debit.new_debit')->with('hint', '0');
+     }
+ 
+     public function debit_store(Request $request)
+     {
+         $data = new Debit();
+         $data->user_id = Auth::user()->id;
+         $data->type = $request->type;
+         $data->price = $request->price;
+         $data->state = $request->type;
+         $data->comment = $request->comment;
+         $data->save();
+         return redirect()->route('new-debit');
+     }
 }

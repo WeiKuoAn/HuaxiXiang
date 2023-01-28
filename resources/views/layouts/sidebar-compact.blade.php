@@ -65,25 +65,26 @@
                         </a>
                     </li>
                     <li>
-
                         <a href="{{ route('new-sale') }}"
                             class="{{ request()->is('new-sale') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i>
                             <span>業務Key單</span>
                         </a>
-                        <a href="{{ route('wait-sale') }}"
-                            class="{{ request()->is('wait-sale') ? 'active' : '' }}">
+                        <a href="{{ route('user-wait-sale') }}"
+                            class="{{ request()->is('user-wait-sale') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i>
                             <span>業務待確認對帳</span>
                         </a>
                     </li>
+                    
                 </ul>
             </li>
-            <a class="nav-link collapsed" href="{{ route('personwork') }}"
+            
+            {{-- <a class="nav-link collapsed" href="{{ route('personwork') }}"
                 class="{{ request()->is('personwork') ? 'active' : '' }}">
                 <i class="bi bi-layout-text-window-reverse"></i>
                 <span>出勤狀況</span>
-            </a>
+            </a> --}}
 
             <li class="nav-item">
 
@@ -107,6 +108,11 @@
                 class="{{ request()->is('wait-sale') ? 'active' : '' }}">
                 <i class="bi bi-journal-text"></i>
                 <span>業務待確認對帳</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('new-debit') }}"
+            class="{{ request()->is('new-debit') ? 'active' : '' }}">
+            <i class="bi bi-journal-text"></i>
+            <span>借出補錢單</span>
             </a>
             </li>
         @endif
@@ -190,6 +196,11 @@
                     <i class="bi bi-menu-button-wide"></i><span>其他管理</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="other-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('jobs') }}" class="{{ request()->is('jobs') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>職稱資料</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('source') }}" class="{{ request()->is('source') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>來源資料</span>
@@ -287,8 +298,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('new-debit') }}" class="{{ request()->is('new-debit') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>借出補錢單</span>
+                        <a href="{{ route('debit') }}" class="{{ request()->is('debit') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>借出補錢管理</span>
                         </a>
                     </li>
                 </ul>
