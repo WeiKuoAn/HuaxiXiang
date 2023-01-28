@@ -58,6 +58,7 @@
                                     <th scope="col">客戶姓名</th>
                                     <th scope="col">客戶電話</th>
                                     <th scope="col">寶貝名稱</th>
+                                    <th scope="col">客戶地址</th>
                                     <th scope="col">法會費用</th>
                                 </tr>
                             </thead>
@@ -68,6 +69,9 @@
                                         <td>{{ $data->sale_data->cust_name->name }}</td>
                                         <td>{{ $data->sale_data->cust_name->mobile }}</td>
                                         <td>{{ $data->sale_data->pet_name }}</td>
+                                        <td align="left">{{ $data->sale_data->cust_name->county.
+                                               $data->sale_data->cust_name->district.
+                                               $data->sale_data->cust_name->address }}</td>
                                         <td>{{  number_format($data->after_prom_total) }}</td>
                                     </tr>
                                 @endforeach
