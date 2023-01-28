@@ -22,6 +22,8 @@ use App\Http\Controllers\Rpg04Controller;
 use App\Http\Controllers\Rpg05Controller;
 use App\Http\Controllers\SaleSourceController;
 use App\Http\Controllers\VenderController;
+use App\Http\Controllers\PersonController;
+use App\Http\Controllers\DebitController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -54,10 +56,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/addusers', [UserController::class, 'create'])->name('users-add');
     Route::post('/addusers', [UserController::class, 'store'])->name('users-add.data');
-    Route::get('/users-profile/{id}', [UserController::class, 'show'])->name('users-profile');
-    Route::post('/users-profile/{id}', [UserController::class, 'update'])->name('users-profile.data');
+    Route::get('/edit-user-profile/{id}', [UserController::class, 'show'])->name('edit-user-profile');
+    Route::post('/edit-user-profile/{id}', [UserController::class, 'update'])->name('edit-user-profile.data');
     Route::get('/users-password', [UserController::class, 'password_show'])->name('users-password');
     Route::post('/users-password', [UserController::class, 'password_update'])->name('users-password.data');
+    Route::get('/checkusers', [UserController::class, 'check'])->name('users-check');
+    Route::get('/checkusers/{id}', [UserController::class, 'checkdata'])->name('users-check.data');
+
+    //用戶個人
+    Route::get('/user-profile', [PersonController::class, 'show'])->name('users-profile');
+    Route::post('/user-profile', [PersonController::class, 'update'])->name('users-profile.data');
     
     /*客戶管理 */
     Route::get('/customer/group', [CustomrtGruopController::class, 'index'])->name('customer.group');
@@ -195,6 +203,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/vender/edit_data/{id}', [VenderController::class, 'show'])->name('edit-vender');
     Route::post('/vender/edit_data/{id}', [VenderController::class, 'update'])->name('edit-vender.data');
     
+    //借支
+    Route::get('/debit', [DebitController::class, 'index'])->middleware(['auth'])->name('debit');
+    Route::get('/debit/new_data', [DebitController::class, 'create'])->name('new-debit');
+    Route::post('/debit/new_data', [DebitController::class, 'store'])->name('new-debit.data');
+
+
     //報表管理
     Route::get('/rpg/rpg01', [Rpg01Controller::class, 'rpg01'])->middleware(['auth'])->name('rpg01');
     Route::get('/rpg/rpg01/detail/{date}/{plan_id}', [Rpg01Controller::class, 'detail'])->middleware(['auth'])->name('rpg01.detail');

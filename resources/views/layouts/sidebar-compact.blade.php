@@ -130,6 +130,11 @@
                         </a>
                     </li>
                     {{-- <li>
+                        <a href="{{ route('users-check') }}" class="{{ request()->is('users-check') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>用戶修改確認</span>
+                        </a>
+                    </li> --}}
+                    {{-- <li>
             <a href="components-accordion.html">
               <i class="bi bi-circle"></i><span>方案資料</span>
             </a>
@@ -279,6 +284,11 @@
                     <li>
                         <a href="{{ route('new-pay') }}" class="{{ request()->is('new-pay') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>支出Key單</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('new-debit') }}" class="{{ request()->is('new-debit') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>借出補錢單</span>
                         </a>
                     </li>
                 </ul>

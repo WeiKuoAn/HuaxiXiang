@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\UserLog;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -17,8 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('status','0')->paginate(30);
-        return view('users')->with('users', $users);
+        $users = User::where('status','0')->orderby('level')->paginate(30);
+        return view('user.users')->with('users', $users);
     }
 
     /**
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('add_user');
+        return view('user.add_user');
     }
 
     /**
@@ -45,7 +46,8 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'mobile' => $request->mobile,
             'entry_date' => $request->entry_date,
-            'level' => '2'
+            'level' => '2',
+            'state' => '1' //剛開始由管理員新增時
         ]);
 
         return redirect()->route('users');
@@ -60,13 +62,13 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->first();
-        return view('edit_user')->with('user', $user)
+        return view('user.edit_user')->with('user', $user)
                                     ->with('hint', '0');
     }
 
     public function password_show()
     {
-        return view('edit_user_password')->with('hint','0');
+        return view('user.edit_user_password')->with('hint','0');
     }
     /**
      * Show the form for editing the specified resource.
@@ -78,6 +80,13 @@ class UserController extends Controller
     {
         //
     }
+
+    // public function check()
+    // {
+    //     $datas = User::where('status','0')->orderby('level')->paginate(30);
+    //     return view('user.users')->with('users', $users);
+    // }
+
 
     /**
      * Update the specified resource in storage.
@@ -96,30 +105,63 @@ class UserController extends Controller
                 return view('auth.login');
             }
         } else {
-            return view('edit_user_password')->with(['hint' => '1']);
+            return view('user.edit_user_password')->with(['hint' => '1']);
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request , $id)
     {
         $user = User::where('id', $id)->first();
-        if(Auth::user()->level == 0){
+        //取得舊資料，要寫入log中
+        $old_name = $user->name;
+        $old_mobile = $user->mobile;
+        $old_email = $user->email;
+        $old_address = $user->address;
+
+        if(Auth::user()->level == 0 || Auth::user()->level == 1){
             $user->name = $request->name;
-            $user->mobile = $request->mobile;
+            $user->sex = $request->sex;
+            $user->birthday = $request->birthday;
             $user->email = $request->email;
+            $user->mobile = $request->mobile;
+            $user->ic_card = $request->ic_card;
+            $user->marriage = $request->marriage;
             $user->address = $request->address;
-            $user->entry_date = $request->entry_date;
-            $user->level = $request->level;
-            $user->status = $request->status;
+            $user->census_address = $request->census_address;
+            $user->bank_id = $request->bank_id;
+            $user->bank_number = $request->bank_number;
+            $user->urgent_name = $request->urgent_name;
+            $user->urgent_relation = $request->urgent_relation;
+            $user->urgent_mobile = $request->urgent_mobile;
+            $user->state = 0; //用戶只能修改第一次,第一次修改後 只能透過人資去修改，所以狀態是0
             $user->save();
         }else{
-            $user->name = $request->name;
-            $user->mobile = $request->mobile;
-            $user->email = $request->email;
-            $user->address = $request->address;
-            $user->save();
+            //不是管理員的話，要紀錄到log中
+            $user_log = new UserLog();
+            $user_log->type = 'edit';
+            $user_log->user_id = $user->id;
+            $user_log->title = ' ';
+            $user_log->text = ' ';
+            if ($old_name != $request->name) {
+                $user_log->title .= '姓名' . "*";
+                $user_log->text .= $old_name . "→" . $request->name . "*";
+            }
+            if ($old_email != $request->email) {
+                $user_log->title .= '信箱' . "*";
+                $user_log->text .= $old_email . "→" . $request->email . "*";
+            }
+            if ($old_mobile != $request->mobile) {
+                $user_log->title .= '電話' . "*";
+                $user_log->text .= $old_mobile . "→" . $request->mobile . "*";
+            }
+            if ($old_address != $request->address) {
+                $user_log->title .= '地址' . "*";
+                $user_log->text .= $old_address . "→" . $request->address . "*";
+            }
+            $user_log->Update_at = Auth::user()->id;
+            $user_log->save();
         }
-        return view('edit_user')->with('user', $user)
+        return view('user.edit_user')->with('user', $user)
                                     ->with('hint','1');
     }
 
@@ -132,5 +174,34 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function check()
+    {
+        $datas = UserLog::where('type','edit')->get();
+        return view('user.check_user')->with('datas',$datas);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function checkdata(Request $request , $id)
+    {
+        $user = User::where('id', $id)->first();
+        //user的狀態改為0 代表編輯畫面出來
+        $user->state = 0;
+        $user->save();
+
+        //user_log的type改成完成
+        $user_log = UserLog::where('user_id', $id)->first();
+        // dd($user_log);
+
+        $user_log->type = 'complete';
+        $user_log->save();
+
+        return redirect()->route('users-check');
     }
 }

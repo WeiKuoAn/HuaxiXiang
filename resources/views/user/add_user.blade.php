@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">新增會員資料</h5>
+                            <h5 class="card-title">新增用戶資料</h5>
 
                             <!-- General Form Elements -->
                             <form class="row g-3" action="{{ route('users-add.data') }}" method="POST">

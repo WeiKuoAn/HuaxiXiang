@@ -9,6 +9,14 @@
                 <li class="breadcrumb-item active">員工管理</li>
             </ol>
         </nav>
+        <div class="col">
+            <div style="margin-top: 22px; text-align:right;">
+                <label for="after_date">&nbsp;</label>
+                <a href="{{ route('users-add') }}">
+                    <button type="button" class="btn btn-outline-dark">新增用戶</button>
+                </a>
+            </div>
+        </div>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -55,7 +63,7 @@
                                         </td>
                                         <td>
                                             @if($user->level != '0')
-                                            <a href="{{ route('users-profile', $user->id) }}"><button type="button"
+                                            <a href="{{ route('edit-user-profile', $user->id) }}"><button type="button"
                                                     class="btn btn-danger btn-sm">修改</button></a>
                                             @endif
                                             <a href="{{ route('user-sale', $user->id) }}"><button type="button"

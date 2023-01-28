@@ -182,7 +182,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('users-profile',Auth::user()->id) }}">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('users-profile') }}">
                             <i class="bi bi-gear"></i>
                             <span>個人資訊</span>
                         </a>

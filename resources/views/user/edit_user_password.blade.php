@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">編輯會員密碼</h5>
+                            <h5 class="card-title">編輯用戶密碼</h5>
                             @if ($hint == '1')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     會員密碼修改失敗！請重新再一次
