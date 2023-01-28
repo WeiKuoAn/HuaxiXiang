@@ -20,6 +20,7 @@ use App\Http\Controllers\Rpg02Controller;
 use App\Http\Controllers\Rpg03Controller;
 use App\Http\Controllers\Rpg04Controller;
 use App\Http\Controllers\Rpg05Controller;
+use App\Http\Controllers\Rpg06Controller;
 use App\Http\Controllers\SaleSourceController;
 use App\Http\Controllers\VenderController;
 use App\Http\Controllers\PersonController;
@@ -229,6 +230,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/rpg/rpg03', [Rpg03Controller::class, 'rpg03'])->middleware(['auth'])->name('rpg03');
     Route::get('/rpg/rpg04', [Rpg04Controller::class, 'rpg04'])->middleware(['auth'])->name('rpg04');
     Route::get('/rpg/rpg05', [Rpg05Controller::class, 'rpg05'])->middleware(['auth'])->name('rpg05');
+    Route::get('/rpg/rpg06', [Rpg06Controller::class, 'rpg06'])->middleware(['auth'])->name('rpg06');
 });
 
 
