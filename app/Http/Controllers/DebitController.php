@@ -20,15 +20,17 @@ class DebitController extends Controller
         }
         $after_date = $request->after_date;
         if($after_date){
-            $datas->where('created_at','>=',$after_date);
+            $after_date = $after_date.' 00:00:00';
+            $datas = $datas->where('created_at','>=',$after_date);
         }
         $before_date = $request->before_date;
         if($before_date){
-            $datas->where('created_at','<=',$before_date);
+            $before_date = $before_date.' 23:59:59';
+            $datas = $datas->where('created_at','<=',$before_date);
         }
         $type = $request->type;
         if($type != "null"){
-            $datas->where('type',$type);
+            $datas = $datas->where('type',$type);
         }else{
             $datas = $datas;
         }
