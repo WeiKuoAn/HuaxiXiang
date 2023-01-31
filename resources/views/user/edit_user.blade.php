@@ -25,7 +25,7 @@
                         @endif
                     @endif
                     
-                    @if($user->state == 0)
+                    {{-- @if($user->state == 0) --}}
                     <div class="card">
                         <div class="card-body">
                             <br>
@@ -208,7 +208,7 @@
                                     <button type="submit" class="btn btn-primary">編輯</button>
                                     <button type="button" class="btn btn-secondary" onclick="history.go(-1)">回上一頁</button>
                                 </div>
-                                @endif
+                                {{-- @endif --}}
                             </form><!-- End General Form Elements -->
 
                         </div>
