@@ -55,13 +55,13 @@
                                     <label for="name" class="col-sm-2 col-form-label">姓名*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ $user->name }}" required>
+                                            value="{{ $user->name }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3 ">
                                     <label for="name" class="col-sm-2 col-form-label">生理性別*</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" aria-label="Default select example" name="sex" required>
+                                        <select class="form-select" aria-label="Default select example" name="sex" >
                                             <option value="男生" @if($user->sex == '男生') selected @endif>男生</option>
                                             <option value="女生" @if($user->sex == '女生') selected @endif>女生</option>
                                         </select>
@@ -71,34 +71,34 @@
                                     <label for="birthday" class="col-sm-2 col-form-label">生日*</label>
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" id="birthday" name="birthday"
-                                            value="{{ $user->birthday }}" required>
+                                            value="{{ $user->birthday }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3 ">
                                     <label for="ic_card" class="col-sm-2 col-form-label">身份證*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="ic_card" name="ic_card"
-                                            value="{{ $user->ic_card  }}" required>
+                                            value="{{ $user->ic_card  }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="mobile" class="col-sm-2 col-form-label">聯絡電話*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="mobile" name="mobile"
-                                            value="{{ $user->mobile }}" required>
+                                            value="{{ $user->mobile }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="email" class="col-sm-2 col-form-label">信箱E-mail*</label>
                                     <div class="col-sm-10">
                                         <input type="email" class="form-control" id="email" name="email"
-                                            value="{{ $user->email }}" required>
+                                            value="{{ $user->email }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3 ">
                                     <label for="marriage" class="col-sm-2 col-form-label">婚姻狀況*</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select" aria-label="Default select example" name="marriage" required>
+                                        <select class="form-select" aria-label="Default select example" name="marriage" >
                                             <option value="請選擇" @if($user->marriage == '請選擇') selected @endif>請選擇</option>
                                             <option value="結婚" @if($user->marriage == '結婚') selected @endif>結婚</option>
                                             <option value="未婚" @if($user->marriage == '未婚') selected @endif>未婚</option>
@@ -109,25 +109,25 @@
                                     <label for="address" class="col-sm-2 col-form-label">通訊地址*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="address" name="address"
-                                            value="{{ $user->address }}" required>
+                                            value="{{ $user->address }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="census_address" class="col-sm-2 col-form-label">戶籍地址*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="census_address" name="census_address"
-                                            value="{{ $user->census_address }}" required>
+                                            value="{{ $user->census_address }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="bank_id" class="col-sm-2 col-form-label">薪資帳戶*</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="bank_id" name="bank_id"
-                                            value="{{ $user->bank_id }}" placeholder="銀行代碼" required>
+                                            value="{{ $user->bank_id }}" placeholder="銀行代碼" >
                                     </div>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="bank_number" name="bank_number"
-                                            value="{{ $user->bank_number }}" placeholder="帳戶號碼" required>
+                                            value="{{ $user->bank_number }}" placeholder="帳戶號碼" >
                                     </div>
                                 </div>
                                 <hr class="mt-3">
@@ -135,21 +135,21 @@
                                     <label for="urgent_name" class="col-sm-2 col-form-label">緊急聯絡人姓名*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="urgent_name" name="urgent_name"
-                                            value="{{ $user->urgent_name }}" required>
+                                            value="{{ $user->urgent_name }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="urgent_relation" class="col-sm-2 col-form-label">緊急聯絡人關係*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="urgent_relation" name="urgent_relation"
-                                            value="{{ $user->urgent_relation }}" required>
+                                            value="{{ $user->urgent_relation }}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="urgent_mobile" class="col-sm-2 col-form-label">緊急聯絡人電話*</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="urgent_mobile" name="urgent_mobile"
-                                            value="{{ $user->urgent_mobile }}" required>
+                                            value="{{ $user->urgent_mobile }}" >
                                     </div>
                                 </div>
                                 <hr class="mt-3">

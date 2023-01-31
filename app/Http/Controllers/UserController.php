@@ -140,7 +140,9 @@ class UserController extends Controller
             $user->urgent_relation = $request->urgent_relation;
             $user->urgent_mobile = $request->urgent_mobile;
             $user->job_id = $request->job_id;
-            $user->state = 0; //用戶只能修改第一次,第一次修改後 只能透過人資去修改，所以狀態是0
+            if(!empty($user->birthday)){//判斷生日值再不再，代表員工是否有填寫
+                $user->state = 0; //用戶只能修改第一次,第一次修改後 只能透過人資去修改，所以狀態是0
+            }
             $user->save();
         }else{
             //不是管理員的話，要紀錄到log中
