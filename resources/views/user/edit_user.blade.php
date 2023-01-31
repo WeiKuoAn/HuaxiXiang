@@ -45,6 +45,7 @@
                                     <label class="col-sm-2 col-form-label">職稱</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" aria-label="Default select example" name="job_id">
+                                            <option value="" selected >請選擇</option>
                                             @foreach($jobs as $job)
                                             <option value="{{ $job->id }}" @if($user->job_id == $job->id) selected @endif>{{ $job->name }}</option>
                                             @endforeach
