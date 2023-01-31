@@ -63,6 +63,7 @@
                                     <label for="name" class="col-sm-2 col-form-label">生理性別*</label>
                                     <div class="col-sm-10">
                                         <select class="form-select" aria-label="Default select example" name="sex" >
+                                            <option value="" selected >請選擇</option>
                                             <option value="男生" @if($user->sex == '男生') selected @endif>男生</option>
                                             <option value="女生" @if($user->sex == '女生') selected @endif>女生</option>
                                         </select>
