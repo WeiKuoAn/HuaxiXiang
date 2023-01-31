@@ -22,7 +22,9 @@ class WorkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function loginSuccess(){
-        return view('dashboard_index');
+        $now = Carbon::now()->locale('zh-tw');
+        $work = Works::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+        return view('dashboard_index')->with('now',$now)->with('work',$work);
     }
     public function index()
     {
@@ -117,7 +119,7 @@ class WorkController extends Controller
             }
         }
         // dd($request->overtime);
-        return redirect()->route('dashboard_index');
+        return redirect()->route('dashboard');
     }
 
     /**
