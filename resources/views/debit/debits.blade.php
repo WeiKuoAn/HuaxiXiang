@@ -67,9 +67,7 @@
                                     <th scope="col" width="13%">申請人</th>
                                     <th scope="col">備註</th>
                                     <th scope="col" width="13%">狀態</th>
-                                    @if($request->state <= 7)
                                     <th scope="col">動作</th>
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,7 +89,7 @@
                                             @else 待審核
                                             @endif
                                         </td>
-                                        @if($request->state <= 7)
+                                        @if($data->state <= 7)
                                         <td>
                                             <a href="{{ route('edit-debit', $data->id) }}"><button type="button"
                                                     class="btn btn-primary btn-sm">核銷</button></a>

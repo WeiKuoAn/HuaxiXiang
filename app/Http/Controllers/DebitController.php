@@ -13,10 +13,11 @@ class DebitController extends Controller
     {
         
         $state = $request->state;
-        if($state != "null"){
-            $datas = Debit::where('state',$state);
-        }else{
+        
+        if(!isset($state)){
             $datas = Debit::where('state','<=',7);
+        }else{
+            $datas = Debit::where('state',$state);
         }
         $after_date = $request->after_date;
         if($after_date){
@@ -29,10 +30,10 @@ class DebitController extends Controller
             $datas = $datas->where('created_at','<=',$before_date);
         }
         $type = $request->type;
-        if($type != "null"){
-            $datas = $datas->where('type',$type);
-        }else{
+        if(!isset($type)){
             $datas = $datas;
+        }else{
+            $datas = $datas->where('type',$type);
         }
 
         $datas = $datas->paginate(50);
