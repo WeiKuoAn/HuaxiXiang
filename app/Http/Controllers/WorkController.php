@@ -117,7 +117,7 @@ class WorkController extends Controller
             }
         }
         // dd($request->overtime);
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard_index');
     }
 
     /**

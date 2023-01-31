@@ -52,8 +52,10 @@
                                     <th scope="col">下班時間</th>
                                     <th scope="col">時間</th>
                                     <th scope="col">備註</th>
-                                    <th scope="col">操作</th>
                                     <th scope="col">狀態</th>
+                                    @if(Auth::user()->level == 0)
+                                    <th scope="col">操作</th>
+                                    @endif
                                     {{-- <th scope="col">操作</th> --}}
                                 </tr>
                             </thead>
@@ -78,6 +80,7 @@
                                                 <b style="color:red;">補簽</b>
                                             @endif
                                         </td>
+                                        @if(Auth::user()->level == 0)
                                         <td>
                                             <a href="{{ route('editUserWork', $work->id) }}">
                                                 <button type="button" class="btn btn-primary btn-sm">編輯</button>
@@ -87,6 +90,7 @@
                                                 </button>
                                             </a>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
