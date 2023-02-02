@@ -27,7 +27,7 @@ class WorkController extends Controller
         if(Auth::user()->status != 1){
             return view('dashboard_index')->with('now',$now)->with('work',$work);
         }else{
-            return view('auth.login');
+            return redirect('/');
         }
     }
     public function index()
