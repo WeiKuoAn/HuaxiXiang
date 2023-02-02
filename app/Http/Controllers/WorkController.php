@@ -24,7 +24,11 @@ class WorkController extends Controller
     public function loginSuccess(){
         $now = Carbon::now()->locale('zh-tw');
         $work = Works::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
-        return view('dashboard_index')->with('now',$now)->with('work',$work);
+        if(Auth::user()->status != 1){
+            return view('dashboard_index')->with('now',$now)->with('work',$work);
+        }else{
+            return view('auth.login');
+        }
     }
     public function index()
     {
