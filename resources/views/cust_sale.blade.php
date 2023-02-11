@@ -70,10 +70,12 @@
                                 <h2 class="card-title" style="font-size: 1.6em;text-align:right;">金紙費：<b
                                         style="color:red;">{{ number_format($gdpaper_total) }}</b></h2>
                             </div>
+                            @if(Auth::user()->level != 2)
                             <div class="col-2 col-md-2">
                                 <h2 class="card-title" style="font-size: 1.6em;text-align:right;">實收：<b
                                         style="color:red;">{{ number_format($price_total) }}</b></h2>
                             </div>
+                            @endif
                         </div>
 
                         <br>
