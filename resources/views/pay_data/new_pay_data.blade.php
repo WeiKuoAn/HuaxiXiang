@@ -74,7 +74,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @for ($i = 0; $i < 2; $i++)
+                                    @for ($i = 0; $i < 1; $i++)
                                         <tr id="row-{{ $i }}">
                                             <td>
                                             <button class="btn btn-primary del-row" alt="{{ $i }}" type="button" name="button" onclick="del_row(this)">刪除</button>
