@@ -145,7 +145,7 @@
                                                 @if(isset($sale->cust_name))
                                                     {{ $sale->cust_name->name }}
                                                 @else
-                                                {{ $sale->customer_id }}
+                                                    {{ $sale->customer_id }}<b style="color: red;">（客戶姓名須重新登入）</b>
                                                 @endif
                                             @endif
                                         </td>
