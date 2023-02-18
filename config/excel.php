@@ -163,7 +163,12 @@ return [
     |
     */
     'extension_detector' => [
+<<<<<<< HEAD
         // 'xlsm'     => Excel::XLSX,
+=======
+        'xlsx'     => Excel::XLSX,
+        'xlsm'     => Excel::XLSX,
+>>>>>>> b1fd85fb24ec6f3cc492301864c2373486ff1527
         'xltx'     => Excel::XLSX,
         'xltm'     => Excel::XLSX,
         'xls'      => Excel::XLS,
