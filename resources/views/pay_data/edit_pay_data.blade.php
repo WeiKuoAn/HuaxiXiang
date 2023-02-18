@@ -71,6 +71,7 @@
                                             <th scope="col">支出金額</th>
                                             <th scope="col">發票類型</th>
                                             <th scope="col">廠商統編</th>
+                                            <th scope="col">備註</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,6 +102,9 @@
                                                 <input list="vender_number_list_q" class="form-control" id="vendor-{{ $key }}" name="vender_id[]" placeholder="請輸入統編號碼" @if(isset($item->vender_data)) value="{{ $item->vender_data->name }}" @else value="{{ $item->vender_id }}" @endif>
                                                 <datalist id="vender_number_list_q">
                                                 </datalist>
+                                            </td>
+                                            <td>
+                                                <input id="pay_text-{{ $key }}" class="form-control" type="text" name="pay_text[]" value="{{ $item->comment }}">
                                             </td>
                                         </tr>
                                     @endforeach
@@ -182,8 +186,10 @@
             $newRow += '<datalist id="vender_number_list_q">';
             $newRow += '</datalist>';
             $newRow += '</td>';
+            $newRow += '<td>';
+            $newRow += '<input id="pay_text-'+$rowCount+'" class="form-control" type="text" name="pay_text[]" value="">';
+            $newRow += '</td>';
             $newRow += '</tr>';
-
             $lastRow.after($newRow); //add in the new row at the end
         });
         $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });

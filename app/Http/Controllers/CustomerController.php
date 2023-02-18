@@ -84,11 +84,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::where('id', $id)->first();
         if ($request) {
-            if (Auth::user()->level != 2) {
-                $sales = Sale::where('customer_id',  $id)->where('status', 9);
-            } else {
-                $sales = Sale::where('customer_id',  $id)->where('user_id', Auth::user()->id)->where('status', 9);
-            }
+            $sales = Sale::where('customer_id',  $id)->where('status', 9);
 
             $after_date = $request->after_date;
             if ($after_date) {

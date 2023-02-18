@@ -81,9 +81,9 @@ class PayDataController extends Controller
 
         $Pay_data_id = PayData::orderby('id','desc')->first();
         // dd($request->vender_id);
-
         if(isset($request->pay_data_date)){
             foreach($request->pay_data_date as $key=>$data){
+                // dd($request->pay_text[$key]);
                 $Pay_Item = new PayItem();
                 $Pay_Item->pay_data_id = $Pay_data_id->id;
                 $Pay_Item->pay_date = $request->pay_data_date[$key];
@@ -95,6 +95,7 @@ class PayDataController extends Controller
                 }else{
                     $Pay_Item->vender_id = null;
                 }
+                $Pay_Item->comment = $request->pay_text[$key];
                 $Pay_Item->save();
             }
         }
@@ -140,6 +141,7 @@ class PayDataController extends Controller
                     }else{
                         $Pay_Item->vender_id = null;
                     }
+                    $Pay_Item->comment = $request->pay_text[$key];
                     $Pay_Item->save();
             }
         }elseif(count($pay_items) > 0){
@@ -157,6 +159,7 @@ class PayDataController extends Controller
                     }else{
                         $Pay_Item->vender_id = null;
                     }
+                    $Pay_Item->comment = $request->pay_text[$key];
                     $Pay_Item->save();
                 }
             }

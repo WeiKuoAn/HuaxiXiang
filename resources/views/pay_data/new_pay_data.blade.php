@@ -71,6 +71,7 @@
                                             <th scope="col">支出金額</th>
                                             <th scope="col">發票類型</th>
                                             <th scope="col">廠商統編</th>
+                                            <th scope="col">備註</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -100,7 +101,10 @@
                                             <input list="vender_number_list_q" class="form-control" id="vendor-{{ $i }}" name="vender_id[]" placeholder="請輸入統編號碼">
                                             <datalist id="vender_number_list_q">
                                             </datalist>
-                                        </td>
+                                            </td>
+                                            <td>
+                                                <input id="pay_text-{{ $i }}" class="form-control" type="text" name="pay_text[]" value="">
+                                            </td>
                                         </tr>
                                     @endfor
                                     </tbody>
@@ -179,6 +183,9 @@
                 $newRow += '<input list="vender_number_list_q" class="form-control" id="vendor-'+$rowCount+'" name="vender_id[]" placeholder="請輸入統編號碼">';
                 $newRow += '<datalist id="vender_number_list_q">';
                 $newRow += '</datalist>';
+                $newRow += '</td>';
+                $newRow += '<td>';
+                $newRow += '<input id="pay_text-'+$rowCount+'" class="form-control" type="text" name="pay_text[]" value="">';
                 $newRow += '</td>';
                 $newRow += '</tr>';
 
