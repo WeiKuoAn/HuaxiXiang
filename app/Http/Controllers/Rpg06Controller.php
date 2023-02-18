@@ -58,6 +58,6 @@ class Rpg06Controller extends Controller
             $condition = '';
         }
         
-        return view('rpg.rpg06')->with('datas',$datas)->with('request',$request)->with('condition',$condition);
+        return view('rpg06.index')->with('datas',$datas)->with('request',$request)->with('condition',$condition);
     }
 }

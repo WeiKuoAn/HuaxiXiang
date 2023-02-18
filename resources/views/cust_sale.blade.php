@@ -66,7 +66,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-10 col-md-10">
+                            {{-- <div class="col-10 col-md-10">
                                 <h2 class="card-title" style="font-size: 1.6em;text-align:right;">金紙費：<b
                                         style="color:red;">{{ number_format($gdpaper_total) }}</b></h2>
                             </div>
@@ -75,7 +75,7 @@
                                 <h2 class="card-title" style="font-size: 1.6em;text-align:right;">實收：<b
                                         style="color:red;">{{ number_format($price_total) }}</b></h2>
                             </div>
-                            @endif
+                            @endif --}}
                         </div>
 
                         <br>
@@ -93,7 +93,7 @@
                                     <th scope="col">後續處理A</th>
                                     <th scope="col">後續處理B</th>
                                     <th scope="col">付款方式</th>
-                                    <th scope="col">總價格</th>
+                                    {{-- <th scope="col">總價格</th> --}}
                                     <th scope="col">Key單人員</th>
                                     {{-- <th scope="col">動作</th> --}}
                                 </tr>
@@ -142,7 +142,7 @@
                                                 {{ $sale->pay_type() }}
                                             @endif
                                         </td>
-                                        <td>{{ number_format($sale->pay_price) }}</td>
+                                        {{-- <td>{{ number_format($sale->pay_price) }}</td> --}}
                                         <td>
                                             {{ $sale->user_name->name }}
                                         </td>
