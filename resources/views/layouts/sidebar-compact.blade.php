@@ -118,7 +118,7 @@
         @endif
         
         @if (Auth::user()->level != 2)
-         @if(Auth::user()->level == 0)
+         @if(Auth::user()->level == 0 || Auth::user()->job_id == 2)
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>用戶管理</span><i class="bi bi-chevron-down ms-auto"></i>
