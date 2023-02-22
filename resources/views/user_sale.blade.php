@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-10 col-md-10">
                                 <h2 class="card-title" style="font-size: 1.6em;text-align:right;">金紙費：<b
                                         style="color:red;">{{ number_format($gdpaper_total) }}</b></h2>
@@ -74,7 +74,7 @@
                                 <h2 class="card-title" style="font-size: 1.6em;text-align:right;">實收：<b
                                         style="color:red;">{{ number_format($price_total) }}</b></h2>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <br>
                         
