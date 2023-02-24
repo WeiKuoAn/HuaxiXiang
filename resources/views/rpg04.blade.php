@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         <div style="float:right;margin-right:1em;font-size:1.5em;color:red;font-weight:bold;margin-bottom:2em;">
-                            <span>共計：{{ number_format($sums['total']) }}元</span>
+                            <span>共計：{{ number_format($totals['nums']) }}份，{{ number_format($totals['total']) }}元</span>
                         </div>
                         <!-- Table with hoverable rows -->
                         <table class="table table-hover">
@@ -57,7 +57,7 @@
                                     <td>總計</td>
                                     @foreach ($gdpapers as $gdpaper)
                                         @if(isset($sums[$gdpaper->id]))
-                                            <td>{{ number_format($sums[$gdpaper->id]) }}</td>
+                                            <td>{{ number_format($sums[$gdpaper->id]['nums']) }}</td>
                                         @else
                                             <td></td>
                                         @endif
@@ -68,7 +68,7 @@
                                         <td>{{ $period->format("Y-m-d") }}</td>
                                         @foreach ($gdpapers as $gdpaper)
                                             @if(isset($datas[$period->format("Y-m-d")][$gdpaper->id]))
-                                                <td>{{ number_format($datas[$period->format("Y-m-d")][$gdpaper->id]) }}</td>
+                                                <td>{{ number_format($datas[$period->format("Y-m-d")][$gdpaper->id]['nums']) }}</td>
                                             @else
                                                 <td></td>
                                             @endif

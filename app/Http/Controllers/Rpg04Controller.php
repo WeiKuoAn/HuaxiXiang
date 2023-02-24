@@ -26,19 +26,19 @@ class Rpg04Controller extends Controller
 
         $gdpapers = Gdpaper::where('status','up')->get();
 
-        $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->get();
+        $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->whereNotNull('gdpaper_id')->get();
 
         if($request){
             $after_date = $request->after_date;
             if($after_date){
-                $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->get();
+                $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->whereNotNull('gdpaper_id')->get();
             }
             $before_date = $request->before_date;
             if($before_date){
-                $gdpaper_datas = Sale_gdpaper::where('created_at','<=',$before_date)->get();
+                $gdpaper_datas = Sale_gdpaper::where('created_at','<=',$before_date)->whereNotNull('gdpaper_id')->get();
             }
             if($after_date && $before_date){
-                $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->get();
+                $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->whereNotNull('gdpaper_id')->get();
             }
             if($after_date && $before_date){
                 $periods = CarbonPeriod::create( $request->after_date,  $request->before_date);
@@ -47,26 +47,43 @@ class Rpg04Controller extends Controller
 
         $datas = [];
         $sums = [];
+        $totals = [];
+
         foreach($gdpaper_datas as $gdpaper_data){
-            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id] = 0;
+            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['nums'] = 0;
+            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['total'] = 0;
         }
         foreach($gdpaper_datas as $gdpaper_data){
-            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id] += $gdpaper_data->gdpaper_total;
+            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['nums'] += $gdpaper_data->gdpaper_num;
+            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['total'] += $gdpaper_data->gdpaper_total;
         }
+
         foreach($datas as $data){
             foreach($data as $key=>$da){
-                $sums[$key] = 0;
+                $sums[$key]['nums'] = 0;
+                $sums[$key]['total'] = 0;
             }
         }
+
         foreach($datas as $data){
             foreach($data as $key=>$da){
-                $sums[$key] += $da;
+                $sums[$key]['nums'] += $da['nums'];
+                $sums[$key]['total'] += $da['total'];
             }
         }
-        $sums['total'] = 0;
-        foreach($sums as $sum){
-            $sums['total'] += $sum;
+
+        
+        $totals['nums'] = 0;
+        $totals['total'] = 0;
+        foreach($sums as $key=>$sum){
+            $totals['nums'] += $sum['nums'];
+            $totals['total'] += $sum['total'];
         }
+        
+
+        // dd($totals);
+
+
 
 
         return view('rpg04')->with('request',$request)
@@ -75,6 +92,7 @@ class Rpg04Controller extends Controller
                             ->with('gdpapers',$gdpapers)
                             ->with('datas',$datas)
                             ->with('periods',$periods)
-                            ->with('sums',$sums);
+                            ->with('sums',$sums)
+                            ->with('totals',$totals);
     }
 }
