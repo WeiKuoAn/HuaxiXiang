@@ -418,7 +418,7 @@ class SaleDataController extends Controller
 
 
 
-        return redirect()->route('sale');
+        return redirect()->route('preson-sale');
     }
 
     /**
