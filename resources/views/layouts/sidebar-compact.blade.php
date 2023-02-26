@@ -217,8 +217,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('gdpaper.inventory') }}"
-                        class="{{ request()->is('gdpaper_inventory') ? 'active' : '' }}">
+                    <a href="{{ route('inventory') }}"
+                        class="{{ request()->is('inventory') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>商品盤點</span>
                     </a>
                 </li>
