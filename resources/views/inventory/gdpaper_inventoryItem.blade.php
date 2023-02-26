@@ -2,11 +2,11 @@
 
 @section('main-content')
     <div class="pagetitle">
-        <h1>進貨與盤點管理</h1>
+        <h1>商品管理</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">進貨與盤點管理</li>
-                <li class="breadcrumb-item active">金紙盤點</li>
+                <li class="breadcrumb-item">商品管理</li>
+                <li class="breadcrumb-item active">金紙盤點調整</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
