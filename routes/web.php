@@ -27,6 +27,7 @@ use App\Http\Controllers\VenderController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\DebitController;
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -221,6 +222,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/debit/edit_data/{id}', [DebitController::class, 'show'])->name('edit-debit');
     Route::post('/debit/edit_data/{id}', [DebitController::class, 'update'])->name('edit-debit.data');
 
+    //盤點管理
+    Route::get('/inventory', [InventoryController::class, 'inventory'])->middleware(['auth'])->name('inventory');
+    Route::get('/new_inventory', [InventoryController::class, 'create'])->middleware(['auth'])->name('new-inventory');
+    Route::post('/new_inventory', [InventoryController::class, 'store'])->middleware(['auth'])->name('new-inventory.data');
+    Route::get('/gdpaper_inventoryItem/{type}/{gdpaper_inventory_id}', [InventoryController::class, 'gdpaper_inventoryItem'])->middleware(['auth'])->name('gdpaper.inventoryItem');
+    Route::post('/gdpaper_inventoryItem/{type}/{gdpaper_inventory_id}', [InventoryController::class, 'inventoryItem_edit'])->middleware(['auth'])->name('inventoryItem.edit');
+    Route::get('/person_inventory', [InventoryController::class, 'person_inventory'])->middleware(['auth'])->name('person.inventory');
 
 
     //報表管理

@@ -17,7 +17,20 @@
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
-
+            {{-- <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+              </ul> --}}
             {{-- <li class="nav-item d-block d-lg-none">
                 <a class="nav-link nav-icon search-bar-toggle " href="#">
                     <i class="bi bi-search"></i>

@@ -77,6 +77,7 @@
                         </a>
                     </li>
                     
+                    
                 </ul>
             </li>
             
@@ -110,9 +111,14 @@
                 <span>業務待確認對帳</span>
             </a>
             <a class="nav-link collapsed" href="{{ route('new-debit') }}"
-            class="{{ request()->is('new-debit') ? 'active' : '' }}">
-            <i class="bi bi-journal-text"></i>
-            <span>借出補錢單</span>
+                class="{{ request()->is('new-debit') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>借出補錢單</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('person.inventory') }}"
+                class="{{ request()->is('person.inventory') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i>
+                <span>商品盤點調整</span>
             </a>
             </li>
         @endif
@@ -135,6 +141,7 @@
                             <i class="bi bi-circle"></i><span>用戶資料</span>
                         </a>
                     </li>
+                    
                     {{-- <li>
                         <a href="{{ route('users-check') }}" class="{{ request()->is('users-check') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>用戶修改確認</span>
@@ -190,7 +197,34 @@
                 </li>
             </ul>
         </li>
+        
         @if (Auth::user()->level != 2 && Auth::user()->status == 0)
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-layout-text-window-reverse"></i><span>商品管理</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('gdpaper') }}" class="{{ request()->is('gdpaper') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>金紙資料</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('gdpaper-restock') }}"
+                        class="{{ request()->is('gdpaper-restock') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>金紙進貨</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('gdpaper.inventory') }}"
+                        class="{{ request()->is('gdpaper_inventory') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>商品盤點</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- 進貨設定 -->
+
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#other-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>其他管理</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -211,11 +245,7 @@
                             <i class="bi bi-circle"></i><span>方案資料</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('gdpaper') }}" class="{{ request()->is('gdpaper') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>金紙資料</span>
-                        </a>
-                    </li>
+                    
                     <li>
                         <a href="{{ route('promA') }}" class="{{ request()->is('promA') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>後續處理A</span>
@@ -234,20 +264,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>進貨設定</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('gdpaper-restock') }}"
-                            class="{{ request()->is('gdpaper-restock') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>金紙進貨</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- 進貨設定 -->
+            
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-income" data-bs-toggle="collapse" href="#">
@@ -302,6 +319,7 @@
                             <i class="bi bi-circle"></i><span>借出補錢管理</span>
                         </a>
                     </li>
+
                 </ul>
             </li><!-- 收入管理 -->
 
