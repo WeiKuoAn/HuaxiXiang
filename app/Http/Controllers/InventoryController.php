@@ -82,7 +82,7 @@ class InventoryController extends Controller
 
         $gdpapers = Gdpaper::orderBy('price','desc')->where('status','up')->get();
 
-        dd($gdpapers);
+        // dd($gdpapers);
 
         if($InventoryData->type == 'gd_paper'){
           foreach($gdpapers as $gdpaper)
