@@ -77,6 +77,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">支出日期</th>
+                                    <th scope="col">支出單號</th>
                                     <th scope="col">支出科目</th>
                                     <th scope="col" width="20%">發票號碼</th>
                                     <th scope="col">支出總價格</th>
@@ -89,6 +90,7 @@
                                 @foreach ($datas as $data)
                                     <tr>
                                         <td>{{ $data->pay_date }}</td>
+                                        <td>{{ $data->pay_on }}</td>
                                         <td>{{ $data->pay_name->name }}</td>
                                         <td>
                                             @if(isset($data->pay_items))
