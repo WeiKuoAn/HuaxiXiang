@@ -16,14 +16,14 @@ class InventoryController extends Controller
 {
     public function inventory(Request $request)
     {
-        $gdpapers = Gdpaper::where('status','up')->get();
+        $gdpapers = Gdpaper::orderBy('price','desc')->where('status','up')->get();
         $datas = GdpaperInventoryData::get();
         return view('inventory.inventory')->with('gdpapers', $gdpapers)->with('datas',$datas);
     }
 
     public function person_inventory(Request $request)
     {
-        $gdpapers = Gdpaper::where('status','up')->get();
+        $gdpapers = Gdpaper::orderBy('price','desc')->where('status','up')->get();
         $datas = GdpaperInventoryData::where('update_user_id',Auth::user()->id)->where('state',0)->get();
         return view('inventory.person_inventory')->with('datas',$datas);
     }
@@ -80,7 +80,9 @@ class InventoryController extends Controller
         $InventoryData->update_user_id = $request->update_user_id;
         $InventoryData->save();
 
-        $gdpapers = Gdpaper::where('status','up')->get();
+        $gdpapers = Gdpaper::orderBy('price','desc')->where('status','up')->get();
+
+        dd($gdpapers);
 
         if($InventoryData->type == 'gd_paper'){
           foreach($gdpapers as $gdpaper)
