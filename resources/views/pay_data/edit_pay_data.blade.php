@@ -34,6 +34,9 @@
                                     <td style="width: 5%"><label for="cust_id" class="col-form-label">支出日期*</label></td>
                                     <td style="width: 15%">
                                         <div class="form-check">
+                                            <input type="text" class="form-control" id="pay_date" name="pay_on" value="{{ $data->pay_on }}" required>
+                                        </div>
+                                        <div class="form-check">
                                             <input type="date" class="form-control" id="pay_date" name="pay_date" value="{{ $data->pay_date }}" required>
                                         </div>
                                     </td>

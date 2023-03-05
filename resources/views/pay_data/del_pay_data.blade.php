@@ -31,10 +31,10 @@
                             <h5 class="card-title pb-0">支出總單</h5><hr>
                             <table class="table table-striped mt-1">
                                 <tr>
-                                    <td style="width: 5%"><label for="cust_id" class="col-form-label">支出日期*</label></td>
+                                    <td style="width: 5%"><label for="cust_id" class="col-form-label">支出單號*</label></td>
                                     <td style="width: 15%">
                                         <div class="form-check">
-                                            <input type="date" class="form-control" id="pay_date" name="pay_date" value="{{ $data->pay_date }}" required>
+                                            <input type="text" class="form-control" id="pay_date" name="pay_on" value="{{ $data->pay_on }}" readonly>
                                         </div>
                                     </td>
                                     <td style="width: 5%"><label for="cust_id" class="col-form-label">會計項目*</label></td>

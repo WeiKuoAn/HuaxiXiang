@@ -31,11 +31,14 @@
                             <h5 class="card-title pb-0">支出總單</h5><hr>
                             <table class="table table-striped mt-1">
                                 <tr>
-                                    <td style="width: 5%"><label for="cust_id" class="col-form-label">支出日期*</label></td>
+                                    <td style="width: 5%"><label for="cust_id" class="col-form-label">支出單號*</label></td>
                                     <td style="width: 15%">
                                         <div class="form-check">
-                                            <input type="date" class="form-control" id="pay_date" name="pay_date" required>
+                                            <input type="text" class="form-control" id="pay_date" name="pay_on" value="{{ $pay_on }}" readonly>
                                         </div>
+                                        {{-- <div class="form-check">
+                                            <input type="date" class="form-control" id="pay_date" name="pay_date" required>
+                                        </div> --}}
                                     </td>
                                     <td style="width: 5%"><label for="cust_id" class="col-form-label">會計項目*</label></td>
                                     <td style="width: 15%">
@@ -90,7 +93,7 @@
                                             <input id="pay_price-{{ $i }}" class="form-control" type="text" name="pay_price[]" value="" required>
                                             </td>
                                             <td>
-                                                <select id="pay_invoice_type-{{ $i }}" class="form-select" aria-label="Default select example" name="pay_invoice_type[]">
+                                                <select id="pay_invoice_type-{{ $i }}" class="form-select" aria-label="Default select example" name="pay_invoice_type[]" required>
                                                 <option value="" selected>請選擇</option>
                                                 <option value="FreeUniform" >免用統一發票</option><!--FreeUniform-->
                                                 <option value="Uniform" >統一發票</option><!--Uniform-->
@@ -172,7 +175,7 @@
                 $newRow += '<input id="pay_price-'+$rowCount+'" class="form-control" type="text" name="pay_price[]" value="" required>';
                 $newRow += '</td>';
                 $newRow += '<td>';
-                $newRow += '<select id="pay_invoice_type-'+$rowCount+'" class="form-select" aria-label="Default select example" name="pay_invoice_type[]">';
+                $newRow += '<select id="pay_invoice_type-'+$rowCount+'" class="form-select" aria-label="Default select example" name="pay_invoice_type[]" required>';
                 $newRow += '<option value="" selected>請選擇</option>';
                 $newRow += '<option value="FreeUniform" >免用統一發票</option>';
                 $newRow += '<option value="Uniform" >統一發票</option>';

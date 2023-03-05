@@ -7,11 +7,13 @@ use App\Models\PayData;
 use App\Models\PayItem;
 use App\Models\Pay;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PayDataController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $pays = Pay::get();
         $users = User::get();
         if($request){
@@ -64,15 +66,46 @@ class PayDataController extends Controller
     }
 
     public function create(){
+        //只取日期當數字
+        $today = date('Y-m-d', strtotime(Carbon::now()->locale('zh-tw')));
+        $today = explode("-",$today);
+        $today = $today[0].$today[1].$today[2];
+        //查詢是否當日有無單號
+        $data = PayData::orderby('pay_on','desc')->where('pay_on','like',$today.'%')->first();
+        // dd(substr($data->pay_on,8,2));
+
+        //單號自動計算
+        if(!isset($data->pay_on)){
+          $i = 0;
+        }else{
+            //2023022201
+            if(substr($data->pay_on,8,1) != 0){
+              $i = intval(substr($data->pay_on,8,2));
+            }else{
+              $i = intval(str_replace(0, '', substr($data->pay_on,8,2)));
+            }
+        }
+
+        $i = $i+1;
+
+        if($i <= 9){
+            $pay_on = $today.'0'.$i;
+          }else{
+            $pay_on = $today.$i;
+        }
+
+        // dd($pay_on);
+
         $pays = Pay::where('status','up')->get();
-        return view('pay_data.new_pay_data')->with('pays',$pays);
+        return view('pay_data.new_pay_data')->with('pays',$pays)->with('pay_on',$pay_on);
     }
 
     public function store(Request $request){
         // dd($request->pay_data_date);
 
         $PayData = new PayData();
-        $PayData->pay_date = $request->pay_date;
+        $PayData->pay_on = $request->pay_on;
+        $PayData->pay_date = date('Y-m-d', strtotime(Carbon::now()->locale('zh-tw')));
         $PayData->price = $request->price;
         $PayData->comment = $request->comment;
         $PayData->pay_id = $request->pay_id;
@@ -120,6 +153,7 @@ class PayDataController extends Controller
         // dd($request->pay_data_date);
 
         $pay = PayData::where('id',$id)->first();
+        $pay->pay_on = $request->pay_on;
         $pay->pay_date = $request->pay_date;
         $pay->price = $request->price;
         $pay->pay_id = $request->pay_id;
