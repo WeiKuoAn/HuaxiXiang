@@ -44,6 +44,7 @@ class CustomerController extends Controller
         $customers = Customer::paginate(30);
         if ($request) {
             $name = $request->name;
+            
             if (!empty($name)) {
                 $name = $request->name . '%';
                 $customers = Customer::where('name', 'like', $name)->paginate(30);
@@ -57,8 +58,12 @@ class CustomerController extends Controller
             if (!empty($pet_name)) {
                 $pet_name = $request->pet_name . '%';
                 $sales  = Sale::where('pet_name', 'like', $pet_name)->get();
-                foreach($sales as $sale){
-                    $customer_ids[] = $sale->customer_id;
+                if(count($sales) > 0) {
+                    foreach($sales as $sale){
+                        $customer_ids[] = $sale->customer_id;
+                    }
+                }else{
+                    $customer_ids = [];
                 }
                 $customers = Customer::whereIn('id', $customer_ids)->paginate(30);
             }
