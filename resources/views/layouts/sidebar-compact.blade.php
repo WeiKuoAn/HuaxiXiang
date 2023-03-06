@@ -418,6 +418,12 @@
                             <i class="bi bi-circle"></i><span>團火查詢</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('rpg08') }}"
+                            class="{{ request()->is('rpg08') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>業務派單統計</span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="{{ route('pays') }}" class="{{ request()->is('pays') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>支出管理</span>

@@ -116,7 +116,8 @@ class SaleDataController extends Controller
         $sources = SaleSource::where('status','up')->get();
         $plans = Plan::where('status','up')->get();
 
-        return view('sale')->with('sales', $sales)
+        if(Auth::user()->level != 2){
+            return view('sale')->with('sales', $sales)
             ->with('users', $users)
             ->with('request', $request)
             ->with('condition', $condition)
@@ -124,6 +125,10 @@ class SaleDataController extends Controller
             ->with('gdpaper_total', $gdpaper_total)
             ->with('sources',$sources)
             ->with('plans',$plans);
+        }else{
+            return redirect()->route('preson-sale');
+        }
+        
     }
 
     public function preson_index(Request $request)
