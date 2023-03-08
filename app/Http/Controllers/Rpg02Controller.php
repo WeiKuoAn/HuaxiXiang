@@ -54,11 +54,11 @@ class Rpg02Controller extends Controller
 
         foreach($datas as $data){
             $sums['total_amount'] += $data['total_price'];
-            $sums['percent'] = round($sums['total_amount']*100/$sums['total_amount']);
+            $sums['percent'] = round($sums['total_amount']*100/$sums['total_amount'],2);
         }
 
         foreach($pay_datas as $pay_data){
-            $datas[$pay_data->pay_id]['percent'] = round($datas[$pay_data->pay_id]['total_price']*100/$sums['total_amount']);
+            $datas[$pay_data->pay_id]['percent'] = round($datas[$pay_data->pay_id]['total_price']*100/$sums['total_amount'],2);
         }
         
 
