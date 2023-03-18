@@ -10,7 +10,7 @@ class IncomeController extends Controller
 
     /*科目新增 */
     public function suject_index(){
-        $datas = Income::paginate(50);
+        $datas = Income::orderby('status','asc')->orderby('seq','desc')->paginate(50);
         return view('incomes')->with('datas',$datas);
     }
 
@@ -19,10 +19,11 @@ class IncomeController extends Controller
     }
 
     public function suject_store(Request $request){
-        $gdpaper = new Income();
-        $gdpaper->name = $request->name;
-        $gdpaper->status = $request->status;
-        $gdpaper->save();
+        $data = new Income();
+        $data->name = $request->name;
+        $data->seq = $request->seq;
+        $data->status = $request->status;
+        $data->save();
         return redirect()->route('incomes_suject');
     }
 
@@ -32,10 +33,11 @@ class IncomeController extends Controller
     }
 
     public function suject_update($id, Request $request){
-        $plan = Income::where('id',$id)->first();
-        $plan->name = $request->name;
-        $plan->status = $request->status;
-        $plan->save();
+        $data = Income::where('id',$id)->first();
+        $data->name = $request->name;
+        $data->seq = $request->seq;
+        $data->status = $request->status;
+        $data->save();
         return redirect()->route('incomes_suject');
     }
 }

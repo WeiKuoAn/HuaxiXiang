@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class IncomeDataController extends Controller
 {
     public function index(Request $request){
-        $incomes = Income::get();
+        $incomes = Income::orderby('status','asc')->orderby('seq','desc')->get();
         $users = User::get();
         if($request){
             $datas = IncomeData::where('status', 1);
@@ -91,7 +91,7 @@ class IncomeDataController extends Controller
     }
 
     public function show($id){
-        $incomes_name = Income::where('status','up')->get();
+        $incomes_name = Income::where('status','up')->orderby('seq','desc')->get();
         $income = IncomeData::where('id',$id)->first();
         return view('edit_income_data')->with('income',$income)
                                        ->with('incomes_name',$incomes_name);
@@ -110,7 +110,7 @@ class IncomeDataController extends Controller
     }
 
     public function delshow($id){
-        $incomes_name = Income::where('status','up')->get();
+        $incomes_name = Income::where('status','up')->orderby('seq','desc')->get();
         $income = IncomeData::where('id',$id)->first();
         return view('del_income_data')->with('income',$income)
                                        ->with('incomes_name',$incomes_name);
