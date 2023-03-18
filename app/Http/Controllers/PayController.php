@@ -8,7 +8,7 @@ use App\Models\Pay;
 class PayController extends Controller
 {
     public function index(){
-        $datas = Pay::paginate(50);
+        $datas = Pay::orderby('status','asc')->orderby('seq','desc')->paginate(50);
         return view('pays')->with('datas',$datas);
     }
 
@@ -17,10 +17,11 @@ class PayController extends Controller
     }
 
     public function store(Request $request){
-        $gdpaper = new Pay();
-        $gdpaper->name = $request->name;
-        $gdpaper->status = $request->status;
-        $gdpaper->save();
+        $pay = new Pay();
+        $pay->name = $request->name;
+        $pay->seq = $request->seq;
+        $pay->status = $request->status;
+        $pay->save();
         return redirect()->route('pays_suject');
     }
 
@@ -30,10 +31,11 @@ class PayController extends Controller
     }
 
     public function update($id, Request $request){
-        $plan = Pay::where('id',$id)->first();
-        $plan->name = $request->name;
-        $plan->status = $request->status;
-        $plan->save();
+        $pay = Pay::where('id',$id)->first();
+        $pay->name = $request->name;
+        $pay->seq = $request->seq;
+        $pay->status = $request->status;
+        $pay->save();
         return redirect()->route('pays_suject');
     }
 }

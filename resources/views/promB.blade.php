@@ -31,15 +31,17 @@
                                 <tr>
                                     <th scope="col">編號</th>
                                     <th scope="col">方案名稱</th>
+                                    <th scope="col">排序</th>
                                     <th scope="col">狀態</th>
                                     <th scope="col">動作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($promBs as $promB)
+                                @foreach ($promBs as $key=>$promB)
                                     <tr>
-                                        <td>{{ $promB->id }}</td>
+                                        <td>{{ $key+1 }}</td>
                                         <td>{{ $promB->name }}</td>
+                                        <td>{{ $promB->seq }}</td>
                                         <td>
                                             @if($promB->status == "up") 啟用
                                             @else <b style="color:red;">停用</b>

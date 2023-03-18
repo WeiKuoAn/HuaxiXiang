@@ -31,15 +31,17 @@
                                 <tr>
                                     <th scope="col">編號</th>
                                     <th scope="col">支出科目</th>
+                                    <th scope="col">排序</th>
                                     <th scope="col">狀態</th>
                                     <th scope="col">動作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas as $data)
+                                @foreach ($datas as $key=>$data)
                                     <tr>
-                                        <td>{{ $data->id }}</td>
+                                        <td>{{ $key+1 }}</td>
                                         <td>{{ $data->name }}</td>
+                                        <td>{{ $data->seq }}</td>
                                         <td>
                                             @if($data->status == "up") 啟用
                                             @else <b style="color:red;">停用</b>

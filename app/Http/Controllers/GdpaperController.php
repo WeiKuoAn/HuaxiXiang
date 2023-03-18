@@ -15,14 +15,14 @@ class GdpaperController extends Controller
      */
     public function index()
     {
-        $gdpapers = Gdpaper::paginate(10);
+        $gdpapers = Gdpaper::orderby('status','asc')->orderby('seq','desc')->orderby('price','desc')->paginate(10);
 
         return view('gdpaper')->with('gdpapers', $gdpapers);
     }
 
     public function restock(Request $request)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $gdpapers = Gdpaper::orderby('seq','desc')->orderby('price','desc')->where('status', 'up')->get();
         if ($request) {
             $restocks = Gdpaperrestock::where('status',1);
             if ($request->after_date) {
@@ -67,7 +67,7 @@ class GdpaperController extends Controller
 
     public function restock_create()
     {
-        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $gdpapers = Gdpaper::orderby('seq','desc')->orderby('price','desc')->where('status', 'up')->get();
         return view('new_restock')->with('gdpapers', $gdpapers);
     }
 
@@ -82,6 +82,7 @@ class GdpaperController extends Controller
         $gdpaper = new Gdpaper;
         $gdpaper->name = $request->name;
         $gdpaper->price = $request->price;
+        $gdpaper->seq = $request->seq;
         $gdpaper->status = $request->status;
         $gdpaper->save();
         return redirect()->route('gdpaper');
@@ -113,14 +114,14 @@ class GdpaperController extends Controller
 
     public function restock_show($id)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
         $restock = Gdpaperrestock::where('id', $id)->first();
         return view('edit_restock')->with('restock', $restock)
             ->with('gdpapers', $gdpapers);
     }
     public function restock_show_id(Request $request , $id )
     {   
-        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
         $condition = $request->all();
         $restocks = Gdpaperrestock::where('gdpaper_id', $id)->orderby('date', 'desc')->paginate(30);
         return view('gdpaper_restock')->with('restocks', $restocks)->with('request', $request)->with('gdpapers', $gdpapers)->with('condition',$condition);
@@ -149,13 +150,14 @@ class GdpaperController extends Controller
         $gdpaper->name = $request->name;
         $gdpaper->status = $request->status;
         $gdpaper->price = $request->price;
+        $gdpaper->seq = $request->seq;
         $gdpaper->save();
         return redirect()->route('gdpaper');
     }
 
     public function restock_update(Request $request, $id)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
         $restock = Gdpaperrestock::where('id', $id)->first();
         $restock->date = $request->date;
         $restock->gdpaper_id = $request->gdpaper_id;
@@ -174,7 +176,7 @@ class GdpaperController extends Controller
      */
     public function destroy($id)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
         $restock = Gdpaperrestock::where('id', $id)->first();
         return view('del_restock')->with('restock', $restock)
             ->with('gdpapers', $gdpapers);

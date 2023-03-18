@@ -53,10 +53,10 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr align="center">
-                                    <th scope="col" width="20%">科目</th>
-                                    <th scope="col" width="15%">支出金額</th>
-                                    <th scope="col" width="40%">備註</th>
-                                    <th scope="col" width="">百分比</th>
+                                    <th scope="col" width="33.3%">科目</th>
+                                    <th scope="col" width="10%">支出金額</th>
+                                    {{-- <th scope="col" width="40%">備註</th> --}}
+                                    <th scope="col" width="33.3%">百分比</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,14 +64,14 @@
                                     <tr align="center">
                                         <td>{{ $data['pay_name'] }}</td>
                                         <td align="right">{{ number_format($data['total_price']) }}</td>
-                                        <td align="right">{{ $data['comment'] }}</td>
+                                        {{-- <td align="right">{{ $data['comment'] }}</td> --}}
                                         <td>{{ $data['percent'] }}%</td>
                                     </tr>
                                 @endforeach
                                 <tr align="center" style="color:red;font-weight:500;">
                                     <td>總支出</td>
                                     <td align="right">{{ number_format( $sums['total_amount']) }}</td>
-                                    <td align="right"></td>
+                                    {{-- <td align="right"></td> --}}
                                     <td align="center">@if(isset($sums['percent'])){{ $sums['percent'] }}% @endif</td>
                                 </tr>
                             </tbody>

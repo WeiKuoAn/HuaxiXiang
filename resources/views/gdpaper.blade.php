@@ -32,17 +32,19 @@
                                     <th scope="col">編號</th>
                                     <th scope="col">名稱</th>
                                     <th scope="col">價格</th>
+                                    <th scope="col">排序</th>
                                     <th scope="col">庫存</th>
                                     <th scope="col">狀態</th>
                                     <th scope="col">動作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($gdpapers as $gdpaper)
+                                @foreach ($gdpapers as $key=>$gdpaper)
                                     <tr>
-                                        <td>{{ $gdpaper->id }}</td>
+                                        <td>{{ $key+1 }}</td>
                                         <td>{{ $gdpaper->name }}</td>
                                         <td>{{ number_format($gdpaper->price) }}元</td>
+                                        <td>{{ $gdpaper->seq }}</td>
                                         <td>{{ number_format($gdpaper->restock()) }}個</td>
                                         <td>
                                             @if ($gdpaper->status == 'up')

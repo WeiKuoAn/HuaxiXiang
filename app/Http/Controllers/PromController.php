@@ -15,13 +15,13 @@ class PromController extends Controller
      */
     public function promA_index()
     {
-        $promAs = PromA::paginate(50);
+        $promAs = PromA::orderby('status','asc')->paginate(50);
         return view('promA')->with('promAs',$promAs);
     }
 
     public function promB_index()
     {
-        $promBs = PromB::paginate(50);
+        $promBs = PromB::orderby('status','asc')->orderby('seq','desc')->paginate(50);
         return view('promB')->with('promBs',$promBs);
     }
 
@@ -59,6 +59,7 @@ class PromController extends Controller
     {
         $promB = new PromB;
         $promB->name = $request->name;
+        $promB->seq = $request->seq;
         $promB->status = $request->status;
         $promB->save();
         return redirect()->route('promB');
@@ -113,6 +114,7 @@ class PromController extends Controller
     {
         $promB = PromB::where('id',$id)->first();
         $promB->name = $request->name;
+        $promB->seq = $request->seq;
         $promB->status = $request->status;
         $promB->save();
         return redirect()->route('promB');

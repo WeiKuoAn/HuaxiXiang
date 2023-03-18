@@ -38,6 +38,10 @@
                                     <input type="text" class="form-control" id="price" name="price" value="{{ $gdpaper->price }}">
                                 </div>
                                 <div class="col-12">
+                                    <label for="inputNanme4" class="form-label">排序</label>
+                                    <input type="text" class="form-control" id="seq" name="seq" value="{{ $gdpaper->seq }}">
+                                </div>
+                                <div class="col-12">
                                     <label class="col-sm-2 col-form-label">狀態</label>
                                     <div class="col-sm-12">
                                         <select class="form-select" aria-label="Default select example" name="status">

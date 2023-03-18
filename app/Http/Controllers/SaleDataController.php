@@ -269,8 +269,8 @@ class SaleDataController extends Controller
         $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
-        $gdpapers = Gdpaper::where('status', 'up')->get();
-        $promBs = PromB::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $promBs = PromB::where('status', 'up')->orderby('seq','desc')->get();
         $promAs = PromA::where('status', 'up')->get();
         return view('new_saledata')->with('customers', $customers)
             ->with('plans', $plans)
@@ -357,8 +357,8 @@ class SaleDataController extends Controller
         $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
-        $gdpapers = Gdpaper::where('status', 'up')->get();
-        $promBs = PromB::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $promBs = PromB::where('status', 'up')->orderby('seq','desc')->get();
         $promAs = PromA::where('status', 'up')->get();
         $sale = Sale::where('id', $id)->first();
         $sale_gdpapers = Sale_gdpaper::where('sale_id', $id)->get();
@@ -379,8 +379,8 @@ class SaleDataController extends Controller
         $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
-        $gdpapers = Gdpaper::where('status', 'up')->get();
-        $promBs = PromB::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $promBs = PromB::where('status', 'up')->orderby('seq','desc')->get();
         $promAs = PromA::where('status', 'up')->get();
         $sale = Sale::where('id', $id)->first();
         $sale_gdpapers = Sale_gdpaper::where('sale_id', $id)->get();
@@ -615,8 +615,8 @@ class SaleDataController extends Controller
         $sources = SaleSource::where('status','up')->get();
         $customers = Customer::get();
         $plans = Plan::where('status', 'up')->get();
-        $gdpapers = Gdpaper::where('status', 'up')->get();
-        $promBs = PromB::where('status', 'up')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $promBs = PromB::where('status', 'up')->orderby('seq','desc')->get();
         $promAs = PromA::where('status', 'up')->get();
         $sale = Sale::where('id', $id)->first();
         $sale_gdpapers = Sale_gdpaper::where('sale_id', $id)->get();
