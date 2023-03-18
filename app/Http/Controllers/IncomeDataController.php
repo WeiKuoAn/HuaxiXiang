@@ -62,7 +62,7 @@ class IncomeDataController extends Controller
                                    ->with('sum_income',$sum_income);
     }
     public function create(){
-        $incomes = Income::where('status','up')->get();
+        $incomes = Income::orderby('status','asc')->orderby('seq','desc')->get();
         return view('new_income_data')->with('incomes',$incomes);
     }
 
