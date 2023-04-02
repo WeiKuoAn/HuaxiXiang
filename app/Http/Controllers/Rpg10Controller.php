@@ -21,10 +21,10 @@ class Rpg10Controller extends Controller
             $firstDay = Carbon::createFromDate($search_year , $search_month)->firstOfMonth();
             $lastDay = Carbon::createFromDate($search_year , $search_month)->lastOfMonth();
         } else {
-            // $firstDay = Carbon::now()->firstOfMonth();
-            // $lastDay = Carbon::now()->lastOfMonth();
-            $firstDay = '2023-01-01';
-            $lastDay = '2023-01-31';
+            $firstDay = Carbon::now()->firstOfMonth();
+            $lastDay = Carbon::now()->lastOfMonth();
+            // $firstDay = '2023-01-01';
+            // $lastDay = '2023-01-31';
         }
         //取得專員資料，並取得老闆和專員的job_id
         $users = User::where('status', '0')->whereIn('job_id',[1,3])->get();
@@ -68,7 +68,7 @@ class Rpg10Controller extends Controller
         {
             foreach($data['sale_datas'] as $sale_data)
             {
-                $sale_data->comm_price = $sale_data->price * 0.3;
+                $sale_data->comm_price = $sale_data->gdpaper_total * 0.3;
                 
             }
         }
