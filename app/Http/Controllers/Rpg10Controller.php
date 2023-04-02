@@ -73,14 +73,13 @@ class Rpg10Controller extends Controller
             }
         }
         
-
+        $sums['total_num'] = 0;
+        $sums['total_price'] = 0;
+        $sums['total_comm_price'] = 0;
         foreach($datas as $user_id=>$data)
         {
             foreach($data['sale_datas'] as $sale_data)
             {
-                $sums['total_num'] = 0;
-                $sums['total_price'] = 0;
-                $sums['total_comm_price'] = 0;
                 $datas[$user_id]['total_num'] = 0;
                 $datas[$user_id]['total_price'] = 0;
                 $datas[$user_id]['total_comm_price'] = 0;
