@@ -426,8 +426,14 @@
                     </li>
                     <li>
                         <a href="{{ route('rpg09') }}"
-                            class="{{ request()->is('rpg08') ? 'active' : '' }}">
+                            class="{{ request()->is('rpg09') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>年度營收表</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('rpg10') }}"
+                            class="{{ request()->is('rpg10') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>業務金紙抽成</span>
                         </a>
                     </li>
                     {{-- <li>

@@ -98,6 +98,9 @@
                                             <td>
                                             <input id="vendor-{{ $key }}" class="form-control" type="text" name="vender_id[]" @if(isset($item->vender_data)) value="{{ $item->vender_data->name }}" @else value="{{ $item->vender_id }}" @endif>
                                             </td>
+                                            <td>
+                                                <input id="pay_text-{{ $key }}" class="form-control" type="text" name="pay_text[]" value="{{ $item->comment }}">
+                                            </td>
                                         </tr>
                                     @endforeach
                                     @endif

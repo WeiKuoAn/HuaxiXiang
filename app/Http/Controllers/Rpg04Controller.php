@@ -7,6 +7,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use App\Models\Gdpaper;
 use App\Models\Sale_gdpaper;
+use Illuminate\Support\Facades\DB;
 
 class Rpg04Controller extends Controller
 {
@@ -26,19 +27,37 @@ class Rpg04Controller extends Controller
 
         $gdpapers = Gdpaper::where('status','up')->get();
 
-        $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->whereNotNull('gdpaper_id')->get();
+        $gdpaper_datas = DB::table('sale_data')
+                            ->join('sale_gdpaper','sale_gdpaper.sale_id', '=' , 'sale_data.id')
+                            ->where('sale_data.sale_date','>=',$after_date)
+                            ->where('sale_data.sale_date','<=',$before_date)
+                            ->whereNotNull('sale_gdpaper.gdpaper_id')
+                            ->get();
 
         if($request){
             $after_date = $request->after_date;
             if($after_date){
-                $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->whereNotNull('gdpaper_id')->get();
+                $gdpaper_datas = DB::table('sale_data')
+                                    ->join('sale_gdpaper','sale_gdpaper.sale_id', '=' , 'sale_data.id')
+                                    ->where('sale_data.sale_date','>=',$after_date)
+                                    ->whereNotNull('sale_gdpaper.gdpaper_id')
+                                    ->get();
             }
             $before_date = $request->before_date;
             if($before_date){
-                $gdpaper_datas = Sale_gdpaper::where('created_at','<=',$before_date)->whereNotNull('gdpaper_id')->get();
+                $gdpaper_datas = DB::table('sale_data')
+                                    ->join('sale_gdpaper','sale_gdpaper.sale_id', '=' , 'sale_data.id')
+                                    ->where('sale_data.sale_date','<=',$before_date)
+                                    ->whereNotNull('sale_gdpaper.gdpaper_id')
+                                    ->get();
             }
             if($after_date && $before_date){
-                $gdpaper_datas = Sale_gdpaper::where('created_at','>=',$after_date)->where('created_at','<=',$before_date)->whereNotNull('gdpaper_id')->get();
+                $gdpaper_datas = DB::table('sale_data')
+                                    ->join('sale_gdpaper','sale_gdpaper.sale_id', '=' , 'sale_data.id')
+                                    ->where('sale_data.sale_date','>=',$after_date)
+                                    ->where('sale_data.sale_date','<=',$before_date)
+                                    ->whereNotNull('sale_gdpaper.gdpaper_id')
+                                    ->get();
             }
             if($after_date && $before_date){
                 $periods = CarbonPeriod::create( $request->after_date,  $request->before_date);
@@ -50,12 +69,12 @@ class Rpg04Controller extends Controller
         $totals = [];
 
         foreach($gdpaper_datas as $gdpaper_data){
-            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['nums'] = 0;
-            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['total'] = 0;
+            $datas[$gdpaper_data->sale_date][$gdpaper_data->gdpaper_id]['nums'] = 0;
+            $datas[$gdpaper_data->sale_date][$gdpaper_data->gdpaper_id]['total'] = 0;
         }
         foreach($gdpaper_datas as $gdpaper_data){
-            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['nums'] += $gdpaper_data->gdpaper_num;
-            $datas[date_format($gdpaper_data->created_at,'Y-m-d')][$gdpaper_data->gdpaper_id]['total'] += $gdpaper_data->gdpaper_total;
+            $datas[$gdpaper_data->sale_date][$gdpaper_data->gdpaper_id]['nums'] += $gdpaper_data->gdpaper_num;
+            $datas[$gdpaper_data->sale_date][$gdpaper_data->gdpaper_id]['total'] += $gdpaper_data->gdpaper_total;
         }
 
         foreach($datas as $data){
