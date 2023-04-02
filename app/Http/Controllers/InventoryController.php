@@ -17,7 +17,7 @@ class InventoryController extends Controller
     public function inventory(Request $request)
     {
         $gdpapers = Gdpaper::orderBy('price','desc')->where('status','up')->get();
-        $datas = GdpaperInventoryData::get();
+        $datas = GdpaperInventoryData::orderby('id','desc')->get();
         return view('inventory.inventory')->with('gdpapers', $gdpapers)->with('datas',$datas);
     }
 

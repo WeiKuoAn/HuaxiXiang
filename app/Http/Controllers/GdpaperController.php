@@ -15,7 +15,7 @@ class GdpaperController extends Controller
      */
     public function index()
     {
-        $gdpapers = Gdpaper::orderby('status','asc')->orderby('seq','desc')->orderby('price','desc')->paginate(10);
+        $gdpapers = Gdpaper::orderby('status','asc')->orderby('seq','asc')->orderby('price','desc')->paginate(10);
 
         return view('gdpaper')->with('gdpapers', $gdpapers);
     }
@@ -114,14 +114,14 @@ class GdpaperController extends Controller
 
     public function restock_show($id)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','asc')->orderby('price','desc')->get();
         $restock = Gdpaperrestock::where('id', $id)->first();
         return view('edit_restock')->with('restock', $restock)
             ->with('gdpapers', $gdpapers);
     }
     public function restock_show_id(Request $request , $id )
     {   
-        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','asc')->orderby('price','desc')->get();
         $condition = $request->all();
         $restocks = Gdpaperrestock::where('gdpaper_id', $id)->orderby('date', 'desc')->paginate(30);
         return view('gdpaper_restock')->with('restocks', $restocks)->with('request', $request)->with('gdpapers', $gdpapers)->with('condition',$condition);
@@ -157,7 +157,7 @@ class GdpaperController extends Controller
 
     public function restock_update(Request $request, $id)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','asc')->orderby('price','desc')->get();
         $restock = Gdpaperrestock::where('id', $id)->first();
         $restock->date = $request->date;
         $restock->gdpaper_id = $request->gdpaper_id;
@@ -176,7 +176,7 @@ class GdpaperController extends Controller
      */
     public function destroy($id)
     {
-        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','desc')->orderby('price','desc')->get();
+        $gdpapers = Gdpaper::where('status', 'up')->orderby('seq','asc')->orderby('price','desc')->get();
         $restock = Gdpaperrestock::where('id', $id)->first();
         return view('del_restock')->with('restock', $restock)
             ->with('gdpapers', $gdpapers);

@@ -8,7 +8,7 @@ use App\Models\Pay;
 class PayController extends Controller
 {
     public function index(){
-        $datas = Pay::orderby('status','asc')->orderby('seq','desc')->paginate(50);
+        $datas = Pay::orderby('status','asc')->orderby('seq','asc')->paginate(50);
         return view('pays')->with('datas',$datas);
     }
 

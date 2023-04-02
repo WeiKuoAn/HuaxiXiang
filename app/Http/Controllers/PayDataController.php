@@ -14,7 +14,7 @@ class PayDataController extends Controller
 {
     public function index(Request $request)
     {
-        $pays = Pay::orderby('seq','desc')->get();
+        $pays = Pay::orderby('seq','asc')->get();
         $users = User::get();
         if($request){
             $datas = PayData::where('status', 1);
@@ -96,7 +96,7 @@ class PayDataController extends Controller
 
         // dd($pay_on);
 
-        $pays = Pay::where('status','up')->orderby('seq','desc')->get();
+        $pays = Pay::where('status','up')->orderby('seq','asc')->get();
         return view('pay_data.new_pay_data')->with('pays',$pays)->with('pay_on',$pay_on);
     }
 
@@ -139,7 +139,7 @@ class PayDataController extends Controller
     public function show($id){
         $pays_name = Pay::where('status','up')->get();
         $data = PayData::where('id',$id)->first();
-        $pays = Pay::where('status','up')->orderby('seq','desc')->get();
+        $pays = Pay::where('status','up')->orderby('seq','asc')->get();
         // $pay_items = PayItem::where('pay_data_id',$id)->get();
         // dd(count($pay_items));
         return view('pay_data.edit_pay_data')->with('pays',$pays)
@@ -212,7 +212,7 @@ class PayDataController extends Controller
     public function delshow($id){
         $pays_name = Pay::where('status','up')->get();
         $data = PayData::where('id',$id)->first();
-        $pays = Pay::where('status','up')->orderby('seq','desc')->get();
+        $pays = Pay::where('status','up')->orderby('seq','asc')->get();
         return view('pay_data.del_pay_data')->with('pays',$pays)
                                    ->with('pays_name',$pays_name)
                                    ->with('data',$data);

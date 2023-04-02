@@ -21,7 +21,7 @@ class PromController extends Controller
 
     public function promB_index()
     {
-        $promBs = PromB::orderby('status','asc')->orderby('seq','desc')->paginate(50);
+        $promBs = PromB::orderby('status','asc')->orderby('seq','asc')->paginate(50);
         return view('promB')->with('promBs',$promBs);
     }
 

@@ -10,7 +10,7 @@ class IncomeController extends Controller
 
     /*科目新增 */
     public function suject_index(){
-        $datas = Income::orderby('status','asc')->orderby('seq','desc')->paginate(50);
+        $datas = Income::orderby('status','asc')->orderby('seq','asc')->paginate(50);
         return view('incomes')->with('datas',$datas);
     }
 
