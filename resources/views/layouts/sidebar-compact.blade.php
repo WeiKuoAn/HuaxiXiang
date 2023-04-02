@@ -433,7 +433,7 @@
                     <li>
                         <a href="{{ route('rpg10') }}"
                             class="{{ request()->is('rpg10') ? 'active' : '' }}">
-                            <i class="bi bi-circle"></i><span>業務金紙抽成</span>
+                            <i class="bi bi-circle"></i><span>專員金紙抽成</span>
                         </a>
                     </li>
                     {{-- <li>
