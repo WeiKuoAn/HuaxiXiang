@@ -95,8 +95,8 @@
                                     @foreach($data['sale_datas'] as $key=>$da)
                                     <tr>
                                         <td align="center">{{ $key+1 }}</td>
-                                        <td align="center">{{ $da->plan_name }}</td>
                                         <td align="center">{{ $da->sale_date }}</td>
+                                        <td align="center">{{ $da->plan_name }}</td>
                                         <td align="center">{{ $da->pet_name }}</td>
                                         <td align="center">{{ $da->name }}</td>
                                         <td align="right">{{ $da->gdpaper_num }}</td>
