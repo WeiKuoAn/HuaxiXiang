@@ -70,6 +70,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>日期</th>
+                                    <th>方案</th>
                                     <th>寶貝名稱</th>
                                     <th>金紙名稱</th>
                                     <th>金紙數量</th>
@@ -79,7 +80,7 @@
                             </thead>
                             <thead >
                                 <tr style="color:red;" align="right">
-                                    <th colspan="4"></th>
+                                    <th colspan="5"></th>
                                     <th>總共：{{ $sums['total_num'] }}份</th>
                                     <th>總計：{{ number_format($sums['total_price']) }}元</th>
                                     <th>傭金總計：{{ number_format($sums['total_comm_price']) }}元</th>
@@ -88,12 +89,13 @@
                             @foreach($datas as $user_name => $data)
                                 <tbody>
                                     <tr>
-                                        <td colspan="7">{{ $user_name }}</td>
+                                        <td colspan="8">{{ $user_name }}</td>
                                     </tr>
 
                                     @foreach($data['sale_datas'] as $key=>$da)
                                     <tr>
                                         <td align="center">{{ $key+1 }}</td>
+                                        <td align="center">{{ $da->plan_name }}</td>
                                         <td align="center">{{ $da->sale_date }}</td>
                                         <td align="center">{{ $da->pet_name }}</td>
                                         <td align="center">{{ $da->name }}</td>
@@ -103,7 +105,7 @@
                                     </tr>
                                    @endforeach
                                    <tr>
-                                       <td colspan="4"></td>
+                                       <td colspan="5"></td>
                                        <td align="right">共：{{ number_format($data['total_num']) }}份</td>
                                        <td align="right">小計：{{ number_format($data['total_price']) }}元</td>
                                        <td align="right">傭金小記：{{ number_format($data['total_comm_price']) }}元</td>

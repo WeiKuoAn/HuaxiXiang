@@ -34,8 +34,8 @@ class Rpg10Controller extends Controller
                     ->join('sale_gdpaper','sale_gdpaper.sale_id', '=' , 'sale_data.id')
                     ->join('users','users.id', '=' , 'sale_data.user_id')
                     ->join('gdpaper','gdpaper.id', '=' , 'sale_gdpaper.gdpaper_id')
+                    ->join('plan','plan.id', '=' , 'sale_data.plan_id')
                     ->where('users.status', '0')
-                    ->whereIn('sale_data.plan_id',[1,2])
                     ->whereIn('users.job_id',[1,3])
                     ->whereNotNull('sale_gdpaper.gdpaper_id')
                     ->where('sale_data.sale_date','>=',$firstDay)
@@ -50,7 +50,13 @@ class Rpg10Controller extends Controller
             }
         }
 
-        $sale_datas = $sale_datas->orderby('users.id','asc')->orderby('sale_data.sale_date','desc')->select('sale_data.*','sale_gdpaper.*','users.name','users.id as user_id','gdpaper.name as gdpaper_name')->get();
+        $sale_datas = $sale_datas->orderby('users.id','asc')
+                                 ->orderby('sale_data.sale_date','desc')
+                                 ->orderby('sale_data.plan_id','asc')
+                                 ->select('sale_data.*','sale_gdpaper.*','users.name'
+                                         ,'users.id as user_id','gdpaper.name as gdpaper_name'
+                                         ,'plan.name as plan_name')
+                                 ->get();
                     // dd($sale_datas);
         
         foreach($sale_datas as $sale_data)
@@ -58,11 +64,14 @@ class Rpg10Controller extends Controller
             $datas[$sale_data->name]['sale_datas'] = DB::table('sale_data')
                                                     ->join('sale_gdpaper','sale_gdpaper.sale_id', '=' , 'sale_data.id')
                                                     ->join('gdpaper','gdpaper.id', '=' , 'sale_gdpaper.gdpaper_id')
+                                                    ->join('plan','plan.id', '=' , 'sale_data.plan_id')
                                                     ->whereNotNull('sale_gdpaper.gdpaper_id')
-                                                    ->whereIn('sale_data.plan_id',[1,2])
                                                     ->where('sale_data.sale_date','>=',$firstDay)
                                                     ->where('sale_data.sale_date','<=',$lastDay)
                                                     ->where('sale_data.user_id',$sale_data->user_id)
+                                                    ->orderby('sale_data.sale_date','desc')
+                                                    ->orderby('sale_data.plan_id','asc')
+                                                    ->select('sale_data.*','sale_gdpaper.*','plan.name as plan_name','gdpaper.name')
                                                     ->get();
         }
 
@@ -70,7 +79,15 @@ class Rpg10Controller extends Controller
         {
             foreach($data['sale_datas'] as $sale_data)
             {
-                $sale_data->comm_price = $sale_data->gdpaper_total * 0.3;
+                if($sale_data->plan_id == 3){
+                    if($sale_data->gdpaper_total <= 100){
+                        $sale_data->comm_price = $sale_data->gdpaper_total * 0;
+                    }else{
+                        $sale_data->comm_price = ($sale_data->gdpaper_total - 100) * 0.3;
+                    }
+                }else{
+                    $sale_data->comm_price = $sale_data->gdpaper_total * 0.3;
+                }
                 
             }
         }
