@@ -17,7 +17,7 @@
             <div class="row col-lg-12 mb-4 mt-4">
                 <div class="col-auto">
                     <label for="after_date">年度</label>
-                    <select id="inputState" class="form-select" name="year" onclick="this.form.submit()">
+                    <select id="inputState" class="form-select" name="year">
                         @foreach($years as $year)
                         <option value="{{$year}}" @if($request->year == $year) selected @endif >{{ $year }}年</option>
                         @endforeach
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-auto">
                     <label for="after_date">月份</label>
-                    <select id="inputState" class="form-select" name="month" onclick="this.form.submit()">
+                    <select id="inputState" class="form-select" name="month">
                         <option value="" selected >請選擇</option>
                         <option value="01" @if($request->month == "01" ) selected  @endif>一月</option>
                         <option value="02" @if($request->month == "02" ) selected  @endif>二月</option>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-auto">
                     <label for="after_date">專員</label>
-                    <select id="inputState" class="form-select" name="user_id" onclick="this.form.submit()">
+                    <select id="inputState" class="form-select" name="user_id">
                         <option value="NULL">不限</option>
                         @foreach($users as $user)
                             <option value="{{$user->id}}" @if($request->user_id == $user->id) selected @endif >{{ $user->name }}</option>
