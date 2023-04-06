@@ -39,7 +39,7 @@
                                     </td>
                                     <td style="width: 5%"><label for="cust_id" class="col-form-label">會計項目*</label></td>
                                     <td style="width: 15%">
-                                        <select class="form-select" aria-label="Default select example" name="pay_id" required>
+                                        <select class="form-select" aria-label="Default select example" name="pay_id" >
                                             @foreach($pays as $pay)
                                             <option value="{{ $pay->id }}" @if($data->pay_id == $pay->id) selected @endif>{{ $pay->name  }}</option>
                                             @endforeach
@@ -47,7 +47,7 @@
                                     </td>
                                     <td style="width: 5%"><label for="cust_id" class="col-form-label">總金額*</label></td>
                                     <td style="width: 15%">
-                                        <input type="text" class="form-control" id="price" name="price" value="{{ $data->price }}" required>
+                                        <input type="text" class="form-control" id="price" name="price" value="{{ $data->price }}" >
                                     </td>
                                     <td style="width: 5%"><label for="branch_name" class="col-form-label">用途說明</label></td>
                                     <td style="width: 15%">
@@ -77,13 +77,13 @@
                                     @foreach($data->pay_items as $key=>$item)
                                         <tr id="row-{{ $key }}">
                                             <td scope="row">
-                                            <input id="pay_date-{{ $key }}" class="form-control" type="date" name="pay_data_date[]" value="{{ $item->pay_date }}" required>
+                                            <input id="pay_date-{{ $key }}" class="form-control" type="date" name="pay_data_date[]" value="{{ $item->pay_date }}" >
                                             </td>
                                             <td>
-                                            <input id="pay_invoice-{{ $key }}" class="form-control" type="text" name="pay_invoice_number[]" value="{{ $item->invoice_number }}" required>
+                                            <input id="pay_invoice-{{ $key }}" class="form-control" type="text" name="pay_invoice_number[]" value="{{ $item->invoice_number }}" >
                                             </td>
                                             <td>
-                                            <input id="pay_price-{{ $key }}" class="form-control" type="text" name="pay_price[]" value="{{ $item->price }}" required>
+                                            <input id="pay_price-{{ $key }}" class="form-control" type="text" name="pay_price[]" value="{{ $item->price }}" >
                                             </td>
                                             <td>
                                                 <select id="pay_invoice_type-{{ $key }}" class="form-select" aria-label="Default select example" name="pay_invoice_type[]"  >
@@ -133,13 +133,13 @@
             $newRow += '<button class="btn btn-primary del-row" alt="'+$rowCount+'" type="button" name="button" onclick="del_row(this)">刪除</button>';
             $newRow += '</td>';
             $newRow += '<td scope="row">';
-            $newRow += '<input id="pay_date-'+$rowCount+'" class="form-control" type="date" name="pay_data_date[]" value="" required>';
+            $newRow += '<input id="pay_date-'+$rowCount+'" class="form-control" type="date" name="pay_data_date[]" value="" >';
             $newRow += '</td>';
             $newRow += '<td>';
-            $newRow += '<input id="pay_invoice-'+$rowCount+'" class="form-control" type="text" name="pay_invoice_number[]" value="" required>';
+            $newRow += '<input id="pay_invoice-'+$rowCount+'" class="form-control" type="text" name="pay_invoice_number[]" value="" >';
             $newRow += '</td>';
             $newRow += '<td>';
-            $newRow += '<input id="pay_price-'+$rowCount+'" class="form-control" type="text" name="pay_price[]" value="" required>';
+            $newRow += '<input id="pay_price-'+$rowCount+'" class="form-control" type="text" name="pay_price[]" value="" >';
             $newRow += '</td>';
             $newRow += '<td>';
             $newRow += '<select id="pay_invoice_type-'+$rowCount+'" class="form-select" aria-label="Default select example" name="pay_invoice_type[]">';
