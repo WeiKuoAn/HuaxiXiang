@@ -67,8 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/edit-user-profile/{id}', [UserController::class, 'update'])->name('edit-user-profile.data');
     Route::get('/users-password', [UserController::class, 'password_show'])->name('users-password');
     Route::post('/users-password', [UserController::class, 'password_update'])->name('users-password.data');
-    Route::get('/checkusers', [UserController::class, 'check'])->name('users-check');
-    Route::get('/checkusers/{id}', [UserController::class, 'checkdata'])->name('users-check.data');
+    // Route::get('/checkusers', [UserController::class, 'check'])->name('users-check');
+    // Route::get('/checkusers/{id}', [UserController::class, 'checkdata'])->name('users-check.data');
 
     //用戶個人
     Route::get('/user-profile', [PersonController::class, 'show'])->name('users-profile');

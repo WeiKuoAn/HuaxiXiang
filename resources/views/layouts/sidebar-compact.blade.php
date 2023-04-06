@@ -449,7 +449,34 @@
                 </ul>
             </li><!-- 收入管理 -->
             @endif
+            
         @endif
+        @if(Auth::user()->level == 2 || Auth::user()->id == 11)
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-rpg" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>報表管理</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="forms-rpg" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('rpg07') }}"
+                            class="{{ request()->is('rpg07') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>團火查詢</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('pays') }}" class="{{ request()->is('pays') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>支出管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('new-pay') }}" class="{{ request()->is('new-pay') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>支出Key單</span>
+                        </a>
+                    </li> --}}
+                </ul>
+            </li><!-- 收入管理 -->
+            @endif
 
         
 
