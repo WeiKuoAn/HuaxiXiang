@@ -78,7 +78,9 @@
                                     <th scope="col">後續處理A</th>
                                     <th scope="col">後續處理B</th>
                                     <th scope="col">付款方式</th>
-                                    <th scope="col">實收價格</th>
+                                    @if(Auth::user()->level == 0)
+                                        <th scope="col">實收價格</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -146,7 +148,9 @@
                                                 {{ $data->pay_type() }}
                                             @endif
                                         </td>
+                                        @if(Auth::user()->level == 0)
                                         <td>{{ number_format($data->pay_price) }}</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -23,24 +23,27 @@ class Rpg07Controller extends Controller
 {
     public function rpg07(Request $request)
     {
-        if ($request->input() != null) {
-            $datas = Sale::whereIn('plan_id',[2,3])->where('status',9);
-            $after_date = $request->after_date;
-            if ($after_date) {
-                $datas = $datas->where('sale_date', '>=', $after_date);
+        if(Auth::user()->level !=2 || Auth::user()->id == 11){
+            if ($request->input() != null) {
+                $datas = Sale::whereIn('plan_id',[2,3])->where('status',9);
+                $after_date = $request->after_date;
+                if ($after_date) {
+                    $datas = $datas->where('sale_date', '>=', $after_date);
+                }
+                $before_date = $request->before_date;
+                if ($before_date) {
+                    $datas = $datas->where('sale_date', '<=', $before_date);
+                }
+                $datas = $datas->get();
+            }else{
+                $datas = [];
             }
-            $before_date = $request->before_date;
-            if ($before_date) {
-                $datas = $datas->where('sale_date', '<=', $before_date);
-            }
-            $datas = $datas->get();
+            
+            return view('rpg07.index')->with('datas', $datas)
+                                    ->with('request', $request);
         }else{
-            $datas = [];
+            abort(404);
         }
-        
-        // dd($datas);
-        return view('rpg07.index')->with('datas', $datas)
-                                  ->with('request', $request);
     }
 
     public function export(Request $request)

@@ -451,7 +451,7 @@
             @endif
             
         @endif
-        @if(Auth::user()->level == 2 || Auth::user()->id == 11)
+        @if(Auth::user()->level == 2 && Auth::user()->id == 11)
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-rpg" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-layout-text-window-reverse"></i><span>報表管理</span><i
