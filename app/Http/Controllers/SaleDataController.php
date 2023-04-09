@@ -423,7 +423,7 @@ class SaleDataController extends Controller
 
 
 
-        return redirect()->route('preson-sale');
+        return redirect()->route('wait_index');
     }
 
     /**
