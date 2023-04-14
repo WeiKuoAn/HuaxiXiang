@@ -2,11 +2,11 @@
 
 @section('main-content')
     <div class="pagetitle">
-        <h1>修改</h1>
+        <h1>刪除</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">支出管理</li>
-                <li class="breadcrumb-item active">修改支出</li>
+                <li class="breadcrumb-item active">刪除支出</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
