@@ -28,6 +28,7 @@ class Rpg10Controller extends Controller
         }
         //取得專員資料，並取得老闆和專員的job_id
         $users = User::where('status', '0')->whereIn('job_id',[1,3])->get();
+        $users = User::where('status', '0')->whereIn('job_id',[1,3,7])->get();
         $datas = [];
         $sums = [];
         $sale_datas = DB::table('sale_data')
