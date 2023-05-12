@@ -27,10 +27,6 @@ class Rpg10Controller extends Controller
             // $lastDay = '2023-01-31';
         }
         //取得專員資料，並取得老闆和專員的job_id
-<<<<<<< HEAD
-        $users = User::where('status', '0')->whereIn('job_id',[1,3])->get();
-=======
->>>>>>> c0c4186738428f7a2ad24db1fa4a76542ee1ff61
         $users = User::where('status', '0')->whereIn('job_id',[1,3,7])->get();
         $datas = [];
         $sums = [];
