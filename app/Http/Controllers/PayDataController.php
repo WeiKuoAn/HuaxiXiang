@@ -179,7 +179,7 @@ class PayDataController extends Controller
                     $Pay_Item->save();
             }
         }elseif(count($pay_items) > 0){
-            PayItem::where('pay_data_id', $id)->ㄘ();
+            PayItem::where('pay_data_id', $id)->delete();
             if(isset($request->pay_data_date)){
                 foreach($request->pay_data_date as $key=>$data){
                     $Pay_Item = new PayItem();
